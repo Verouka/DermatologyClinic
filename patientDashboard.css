@@ -184,3 +184,43 @@ a{
 .card--icon{
     font-size: 50px;
 }
+.myDoctors {
+    margin-top: 35px;
+}
+
+.myDoctors h2 {
+    color: rgb(2, 2, 85);
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.doctorCard {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.doctorIcon {
+    width: 55px;
+    height: 55px;
+    background-color: rgb(148, 219, 195);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: rgb(2, 2, 85);
+}
+
+.doctorInfo h3 {
+    color: rgb(2, 2, 85);
+    margin-bottom: 8px;
+}
+
+.doctorInfo p {
+    color: gray;
+}
