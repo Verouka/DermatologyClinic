@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Appointments</title>
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="brand">
+            <i class="ri-heart-pulse-line"></i>
+            <h1>Dermatology Clinic</h1>
+        </div>
+        <div class="header-right">
+            <a href="doctorProfile.html">
+                <i class="ri-user-line"></i>
+                Admin Dashboard
+            </a>
+
+            <button class="logout" type="button" disabled>
+                Log Out
+            </button>
+        </div>
+
+    </header>
+    <section class="main">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <nav class="sidebar--items">
+
+                <a href="adminDashboard.html">
+                    <i class="ri-layout-grid-line"></i> Dashboard
+                </a>
+
+                <a href="adminProfile.html">
+                    <i class="ri-user-line"></i> My Profile
+                </a>
+
+                <a href="adminStaff.html">
+                    <i class="ri-group-line"></i> Manage Staff
+                </a>
+
+                <a href="adminAppointments.html" class="active--link">
+                    <i class="ri-calendar-line"></i> Appointments
+                </a>
+
+                <a href="adminBilling.html">
+                    <i class="ri-bill-line"></i> Billing & Payments
+                </a>
+
+                <a href="adminReport.html">
+                    <i class="ri-folder-chart-line"></i> Reports
+                </a>
+
+                <a href="adminClinicInfo.html">
+                    <i class="ri-hospital-line"></i> Clinic Information
+                </a>
+                
+            </nav>
+
+            <nav class="sidebar--bottom-items">
+                <a href="settings.html">
+                    <i class="ri-settings-3-line"></i> Settings
+                </a>
+            </nav>
+
+        </aside>
+
+        <div class="mainContent">
+        <div class="overview">
+            <h2 class="maintitle">Appointments</h2>
+            <p>View and manage appointments.</p>
+
+        <div class="appointments">
+
+            <div class="upcomingAppointments">
+                <h3>Upcoming Appointments</h3>
+            </div>
+            <div>   
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Doctor</th>
+                            <th>Reason</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                          <td>No appointments to display</td>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pastAppointments">
+                <h3>Past Appointments</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Doctor</th>
+                            <th>Reason</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>No appointments to display</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+    </section>
+
+</body>
+</html>
