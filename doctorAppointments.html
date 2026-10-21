@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor Appointments</title>
+    <link rel="stylesheet" href="doctorDashboard.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="doctorDropdown.css">
+    <link rel="stylesheet" href="doctorAppointments.css">
+</head>
+<body>
+    <section class="header"> 
+        <div class="a">
+           <img src="icons8-heart-with-pulse-40.png" alt="Clinic logo" width="35">
+           <h1 class="h1"> Dermatology Clinic </h1>
+        </div> 
+        <div class="notification--profile">
+            
+            <div class="picon bell">
+                <i class="ri-notification-2-line"></i>
+            </div>
+            <div class="picon profile">
+                <img class="img" src="account.png" alt="">
+                
+            </div>
+            <button class="logout" type="button" disabled>
+                     Log Out
+            </button>
+
+            
+
+        </div>
+        
+    
+    
+    </section>
+    <section class="main">
+        <div class="sidebar"> 
+            <ul class="sidebar--items">
+                <li>
+                    <a href="doctorDashboard.html">
+                        <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
+                        <span  class="sidebar--item">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                     <a href="doctorProfile.html">
+                        <span class="icon icon-2"><i class="ri-user-line"></i></span>
+                        <span class="sidebar--item">Doctor Profile</span>
+                     </a>
+                </li>
+                <li>
+                     <a href="doctorAppointments.html" class="active--link">
+                        <span class="icon icon-3"><i class="ri-calendar-2-line"></i></span>
+                        <span class="sidebar--item">My Appointments</span>
+                     </a>
+                </li>
+                <li>
+                    <details class="sidebar-dropdown">
+                        <summary>
+                            <span class="icon icon-4"><i class="ri-file-list-3-line"></i></span>
+                            <span class="sidebar--item">My Patients</span>
+                            <i class="ri-arrow-down-s-line dropdown-arrow"></i>
+                        </summary>
+                        <div class="dropdown-links">
+                        <a href="doctorPatients.html#assigned-patients">Assigned Patients</a>
+                        <a href="doctorPatients.html#medical-records">Medical Records</a>
+                        <a href="doctorPatients.html#medical-history">Medical History</a>
+                        <a href="doctorPatients.html#treatments">Treatments & Prescriptions</a>
+                        </div>
+                    </details>
+                </li>
+                <li>
+                     <a href="doctorSchedule.html">
+                        <span class="icon icon-5"><i class="ri-calendar-schedule-line"></i></span>
+                        <span class="sidebar--item">My Schedule</span>
+                     </a>
+                </li>
+                <li>
+                    <details class="sidebar-dropdown">
+                        <summary>
+                            <span class="icon icon-5"><i class="ri-file-list-3-line"></i></span>
+                            <span class="sidebar--item">Referrals</span>
+                            <i class="ri-arrow-down-s-line dropdown-arrow"></i>
+                        </summary>
+                        <div class="dropdown-links">
+                        <a href="doctorReferrals.html#pending-referrals">Pending</a>
+                        <a href="doctorReferrals.html#approved-referrals">Approved</a>
+                        <a href="doctorReferrals.html#denied-referrals">Denied</a>
+                        <a href="doctorReferrals.html#canceled-referrals">Canceled</a>
+                        </div>
+                    </details>
+                </li>
+
+
+            </ul>
+
+
+            <ul class="sidebar--bottom-items">
+                <li>
+                     <a href="settings.html">
+                        <span class="icon icon-6"><i class="ri-settings-3-line"></i></span>
+                        <span class="sidebar--item">Settings</span>
+                     </a>
+                </li>
+              
+            </ul>
+
+                
+
+
+
+    
+        
+        
+        </div>
+
+        <div class="mainContent">
+            <div class="overview">
+
+                <div class="title">
+                    <h2 class="maintitle">My Appointments</h2>
+                    <p>View upcoming and past appointments assigned to you.</p>
+                </div>
+
+                <div class="appointments">
+
+                    <!-- UPCOMING APPOINTMENTS -->
+                    <div class="upcomingAppointments">
+                        <h3>Upcoming Appointments</h3>
+                        <a href="doctorSchedule.html" class="requestBtn">
+                            <i class="ri-calendar-2-line"></i> View Schedule
+                        </a>
+                    </div>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Appointment ID</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Patient</th>
+                                    <th>Reason</th>
+                                    <th>Location</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="upcomingAppointmentRows">
+                                <tr>
+                                    <td colspan="8" class="empty">No upcoming appointments loaded.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- PAST APPOINTMENTS -->
+                    <div class="pastAppointments">
+                        <h3>Past Appointments</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Appointment ID</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Patient</th>
+                                        <th>Reason</th>
+                                        <th>Location</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pastAppointmentRows">
+                                    <tr>
+                                        <td colspan="7" class="empty">No past appointments loaded.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</body>
+</html>

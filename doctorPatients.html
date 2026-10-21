@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor Patients</title>
+    <link rel="stylesheet" href="doctorDashboard.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="doctorDropdown.css">
+    <link rel="stylesheet" href="doctorRecords.css">
+</head>
+<body>
+    <section class="header"> 
+        <div class="a">
+           <img src="icons8-heart-with-pulse-40.png" alt="Clinic logo" width="35">
+           <h1 class="h1"> Dermatology Clinic </h1>
+        </div> 
+        <div class="notification--profile">
+            
+            <div class="picon bell">
+                <i class="ri-notification-2-line"></i>
+            </div>
+            <div class="picon profile">
+                <img class="img" src="account.png" alt="">
+                
+            </div>
+            <button class="logout" type="button" disabled>
+                     Log Out
+            </button>
+
+            
+
+        </div>
+        
+    
+    
+    </section>
+    <section class="main">
+        <div class="sidebar"> 
+            <ul class="sidebar--items">
+                <li>
+                    <a href="doctorDashboard.html">
+                        <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
+                        <span  class="sidebar--item">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                     <a href="doctorProfile.html">
+                        <span class="icon icon-2"><i class="ri-user-line"></i></span>
+                        <span class="sidebar--item">Doctor Profile</span>
+                     </a>
+                </li>
+                <li>
+                     <a href="doctorAppointments.html">
+                        <span class="icon icon-3"><i class="ri-calendar-2-line"></i></span>
+                        <span class="sidebar--item">My Appointments</span>
+                     </a>
+                </li>
+                <li>
+                    <details class="sidebar-dropdown" open>
+                        <summary>
+                            <span class="icon icon-4"><i class="ri-file-list-3-line"></i></span>
+                            <span class="sidebar--item">My Patients</span>
+                            <i class="ri-arrow-down-s-line dropdown-arrow"></i>
+                        </summary>
+                        <div class="dropdown-links">
+                        <a href="doctorPatients.html#assigned-patients">Assigned Patients</a>
+                        <a href="doctorPatients.html#medical-records">Medical Records</a>
+                        <a href="doctorPatients.html#medical-history">Medical History</a>
+                        <a href="doctorPatients.html#treatments">Treatments & Prescriptions</a>
+                        </div>
+                    </details>
+                </li>
+                <li>
+                     <a href="doctorSchedule.html">
+                        <span class="icon icon-5"><i class="ri-calendar-schedule-line"></i></span>
+                        <span class="sidebar--item">My Schedule</span>
+                     </a>
+                </li>
+                <li>
+                    <details class="sidebar-dropdown">
+                        <summary>
+                            <span class="icon icon-5"><i class="ri-file-list-3-line"></i></span>
+                            <span class="sidebar--item">Referrals</span>
+                            <i class="ri-arrow-down-s-line dropdown-arrow"></i>
+                        </summary>
+                        <div class="dropdown-links">
+                        <a href="doctorReferrals.html#pending-referrals">Pending</a>
+                        <a href="doctorReferrals.html#approved-referrals">Approved</a>
+                        <a href="doctorReferrals.html#denied-referrals">Denied</a>
+                        <a href="doctorReferrals.html#canceled-referrals">Canceled</a>
+                        </div>
+                    </details>
+                </li>
+
+
+            </ul>
+
+
+            <ul class="sidebar--bottom-items">
+                <li>
+                     <a href="settings.html">
+                        <span class="icon icon-6"><i class="ri-settings-3-line"></i></span>
+                        <span class="sidebar--item">Settings</span>
+                     </a>
+                </li>
+              
+            </ul>
+
+                
+
+
+
+    
+        
+        
+        </div>
+
+        <div class="mainContent">
+            <div class="overview">
+                <div class="title">
+                    <h2 class="maintitle">My Patients</h2>
+                    <p>View assigned patients, medical history, diagnoses, treatments, and prescriptions.</p>
+                </div>
+
+                <div class="medicalRecords" id="assigned-patients">
+                    <div class="recordCard">
+                        <div class="recordHeader">
+                            <i class="ri-group-line"></i>
+                            <h3>Assigned Patients</h3>
+                        </div>
+                        <p>Select an assigned patient to view their medical records once the database is connected.</p>
+                        <div class="table-container">
+                            <table class="recordTable">
+                                <thead>
+                                    <tr>
+                                        <th>Patient ID</th>
+                                        <th>Patient Name</th>
+                                        <th>Reason for Visit</th>
+                                        <th>Diagnosis</th>
+                                        <th>Recommended Treatment</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="assignedPatientRows">
+                                    <tr><td colspan="5" class="empty">No assigned patients loaded.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="medicalRecords" id="medical-records">
+                    <div class="title">
+                        <h2 class="maintitle">Patient Medical Records</h2>
+                        <p>Records will appear here when an assigned patient is selected and the database is connected.</p>
+                    </div>
+
+                    <!-- Select a section to jump to its records (no JavaScript needed). -->
+                    <div class="recordTabs" aria-label="Patient medical records">
+                        <a class="tabBtn" href="#medical-history">Medical History</a>
+                        <a class="tabBtn" href="#allergies">Allergies</a>
+                        <a class="tabBtn" href="#diagnoses">Diagnoses</a>
+                        <a class="tabBtn" href="#treatments">Treatments</a>
+                        <a class="tabBtn" href="#prescriptions">Prescriptions</a>
+                        <a class="tabBtn" href="#patient-referrals">Referrals</a>
+                    </div>
+
+                    <div class="recordCard" id="medical-history">
+                        <div class="recordHeader"><i class="ri-file-list-3-line"></i><h3>Family Medical History</h3></div>
+                        <div class="table-container">
+                            <table class="recordTable">
+                                <thead><tr><th>History ID</th><th>Family Member</th><th>Relationship</th><th>Condition</th><th>Date</th><th>Notes</th></tr></thead>
+                                <tbody><tr><td colspan="6" class="empty">No medical history records loaded.</td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="recordCard" id="allergies">
+                        <div class="recordHeader"><i class="ri-heart-pulse-line"></i><h3>Allergies</h3></div>
+                        <div class="table-container">
+                            <table class="recordTable">
+                                <thead><tr><th>Allergy ID</th><th>Allergy Name</th><th>Time Occurred</th><th>Notes</th></tr></thead>
+                                <tbody><tr><td colspan="4" class="empty">No allergy records loaded.</td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="recordCard" id="diagnoses">
+                        <div class="recordHeader"><i class="ri-stethoscope-line"></i><h3>Diagnoses</h3></div>
+                        <div class="table-container">
+                            <table class="recordTable">
+                                <thead><tr><th>Diagnosis ID</th><th>Diagnosis Name</th><th>Description</th><th>Date</th><th>Doctor ID</th><th>Appointment ID</th></tr></thead>
+                                <tbody><tr><td colspan="6" class="empty">No diagnosis records loaded.</td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="recordCard" id="treatments">
+                        <div class="recordHeader"><i class="ri-capsule-line"></i><h3>Current Treatments</h3></div>
+                        <div class="table-container">
+                            <table class="recordTable">
+                                <thead><tr><th>Treatment ID</th><th>Treatment Name</th><th>Description</th><th>Status</th><th>Doctor ID</th></tr></thead>
+                                <tbody><tr><td colspan="5" class="empty">No current treatments loaded.</td></tr></tbody>
+                            </table>
+                        </div>
+                        <div class="recordHeader sub-record-header"><i class="ri-history-line"></i><h3>Previous Treatments</h3></div>
+                        <div class="table-container">
+                            <table class="recordTable">
+                                <thead><tr><th>Treatment ID</th><th>Condition</th><th>Treatment Name</th><th>Date</th><th>Notes</th></tr></thead>
+                                <tbody><tr><td colspan="5" class="empty">No previous treatments loaded.</td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="recordCard" id="prescriptions">
+                        <div class="recordHeader"><i class="ri-medicine-bottle-line"></i><h3>Prescriptions</h3></div>
+                        <div class="table-container">
+                            <table class="recordTable">
+                                <thead><tr><th>Prescription ID</th><th>Medication</th><th>Dosage Value</th><th>Dosage Measurement</th><th>Description</th><th>Doctor ID</th></tr></thead>
+                                <tbody><tr><td colspan="6" class="empty">No prescriptions loaded.</td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="recordCard" id="patient-referrals">
+                        <div class="recordHeader"><i class="ri-file-list-3-line"></i><h3>Patient Referrals</h3></div>
+                        <div class="table-container">
+                            <table class="recordTable">
+                                <thead><tr><th>Referral ID</th><th>Primary Doctor</th><th>Specialist Doctor</th><th>Reason</th><th>Referral Date</th><th>Approval Date</th><th>Status</th></tr></thead>
+                                <tbody><tr><td colspan="7" class="empty">No patient referrals loaded.</td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
