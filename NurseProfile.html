@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nurse Profile</title>
+    <link rel="stylesheet" href="NurseDashBoard.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <section class="header"> 
+        <div class="a">
+           <img src="icons8-heart-with-pulse-40.png" alt="Clinic logo" width="35">
+           <h1 class="h1">Dermatology Clinic</h1>
+        </div> 
+        <div class="notification--profile">
+            <div class="picon bell">
+                <i class="ri-notification-2-line"></i>
+            </div>
+            <div class="picon profile">
+                <img class="img" src="account.png" alt="Nurse Profile">
+            </div>
+            <button class="logout" type="button" onclick="window.location.href='LoginPage.html'">Log Out</button>
+        </div>
+    </section>
+
+    <section class="main">
+        <div class="sidebar"> 
+            <ul class="sidebar--items">
+                <li>
+                    <a href="NurseDashBoard.html" class="active--link">
+                        <span class="icon">
+                            <i class="ri-layout-grid-line"></i>
+                        </span>
+                        <span class="sidebar--item">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="NurseAppointments.html">
+                        <span class="icon"><i class="ri-calendar-2-line"></i>
+                        </span>
+                        <span class="sidebar--item">Appointments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="NursePatients.html">
+                        <span class="icon"><i class="ri-file-list-3-line"></i>
+                        </span>
+                        <span class="sidebar--item">Patient Intake Records</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="NurseSchedule.html">
+                        <span class="icon"><i class="ri-bank-card-line"></i>
+                        </span>
+                        <span class="sidebar--item">My Schedule</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="NurseProfile.html">
+                        <span class="icon"><i class="ri-user-line"></i>
+                        </span>
+                        <span class="sidebar--item">Profile</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="sidebar--bottom-items">
+                <li>
+                    <a href="NurseSettings.html">
+                        <span class="icon">
+                            <i class="ri-settings-3-line"></i>
+                        </span>
+                        <span class="sidebar--item">Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="mainContent">
+            <div class="title">
+                <h2 class="maintitle"><i class="ri-user-settings-line"></i> Nurse Profile</h2>
+                <p>Manage your personal details, contact information, and license status </p>
+            </div>
+
+            <form style="max-width: 800px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <label><strong>Nurse ID:</strong></label><br>
+                    <input type="text" name="Nurse_ID" value="501" disabled style="width: 100%; background-color: #f0f0f0;">
+                </div>
+                <div>
+                    <label><strong>License Number:</strong></label><br>
+                    <input type="text" name="License_Number" value="RN-99201-TX" disabled style="width: 100%; background-color: #f0f0f0;">
+                </div>
+
+                <div>
+                    <label><strong>First Name:</strong></label><br>
+                    <input type="text" name="First_Name" value="Verouka" style="width: 100%;">
+                </div>
+                <div>
+                    <label><strong>Last Name:</strong></label><br>
+                    <input type="text" name="Last_Name" value="Salt" style="width: 100%;">
+                </div>
+
+                <div>
+                    <label><strong>Email:</strong></label><br>
+                    <input type="email" name="Email" value="verouka.salt@dermclinic.com" style="width: 100%;">
+                </div>
+                <div>
+                    <label><strong>Phone:</strong></label><br>
+                    <input type="tel" name="Phone" value="(555) 349-8201" style="width: 100%;">
+                </div>
+
+                <div>
+                    <label><strong>Street Address:</strong></label><br>
+                    <input type="text" name="Street" value="123 Health Ave" style="width: 100%;">
+                </div>
+                <div>
+                    <label><strong>City:</strong></label><br>
+                    <input type="text" name="City" value="Houston" style="width: 100%;">
+                </div>
+
+                <div>
+                    <label><strong>State:</strong></label><br>
+                    <input type="text" name="State" value="TX" style="width: 100%;">
+                </div>
+                <div>
+                    <label><strong>Zip Code:</strong></label><br>
+                    <input type="text" name="Zip_Code" value="77001" style="width: 100%;">
+                </div>
+
+                <div>
+                    <label><strong>Assigned Office ID:</strong></label><br>
+                    <input type="text" name="OFFICE_Office_ID" value="1 (Main Branch)" disabled style="width: 100%; background-color: #f0f0f0;">
+                </div>
+                <div>
+                    <label><strong>Start Date:</strong></label><br>
+                    <input type="date" name="Start_Date" value="2021-08-15" disabled style="width: 100%; background-color: #f0f0f0;">
+                </div>
+
+                <div style="grid-column: span 2; margin-top: 10px;">
+                    <button class="logout" type="button" onclick="alert('Profile changes saved successfully!')">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
