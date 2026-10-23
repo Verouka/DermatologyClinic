@@ -1,0 +1,184 @@
+
+.appointmentPage {
+    min-height: 100vh;
+}
+
+.appointmentHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 35px;
+    background: rgb(2, 2, 85);
+    color: white;
+}
+
+.clinicBrand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.clinicBrand img {
+    width: 40px;
+    height: 40px;
+}
+
+.clinicBrand h2 {
+    margin: 0;
+    color: white;
+    font-style: italic;
+}
+
+.backButton {
+    padding: 10px 15px;
+    border: 1px solid white;
+    border-radius: 4px;
+    color: white;
+    text-decoration: none;
+}
+
+.backButton:hover {
+    background: #385b91;
+}
+
+.appointmentMain {
+    width: min(850px, 92%);
+    margin: 35px auto;
+}
+
+.appointmentMain .pageHeading {
+    margin-bottom: 25px;
+}
+
+.appointmentCard {
+    padding: 30px;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 4px 15px rgba(2, 2, 85, 0.1);
+}
+
+.appointmentCard h2 {
+    margin: 0 0 20px;
+    color: rgb(2, 2, 85);
+}
+
+.appointmentCard .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.appointmentCard label {
+    color: rgb(2, 2, 85);
+    font-weight: bold;
+}
+
+.appointmentCard input,
+.appointmentCard select,
+.appointmentCard textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd8d5;
+    border-radius: 4px;
+    background: white;
+    font: inherit;
+}
+
+.appointmentCard input:focus,
+.appointmentCard select:focus,
+.appointmentCard textarea:focus {
+    outline: 2px solid #80bdb1;
+}
+
+.appointmentCard small {
+    color: #6b7a86;
+}
+
+.appointmentCard textarea {
+    resize: vertical;
+}
+
+.appointmentCard .formGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 20px;
+}
+
+.formDivider {
+    height: 1px;
+    margin: 25px 0;
+    background: #dce6e3;
+}
+
+.appointmentCard .formActions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.saveButton,
+.clearButton {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.saveButton {
+    background: rgb(2, 2, 85);
+    color: white;
+}
+
+.clearButton {
+    background: #e8eeed;
+    color: rgb(2, 2, 85);
+}
+
+.saveButton:hover,
+.clearButton:hover {
+    opacity: 0.8;
+}
+
+.saveButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.formMessage {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.formMessage.success {
+    color: #23643a;
+}
+
+.formMessage.error {
+    color: #a52a2a;
+}
+
+.appointmentFooter {
+    padding: 20px;
+    background: rgb(2, 2, 85);
+    color: white;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .appointmentHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 18px;
+    }
+
+    .appointmentCard {
+        padding: 20px;
+    }
+
+    .appointmentCard .formGrid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Form | Dermatology Clinic</title>
+
+    <link rel="stylesheet" href="dashboard_style.css">
+    <link rel="stylesheet" href="appointmentform.css">
+
+    <script src="appointmentform.js" defer></script>
+</head>
+
+<body>
+    <div class="appointmentPage">
+
+        <header class="appointmentHeader">
+            <div class="clinicBrand">
+                <img src="icons8-heart-with-pulse-40.png" alt="Clinic logo">
+                <h2>Dermatology Clinic</h2>
+            </div>
+
+            <a href="Receptionist_Dashboard.html" class="backButton">
+                ← Back to Dashboard
+            </a>
+        </header>
+
+        <main class="appointmentMain">
+
+            <div class="pageHeading">
+                <p class="eyebrow">RECEPTIONIST PORTAL</p>
+                <h1>Create Appointment</h1>
+                <p>Enter the information below to schedule an appointment.</p>
+            </div>
+
+            <section class="appointmentCard">
+                <form id="appointmentForm">
+
+                    <h2>Patient Information</h2>
+
+                    <div class="formGroup">
+                        <label for="patientId">Select Patient *</label>
+                        <select id="patientId" name="patientId" required>
+                            <option value="">Loading patients...</option>
+                        </select>
+                        <small>Select a patient already registered in the system.</small>
+                    </div>
+
+                    <div class="formDivider"></div>
+
+                    <h2>Appointment Details</h2>
+
+                    <div class="formGrid">
+                        <div class="formGroup">
+                            <label for="appointmentDate">Appointment Date *</label>
+                            <input
+                                type="date"
+                                id="appointmentDate"
+                                name="appointmentDate"
+                                required
+                            >
+                        </div>
+
+                        <div class="formGroup">
+                            <label for="appointmentTime">Appointment Time *</label>
+                            <input
+                                type="time"
+                                id="appointmentTime"
+                                name="appointmentTime"
+                                required
+                            >
+                        </div>
+
+                        <div class="formGroup">
+                            <label for="reason">Reason for Visit *</label>
+                            <select id="reason" name="reason" required>
+                                <option value="">Select a reason</option>
+                                <option value="Consultation">Consultation</option>
+                                <option value="Acne Follow-up">Acne Follow-up</option>
+                                <option value="Skin Check">Skin Check</option>
+                                <option value="Rash or Irritation">Rash or Irritation</option>
+                                <option value="Procedure">Procedure</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="formGroup">
+                            <label for="status">Appointment Status *</label>
+                            <select id="status" name="status" required>
+                                <option value="Pending">Pending</option>
+                                <option value="Scheduled">Scheduled</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="formGroup">
+                        <label for="notes">Additional Notes</label>
+                        <textarea
+                            id="notes"
+                            name="notes"
+                            rows="4"
+                            placeholder="Optional appointment notes"
+                        ></textarea>
+                    </div>
+
+                    <div id="formMessage" class="formMessage" role="status"></div>
+
+                    <div class="formActions">
+                        <button type="submit" class="saveButton" id="saveButton">
+                            Create Appointment
+                        </button>
+
+                        <button type="reset" class="clearButton">
+                            Clear Form
+                        </button>
+                    </div>
+
+                </form>
+            </section>
+
+        </main>
+
+        <footer class="appointmentFooter">
+            <p>Dermatology Clinic Receptionist Portal</p>
+        </footer>
+
+    </div>
+</body>
+</html>
