@@ -1,5 +1,6 @@
 
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -128,3 +129,77 @@
     </div>
 </body>
 </html>
+=======
+<html>
+<head> 
+
+<title> AppointmentForm</title>
+<link rel="stylesheet" href="AppointmentForm.css">
+
+</head>
+<body>
+<form action="AppointmentFormRecords.html" method="POST">
+
+<div class="AppointmentForm">
+
+    <div class="a">
+       <img src="icons8-heart-with-pulse-40.png" alt="Clinic logo" width="35">
+       <h1 class="h1"> Dermatology Clinic </h1>
+    </div> 
+      
+        <h2 class="h2"> Request Appointment </h2>  
+        <p class="description"> Complete the form and our receptionist will contact you </p>
+
+    
+    <div > 
+       
+        <label for="FirstName">First Name</label>
+        <input type="text" maxlength="45" id="FirstName" name="FirstName" required>
+        <label for="LastName">Last Name</label>
+        <input type="text" maxlength="45" id="LastName" name="LastName" required>
+        <label for="email"> Email Address </label>
+        <input type="email" id="email" name="email" required>
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone"
+           placeholder="xxx-xxx-xxxx"
+           pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+           required>
+        <label for="currentPatient"> Are you a current patient?</label>   
+        <select id="currentPatient" name="currentPatient" required>
+          <option value="">Select an option</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+        <label for="appointmentDate"> Preffered Appointment Date</label>
+        <input type="date" name="appointmentDate" id="appointmentDate" required>
+        <label> Reason For visit</label>
+        <input type="text" required>
+        <label for="message">Additional Message (optional)</label>
+        <textarea id="message" name="message" rows="5"></textarea>
+    </div>
+    <div class="checkbox">
+        <input type="checkbox" required>
+        <p>I agree to be contacted regarding my appointment request.</p>
+    </div>
+    <div>
+        <button class="submit">Submit Request</button>
+        
+    </div>
+    <a href="HomePage.html">Back to Home</a>
+
+
+
+
+
+
+
+</div>
+</form>    
+
+
+
+
+
+</body>
+</html>
+>>>>>>> receptionist-backend

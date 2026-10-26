@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html>
+<head> 
+
+<title> SignUpForm</title>
+<link rel="stylesheet" href="SignUp.css">
+
+</head>
+<body>
+<form action="SignUpRecords.html" method="POST">
+
+<div class="SignUp">
+
+    <div class="a">
+       <img src="icons8-heart-with-pulse-40.png" alt="Clinic logo" width="35">
+       <h1 class="h1"> Dermatology Clinic </h1>
+    </div> 
+      
+        <h2 class="h2"> Create your Account </h2>  
+    
+    <div > 
+       
+        <label for="FirstName" >First Name</label>
+        <input type="text" id="FirstName" name="FirstName" maxlength="45" required>
+        <label for="LastName" >Last Name</label>
+        <input type="text" id="LastName" name="LastName" maxlength="45" required>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" maxlength="15" required>
+        <label for="dateOfBirth">Date of Birth</label>
+        <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address" maxlength="45" required>
+        <label for="email"> Email Address </label>
+        <input type="email" id="email" name="email" required>
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone"
+           placeholder="xxx-xxx-xxxx"
+           pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+           required>
+    </div>    
+    <div>
+        <button class="create">Create an Account</button>
+
+    </div>
+        <p>Already have an account? <a href="LoginPage.html">Log In</a></p>
+</div>
+</form>
+</body>
+</html>
+   
+
+
