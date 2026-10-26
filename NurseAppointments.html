@@ -28,7 +28,7 @@
         <div class="sidebar"> 
             <ul class="sidebar--items">
                 <li>
-                    <a href="NurseDashBoard.html" class="active--link">
+                    <a href="NurseDashBoard.html">
                         <span class="icon">
                             <i class="ri-layout-grid-line"></i>
                         </span>
@@ -36,7 +36,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="NurseAppointments.html">
+                    <a href="NurseAppointments.html" class="active--link">
                         <span class="icon"><i class="ri-calendar-2-line"></i>
                         </span>
                         <span class="sidebar--item">Appointments</span>
@@ -94,37 +94,43 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1001</td>
-                        <td>John Doe</td>
-                        <td>09:00 AM</td>
-                        <td>Routine Skin Examination</td>
-                        <td>Online</td>
-                        <td><span style="color: green; font-weight: bold;">Checked In</span></td>
-                        <td><button class="logout" onclick="window.location.href='NursePatients.html'">Start Triage</button></td>
-                    </tr>
-                    <tr>
-                        <td>1002</td>
-                        <td>Jane Smith</td>
-                        <td>10:30 AM</td>
-                        <td>Acne Follow-up</td>
-                        <td>Phone</td>
-                        <td><span style="color: orange; font-weight: bold;">Waiting</span></td>
-                        <td><button class="logout" onclick="window.location.href='NursePatients.html'">Start Triage</button></td>
-                    </tr>
-                    <tr>
-                        <td>1003</td>
-                        <td>Michael Brown</td>
-                        <td>01:15 PM</td>
-                        <td>Rash Consultation</td>
-                        <td>In-Person</td>
-                        <td><span style="color: gray;">Scheduled</span></td>
-                        <td><button class="logout" onclick="window.location.href='NursePatients.html'">Start Triage</button></td>
-                    </tr>
+                <tbody id="appointmentsTableBody">
+                    <tr><td colspan="7" style="text-align: center;">Connecting to server...</td></tr>
                 </tbody>
             </table>
         </div>
     </section>
+    <script>
+        async function fetchAppointments() {
+            try {
+                const res = await fetch('/api/nurse/appointments');
+                const tbody = document.getElementById('appointmentsTableBody');
+                if (res.ok) {
+                    const appts = await res.json();
+                    tbody.innerHTML = '';
+                    if (appts.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No appointments found in database.</td></tr>';
+                        return;
+                    }
+                    appts.forEach(a => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>${a.Appointment_ID}</td>
+                                <td>${a.Patient_Name}</td>
+                                <td>${a.Appointment_Time}</td>
+                                <td>${a.Appointment_Description || ''}</td>
+                                <td>${a.Booking_Method}</td>
+                                <td><span style="font-weight: bold;">${a.Appointment_Status || 'Scheduled'}</span></td>
+                                <td><button class="logout" onclick="window.location.href='NursePatients.html'">Start Triage</button></td>
+                            </tr>
+                        `;
+                    });
+                }
+            } catch (e) {
+                console.error("Failed to load appointments from server", e);
+            }
+        }
+        fetchAppointments();
+    </script>
 </body>
 </html>
