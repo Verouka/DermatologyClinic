@@ -15,5 +15,8 @@
   "dependencies": {
     "dotenv": "^18.0.8",
     "mysql2": "^3.24.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }
