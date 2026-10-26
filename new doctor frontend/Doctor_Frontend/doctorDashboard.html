@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../securityrole.js" data-role="doctor"></script>
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="doctorDashboard.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="doctorDropdown.css">
+</head>
+<body>
+    <section class="header"> 
+        <div class="a">
+           <img src="../icons8-heart-with-pulse-40.png" alt="Clinic logo" width="35">
+           <h1 class="h1"> Dermatology Clinic </h1>
+        </div> 
+        <div class="notification--profile">
+            
+            <div class="picon bell">
+                <i class="ri-notification-2-line"></i>
+            </div>
+            <div class="picon profile">
+                <img class="img" src="../account.png" alt="Doctor Profile">
+                
+            </div>
+            <button class="logout" type="button" id="logoutBtn">
+                     Log Out
+            </button>
+
+            
+
+        </div>
+        
+    
+    
+    </section>
+    <section class="main">
+        <div class="sidebar"> 
+            <ul class="sidebar--items">
+                <li>
+                    <a href="doctorDashboard.html" class="active--link">
+                        <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
+                        <span  class="sidebar--item">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                     <a href="doctorProfile.html">
+                        <span class="icon icon-2"><i class="ri-user-line"></i></span>
+                        <span class="sidebar--item">Doctor Profile</span>
+                     </a>
+                </li>
+                <li>
+                     <a href="doctorAppointments.html">
+                        <span class="icon icon-3"><i class="ri-calendar-2-line"></i></span>
+                        <span class="sidebar--item">My Appointments</span>
+                     </a>
+                </li>
+                <li>
+                    <details class="sidebar-dropdown">
+                        <summary>
+                            <span class="icon icon-4"><i class="ri-file-list-3-line"></i></span>
+                            <span class="sidebar--item">My Patients</span>
+                            <i class="ri-arrow-down-s-line dropdown-arrow"></i>
+                        </summary>
+                        <div class="dropdown-links">
+                        <a href="doctorPatients.html#assigned-patients">Assigned Patients</a>
+                        <a href="doctorPatients.html#medical-records">Medical Records</a>
+                        <a href="doctorPatients.html#medical-history">Medical History</a>
+                        <a href="doctorPatients.html#treatments">Treatments & Prescriptions</a>
+                        </div>
+                    </details>
+                </li>
+                <li>
+                     <a href="doctorSchedule.html">
+                        <span class="icon icon-5"><i class="ri-calendar-schedule-line"></i></span>
+                        <span class="sidebar--item">My Schedule</span>
+                     </a>
+                </li>
+                <li>
+                    <details class="sidebar-dropdown">
+                        <summary>
+                            <span class="icon icon-5"><i class="ri-file-list-3-line"></i></span>
+                            <span class="sidebar--item">Referrals</span>
+                            <i class="ri-arrow-down-s-line dropdown-arrow"></i>
+                        </summary>
+                        <div class="dropdown-links">
+                        <a href="doctorReferrals.html#pending-referrals">Pending</a>
+                        <a href="doctorReferrals.html#approved-referrals">Approved</a>
+                        <a href="doctorReferrals.html#denied-referrals">Denied</a>
+                        <a href="doctorReferrals.html#canceled-referrals">Canceled</a>
+                        </div>
+                    </details>
+                </li>
+
+
+            </ul>
+
+
+            <ul class="sidebar--bottom-items">
+                <li>
+                     <a href="settings.html">
+                        <span class="icon icon-6"><i class="ri-settings-3-line"></i></span>
+                        <span class="sidebar--item">Settings</span>
+                     </a>
+                </li>
+              
+            </ul>
+
+                
+
+
+
+    
+        
+        
+        </div>
+
+        <div class="mainContent">
+            <div class="overview">
+                <div class="title">
+                    <h2 class="maintitle">Doctor Dashboard</h2>
+                    <p>Here is an overview of your patients, appointments, referrals, and schedule.</p>
+    
+                </div>
+                <div class="cards">
+                    <div class="card card1">
+                        <div class="cardData">
+                            <div class="cardContent">
+                                <h3 class="title">Upcoming Appointments</h3>
+                                <h4>Your next patient appointment will appear here.</h4>
+                            </div>
+                            <i class="ri-calendar-2-line card--icon"></i>
+                        </div>
+                        
+                    </div>
+                    <div class="card card2">
+                        <div class="cardData">
+                            <div class="cardContent">
+                                <h3 class="title">Assigned Patients</h3>
+                                <h4>View your assigned patients and their medical records.</h4>
+                            </div>
+                            <i class="ri-file-list-3-line card--icon"> </i>
+                        </div>
+                        
+                    </div>
+                    <div class="card card3">
+                        <div class="cardData">
+                            <div class="cardContent">
+                                <h3 class="title">Referrals</h3>
+                                <h4>View pending, approved, denied, and canceled referrals.</h4>
+                            </div>
+                            <i class="ri-file-list-3-line card--icon"></i>
+                        </div>
+                        
+                    </div>
+                    <div class="card card4">
+                        <div class="cardData">
+                            <div class="cardContent">
+                                <h3 class="title">My Schedule</h3>
+                                <h4>View your working days, office, and hours.</h4>
+                            </div>
+                            <i class="ri-calendar-schedule-line card--icon"></i>
+                        </div>
+                        
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </section>
+    <script src="../logout.js"></script>
+    <script src="doctorDashboard.js" defer></script>
+
+</body>
+</html>

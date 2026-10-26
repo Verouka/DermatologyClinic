@@ -1,0 +1,272 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../securityrole.js" data-role="doctor"></script>
+    <title>Doctor Profile</title>
+    <link rel="stylesheet" href="doctorProfile.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="doctorDropdown.css">
+</head>
+<body>
+    <section class="header"> 
+        <div class="a">
+           <img src="../icons8-heart-with-pulse-40.png" alt="Clinic logo" width="35">
+           <h1 class="h1"> Dermatology Clinic </h1>
+        </div> 
+        <div class="notification--profile">
+            
+            <div class="picon bell">
+                <i class="ri-notification-2-line"></i>
+            </div>
+            <div class="picon profile">
+                <img class="img" src="../account.png" alt="Doctor Profile">
+                
+            </div>
+            <button class="logout" type="button" >
+                     Log Out
+            </button>
+
+            
+
+        </div>
+        
+    
+    
+    </section>
+    <section class="main">
+        <div class="sidebar"> 
+            <ul class="sidebar--items">
+                <li>
+                    <a href="doctorDashboard.html">
+                        <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
+                        <span  class="sidebar--item">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                     <a href="doctorProfile.html" class="active--link">
+                        <span class="icon icon-2"><i class="ri-user-line"></i></span>
+                        <span class="sidebar--item">Doctor Profile</span>
+                     </a>
+                </li>
+                <li>
+                     <a href="doctorAppointments.html">
+                        <span class="icon icon-3"><i class="ri-calendar-2-line"></i></span>
+                        <span class="sidebar--item">My Appointments</span>
+                     </a>
+                </li>
+                <li>
+                    <details class="sidebar-dropdown">
+                        <summary>
+                            <span class="icon icon-4"><i class="ri-file-list-3-line"></i></span>
+                            <span class="sidebar--item">My Patients</span>
+                            <i class="ri-arrow-down-s-line dropdown-arrow"></i>
+                        </summary>
+                        <div class="dropdown-links">
+                        <a href="doctorPatients.html#assigned-patients">Assigned Patients</a>
+                        <a href="doctorPatients.html#medical-records">Medical Records</a>
+                        <a href="doctorPatients.html#medical-history">Medical History</a>
+                        <a href="doctorPatients.html#treatments">Treatments & Prescriptions</a>
+                        </div>
+                    </details>
+                </li>
+                <li>
+                     <a href="doctorSchedule.html">
+                        <span class="icon icon-5"><i class="ri-calendar-schedule-line"></i></span>
+                        <span class="sidebar--item">My Schedule</span>
+                     </a>
+                </li>
+                <li>
+                    <details class="sidebar-dropdown">
+                        <summary>
+                            <span class="icon icon-5"><i class="ri-file-list-3-line"></i></span>
+                            <span class="sidebar--item">Referrals</span>
+                            <i class="ri-arrow-down-s-line dropdown-arrow"></i>
+                        </summary>
+                        <div class="dropdown-links">
+                        <a href="doctorReferrals.html#pending-referrals">Pending</a>
+                        <a href="doctorReferrals.html#approved-referrals">Approved</a>
+                        <a href="doctorReferrals.html#denied-referrals">Denied</a>
+                        <a href="doctorReferrals.html#canceled-referrals">Canceled</a>
+                        </div>
+                    </details>
+                </li>
+
+
+            </ul>
+
+
+            <ul class="sidebar--bottom-items">
+                <li>
+                     <a href="settings.html">
+                        <span class="icon icon-6"><i class="ri-settings-3-line"></i></span>
+                        <span class="sidebar--item">Settings</span>
+                     </a>
+                </li>
+              
+            </ul>
+
+                
+
+
+
+    
+        
+        
+        </div>
+
+        <div class="mainContent">
+            <div class="overview">
+                <div class="title">
+                    <h2 class="maintitle">Doctor Profile</h2>
+                    <p>View your personal and professional information.</p>
+                    <p id="profileStatus" role="status" aria-live="polite">Loading profile...</p>
+                </div>
+            <div class="profileCard">
+                <div class="profileHeader">
+                    <i class="ri-user-line"></i>
+                    <h3>Personal Information</h3>
+                </div>
+                <div class="profileData">
+                    <div class="profileField">
+                        <label for="Doctor_ID">Doctor ID</label>
+                        <input type="text" id="Doctor_ID" name="Doctor_ID" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="First_Name">First Name</label>
+                        <input type="text" id="First_Name" name="First_Name" maxlength="45" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="Middle_Name">Middle Name</label>
+                        <input type="text" id="Middle_Name" name="Middle_Name" maxlength="45" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="Last_Name">Last Name</label>
+                        <input type="text" id="Last_Name" name="Last_Name" maxlength="45" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="Birth_Date">Date of Birth</label>
+                        <input type="date" id="Birth_Date" name="Birth_Date" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="Gender">Gender</label>
+                        <input type="text" id="Gender" name="Gender" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="Email">Email Address</label>
+                        <input type="email" id="Email" name="Email" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="Phone">Phone Number</label>
+                        <input type="tel" id="Phone" name="Phone" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="Street">Street Address</label>
+                        <input type="text" id="Street" name="Street" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="City">City</label>
+                        <input type="text" id="City" name="City" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="State">State</label>
+                        <input type="text" id="State" name="State" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="Zip_Code">ZIP Code</label>
+                        <input type="text" id="Zip_Code" name="Zip_Code" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="profileCard">
+                <div class="profileHeader">
+                    <i class="ri-stethoscope-line"></i>
+                    <h3>Professional Information</h3>
+                </div>
+                <div class="profileData">
+                    <div class="profileField">
+                        <label for="SPECIALTY_Specialty_ID">Specialty ID</label>
+                        <input type="text" id="SPECIALTY_Specialty_ID" name="SPECIALTY_Specialty_ID" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="Specialty_Name">Specialty Name</label>
+                        <input type="text" id="Specialty_Name" name="Specialty_Name" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="Specialty_Description">Specialty Description</label>
+                        <input type="text" id="Specialty_Description" name="Specialty_Description" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="Start_Date">Start Date</label>
+                        <input type="date" id="Start_Date" name="Start_Date" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="Salary">Salary</label>
+                        <input type="text" id="Salary" name="Salary" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="profileCard">
+                <div class="profileHeader">
+                    <i class="ri-file-shield-2-line"></i>
+                    <h3>Medical License</h3>
+                </div>
+                <div class="profileData">
+                    <div class="profileField">
+                        <label for="License_Number">Medical License Number</label>
+                        <input type="text" id="License_Number" name="License_Number" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="profileCard">
+                <div class="profileHeader">
+                    <i class="ri-nurse-line"></i>
+                    <h3>Assigned Nurse</h3>
+                </div>
+                <div class="profileData">
+                    <div class="profileField">
+                        <label for="NURSE_Nurse_ID">Nurse ID</label>
+                        <input type="text" id="NURSE_Nurse_ID" name="NURSE_Nurse_ID" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="Nurse_First_Name">First Name</label>
+                        <input type="text" id="Nurse_First_Name" name="Nurse_First_Name" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="Nurse_Middle_Name">Middle Name</label>
+                        <input type="text" id="Nurse_Middle_Name" name="Nurse_Middle_Name" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="Nurse_Last_Name">Last Name</label>
+                        <input type="text" id="Nurse_Last_Name" name="Nurse_Last_Name" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="Nurse_Email">Email Address</label>
+                        <input type="email" id="Nurse_Email" name="Nurse_Email" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="Nurse_Phone">Phone Number</label>
+                        <input type="tel" id="Nurse_Phone" name="Nurse_Phone" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="Nurse_Office_ID">Office ID</label>
+                        <input type="text" id="Nurse_Office_ID" name="Nurse_Office_ID" readonly>
+                    </div>
+                    <div class="profileField">
+                        <label for="Nurse_License_Number">Nurse License Number</label>
+                        <input type="text" id="Nurse_License_Number" name="Nurse_License_Number" readonly>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="profileActions">
+                <button type="button" class="editBtn" id="editProfileBtn" disabled>Edit Profile</button>
+                <button type="button" class="editBtn" id="saveProfileBtn" hidden>Save Changes</button>
+                <button type="button" class="editBtn" id="cancelProfileBtn" hidden>Cancel</button>
+            </div>
+        </div>
+    </section>
+    <script src="../logout.js"></script>
+    <script src="doctorProfile.js" defer></script>
+</body>
+</html>
