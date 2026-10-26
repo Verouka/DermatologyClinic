@@ -2,11 +2,19 @@
 import { handleAdminStaffRoutes } from "./routes/adminStaffRoutes.js";
 import { handleAuthRoutes } from "./routes/Authentication_route.js";
 import { handlePatientRoutes } from "./routes/patientRoutes.js";
+import { handlePatientAppointmentRoutes } from "./routes/patientAppointmentRoutes.js";
+import { handleAppointmentOptionsRoutes } from "./routes/appointmentOptionsRoutes.js";
+import { handlePatientMedicalRecordsRoutes } from "./routes/patientMedicalRecordsRoutes.js";
+import { handlePatientSettingsRoutes } from "./routes/patientSettingsRoutes.js";
+import { handlePatientNotificationRoutes } from "./routes/patientNotificationRoutes.js";
+import { handlePatientBillingRoutes } from "./routes/patientBillingRoutes.js";
+import { handlePatientDoctorRoutes } from "./routes/patientDoctorRoutes.js";
+import { handlePublicAppointmentRoutes } from "./routes/publicAppointmentRoutes.js";
 
 const app = async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
     res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
     if (req.method === "OPTIONS") {
@@ -18,9 +26,31 @@ const app = async (req, res) => {
     try {
         if (await handleAuthRoutes(req, res)) return;
 
+        if (await handlePublicAppointmentRoutes(req, res)) return;
+
         if (await handlePatientRoutes(req, res)) return;
 
+        if (await handlePatientDoctorRoutes(req, res)) return;
+
+        if (await handlePatientAppointmentRoutes(req, res)) return;
+
+        if (await handleAppointmentOptionsRoutes(req, res)) return;
+
+        if (await handlePatientMedicalRecordsRoutes(req, res)) return;
+
         if (await handleAdminStaffRoutes(req, res)) return;
+
+        if (await handlePatientSettingsRoutes(req, res)) {
+            return;
+        }
+
+        if (await handlePatientNotificationRoutes(req, res)) {
+            return;
+        }
+
+        if (await handlePatientBillingRoutes(req, res)) {
+            return;
+        }
 
         if (req.method === "GET" && req.url === "/") {
             res.writeHead(200, {
@@ -57,4 +87,5 @@ const app = async (req, res) => {
 };
 
 export default app;
+
 

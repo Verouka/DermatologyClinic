@@ -209,3 +209,21 @@ a{
     color: gray;
     font-size: 15px;
 }
+
+
+.medicalRecordItem {
+    padding: 18px;
+    margin-top: 15px;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.medicalRecordItem p {
+    margin: 8px 0;
+    line-height: 1.5;
+}
+
+.medicalRecordItem strong {
+    color: #07145c;
+}

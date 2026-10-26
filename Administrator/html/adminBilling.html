@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../../securityrole.js" data-role="administrator"></script>
+    <title>Bills</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="brand">
+            <i class="ri-heart-pulse-line"></i>
+            <h1>Dermatology Clinic</h1>
+        </div>
+
+        <div class="header-right">
+            <a href="adminDashboard.html">
+                <i class="ri-layout-grid-line"></i> Dashboard
+            </a>
+
+            <button class="logout" type="button" >
+                Log Out
+            </button>
+        </div>
+
+    </header>
+
+
+    <section class="main">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+             <nav class="sidebar--items">
+
+                <a href="adminDashboard.html">
+                    <i class="ri-layout-grid-line"></i> Dashboard
+                </a>
+
+                <a href="adminProfile.html">
+                    <i class="ri-user-line"></i> My Profile
+                </a>
+
+                <a href="adminStaff.html">
+                    <i class="ri-group-line"></i> Manage Staff
+                </a>
+
+                <a href="adminAppointments.html">
+                    <i class="ri-calendar-line"></i> Appointments
+                </a>
+
+                <a href="adminBilling.html" class="active--link">
+                    <i class="ri-bill-line"></i> Billing & Payments
+                </a>
+
+                <a href="adminReport.html">
+                    <i class="ri-folder-chart-line"></i> Reports
+                </a>
+
+                <a href="adminClinicInfo.html">
+                    <i class="ri-hospital-line"></i> Clinic Information
+                </a>
+                
+            </nav>
+
+            <nav class="sidebar--bottom-items">
+                <a href="settings.html">
+                    <i class="ri-settings-3-line"></i> Settings
+                </a>
+            </nav>
+
+        </aside>
+
+
+        <div class="mainContent">
+
+            <h2 class="maintitle">Bills and Payments</h2>
+            <p>View bills, outstanding balances, and payment historys.</p>
+
+            <!-- OVERVIEW CARDS TEST  -->
+            <section class="cards">
+
+                <div class="card">
+                    <div class="cardData">
+                        <div>
+                            <h3>Total Paid</h3>
+                            <p>--</p>
+                        </div>
+                        <i class="ri-money-dollar-box-line card--icon"></i>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="cardData">
+                        <div>
+                            <h3>Outstanding Balances</h3>
+                            <p>--</p>
+                        </div>
+                        <i class="ri-group-line card--icon"></i>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="cardData">
+                        <div>
+                            <h3>Total Bills</h3>
+                            <p>--</p>
+                        </div>
+                        <i class="ri-bill-line card--icon"></i>
+                    </div>
+                </div>
+
+            </section>
+
+            
+
+        <!-- CONTENT  -->
+        <div class="billingContent">
+
+            <div class="billingSection">
+                <h3>All Bills</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Bill ID</th>
+                            <th>Patient ID</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="4">No bills to display yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            
+            <div class="billingSection">
+                <h3>All Payments</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Patient ID</th>
+                            <th>Bill ID</th>
+                            <th>Payment ID</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Payment Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="4">No payments to display yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        </div>
+        <div class="overview">
+
+        
+
+        </div>
+        </div>
+
+
+
+
+    </section>
+
+     <script src="../logout.js"></script>
+
+</body>
+</html>

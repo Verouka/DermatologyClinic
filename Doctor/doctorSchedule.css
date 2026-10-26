@@ -1,0 +1,11 @@
+/* Schedule tables follow the same simple style as patientAppointment.css. */
+.scheduleSection { margin-top: 35px; }
+.scheduleSection p { margin: 10px 0 15px; }
+.table-container { width: 100%; overflow-x: auto; }
+.scheduleCalendar { width: 100%; border-collapse: collapse; margin-top: 12px; }
+.scheduleCalendar th { background-color: rgb(148, 219, 195); padding: 15px; text-align: left; }
+.scheduleCalendar td { padding: 15px; border-bottom: 1px solid lightgray; text-align: left; }
+.scheduleCalendar tbody td { height: 72px; vertical-align: top; color: #666; }
+.scheduleCalendar thead th { min-width: 100px; }
+.appointmentList tbody td { height: auto; }
+.scheduleNotice { color: #666; }
