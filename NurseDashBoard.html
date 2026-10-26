@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nurse Dashboard</title>
+    <link rel="stylesheet" href="NurseDashBoard.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <section class="header"> 
+        <div class="a">
+           <img src="icons8-heart-with-pulse-40.png" alt="Clinic logo" width="35">
+           <h1 class="h1">Dermatology Clinic</h1>
+        </div> 
+        <div class="notification--profile">
+            <div class="picon bell">
+                <i class="ri-notification-2-line"></i>
+            </div>
+            <div class="picon profile">
+                <img class="img" src="account.png" alt="Nurse Profile">
+            </div>
+            <button class="logout" type="button" onclick="window.location.href='LoginPage.html'">Log Out</button>
+        </div>
+    </section>
+
+    <section class="main">
+        <div class="sidebar"> 
+            <ul class="sidebar--items">
+                <li>
+                    <a href="NurseDashBoard.html" class="active--link">
+                        <span class="icon">
+                            <i class="ri-layout-grid-line"></i>
+                        </span>
+                        <span class="sidebar--item">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="NurseAppointments.html">
+                        <span class="icon"><i class="ri-calendar-2-line"></i>
+                        </span>
+                        <span class="sidebar--item">Appointments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="NursePatients.html">
+                        <span class="icon"><i class="ri-file-list-3-line"></i>
+                        </span>
+                        <span class="sidebar--item">Patient Intake Records</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="NurseSchedule.html">
+                        <span class="icon"><i class="ri-bank-card-line"></i>
+                        </span>
+                        <span class="sidebar--item">My Schedule</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="NurseProfile.html">
+                        <span class="icon"><i class="ri-user-line"></i>
+                        </span>
+                        <span class="sidebar--item">Profile</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="sidebar--bottom-items">
+                <li>
+                    <a href="NurseSettings.html">
+                        <span class="icon">
+                            <i class="ri-settings-3-line"></i>
+                        </span>
+                        <span class="sidebar--item">Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="mainContent">
+            <div class="overview">
+                <div class="title">
+                    <h2 class="maintitle" id="nurseWelcomeTitle">Hello Nurse</h2>
+                    <p>Here is an overview of your patients and clinic schedule today.</p>
+                </div>
+                
+                <div class="cards">
+                    <a href="NurseAppointments.html" class="card card1">
+                        <div class="cardData">
+                            <div class="cardContent">
+                                <h3>Today's Appointments</h3>
+                                <h4 id="appointmentCount">Loading...</h4>
+                            </div>
+                            <i class="ri-calendar-2-line card--icon"></i>
+                        </div>
+                    </a>
+
+                    <a href="NursePatients.html" class="card card2">
+                        <div class="cardData">
+                            <div class="cardContent">
+                                <h3>Patient Intake</h3>
+                                <h4>Manage Allergies & History</h4>
+                            </div>
+                            <i class="ri-file-list-3-line card--icon"></i>
+                        </div>
+                    </a>
+
+                    <a href="NurseSchedule.html" class="card card3">
+                        <div class="cardData">
+                            <div class="cardContent">
+                                <h3>Shift Schedule</h3>
+                                <h4 id="shiftInfo">View Schedule</h4>
+                            </div>
+                            <i class="ri-time-line card--icon"></i>
+                        </div>
+                    </a>
+
+                    <a href="NurseProfile.html" class="card card4">
+                        <div class="cardData">
+                            <div class="cardContent">
+                                <h3>My Profile</h3>
+                                <h4>View & Edit Details</h4>
+                            </div>
+                            <i class="ri-user-line card--icon"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #ddd;">
+                    <h3 class="maintitle"><i class="ri-notification-line"></i> Quick Notifications</h3>
+                    <ul id="notificationsList" style="margin-top: 10px; padding-left: 20px; line-height: 1.8;">
+                        <li>Server connection active for Dermatology Clinic database.</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #ddd;">
+                    <h3 class="maintitle"><i class="ri-run-line"></i> Quick Actions</h3>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+                        <button class="logout" onclick="window.location.href='NursePatients.html'">+ Add New Allergy</button>
+                        <button class="logout" onclick="window.location.href='NurseAppointments.html'">View Next Patient</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        async function loadDashboardData() {
+            try {
+                const resProfile = await fetch('/api/nurse/profile');
+                if (resProfile.ok) {
+                    const profile = await resProfile.json();
+                    if (profile.First_Name) {
+                        document.getElementById('nurseWelcomeTitle').textContent = `Hello Nurse ${profile.First_Name} ${profile.Last_Name}`;
+                    }
+                }
+                const resAppts = await fetch('/api/nurse/appointments');
+                if (resAppts.ok) {
+                    const appts = await resAppts.json();
+                    document.getElementById('appointmentCount').textContent = `${appts.length} Patients Scheduled`;
+                }
+                const resSched = await fetch('/api/nurse/schedule');
+                if (resSched.ok) {
+                    const sched = await resSched.json();
+                    if (sched.length > 0) {
+                        document.getElementById('shiftInfo').textContent = `${sched[0].Start_Time} - ${sched[0].End_Time} (${sched[0].Office_Name || 'Office #1'})`;
+                    }
+                }
+            } catch (e) {
+                console.error("Dashboard server connection error", e);
+            }
+        }
+        loadDashboardData();
+    </script>
+</body>
+</html>

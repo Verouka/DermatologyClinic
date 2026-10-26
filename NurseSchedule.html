@@ -28,7 +28,7 @@
         <div class="sidebar"> 
             <ul class="sidebar--items">
                 <li>
-                    <a href="NurseDashBoard.html" class="active--link">
+                    <a href="NurseDashBoard.html">
                         <span class="icon">
                             <i class="ri-layout-grid-line"></i>
                         </span>
@@ -50,7 +50,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="NurseSchedule.html">
+                    <a href="NurseSchedule.html" class="active--link">
                         <span class="icon"><i class="ri-bank-card-line"></i>
                         </span>
                         <span class="sidebar--item">My Schedule</span>
@@ -92,45 +92,41 @@
                         <th>Collaborating Doctor</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Monday</td>
-                        <td>08:00 AM</td>
-                        <td>04:00 PM</td>
-                        <td>Main Branch (Office #1)</td>
-                        <td>Dr. Sarah Jenkins</td>
-                    </tr>
-                    <tr>
-                        <td>Tuesday</td>
-                        <td>08:00 AM</td>
-                        <td>04:00 PM</td>
-                        <td>Main Branch (Office #1)</td>
-                        <td>Dr. Sarah Jenkins</td>
-                    </tr>
-                    <tr>
-                        <td>Wednesday</td>
-                        <td>08:00 AM</td>
-                        <td>04:00 PM</td>
-                        <td>North Clinic (Office #2)</td>
-                        <td>Dr. Alex Rivera</td>
-                    </tr>
-                    <tr>
-                        <td>Thursday</td>
-                        <td>08:00 AM</td>
-                        <td>04:00 PM</td>
-                        <td>Main Branch (Office #1)</td>
-                        <td>Dr. Sarah Jenkins</td>
-                    </tr>
-                    <tr>
-                        <td>Friday</td>
-                        <td>08:00 AM</td>
-                        <td>01:00 PM</td>
-                        <td>Main Branch (Office #1)</td>
-                        <td>Dr. Sarah Jenkins</td>
-                    </tr>
+                <tbody id="scheduleTableBody">
+                    <tr><td colspan="5" style="text-align: center;">Loading schedule...</td></tr>
                 </tbody>
             </table>
         </div>
     </section>
+    <script>
+        async function fetchSchedule() {
+            try {
+                const res = await fetch('/api/nurse/schedule');
+                const tbody = document.getElementById('scheduleTableBody');
+                if (res.ok) {
+                    const schedules = await res.json();
+                    tbody.innerHTML = '';
+                    if (schedules.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No scheduled shifts found.</td></tr>';
+                        return;
+                    }
+                    schedules.forEach(s => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>${s.Day_of_Week}</td>
+                                <td>${s.Start_Time}</td>
+                                <td>${s.End_Time}</td>
+                                <td>${s.Office_Name}</td>
+                                <td>${s.Doctor_Name}</td>
+                            </tr>
+                        `;
+                    });
+                }
+            } catch (e) {
+                console.error("Error fetching schedule", e);
+            }
+        }
+        fetchSchedule();
+    </script>
 </body>
 </html>

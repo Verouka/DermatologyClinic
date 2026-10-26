@@ -28,7 +28,7 @@
         <div class="sidebar"> 
             <ul class="sidebar--items">
                 <li>
-                    <a href="NurseDashBoard.html" class="active--link">
+                    <a href="NurseDashBoard.html">
                         <span class="icon">
                             <i class="ri-layout-grid-line"></i>
                         </span>
@@ -43,7 +43,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="NursePatients.html">
+                    <a href="NursePatients.html" class="active--link">
                         <span class="icon"><i class="ri-file-list-3-line"></i>
                         </span>
                         <span class="sidebar--item">Patient Intake Records</span>
@@ -80,10 +80,8 @@
             <div class="patient-selector-section">
                 <h3 class="maintitle">Active Patient Triage</h3>
                 <label for="patientSelect">Select Patient to Manage:</label>
-                <select id="patientSelect">
-                    <option value="101">John Doe - ID: 101 (DOB: 1985-04-12)</option>
-                    <option value="102">Jane Smith - ID: 102 (DOB: 1990-08-22)</option>
-                    <option value="103">Michael Brown - ID: 103 (DOB: 1978-11-05)</option>
+                <select id="patientSelect" name="PATIENT_Patient_ID">
+                    <option value="">Loading patients from database...</option>
                 </select>
             </div>
 
@@ -98,18 +96,9 @@
                                 <th>Allergy Name</th>
                                 <th>Time Occurred</th>
                                 <th>Notes</th>
-                                <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Penicillin</td>
-                                <td>2024-02-10 14:30:00</td>
-                                <td>Mild rash on forearms</td>
-                                <td><button type="button" class="logout" style="padding: 4px 10px; font-size: 0.85rem;">Edit</button></td>
-                            </tr>
-                        </tbody>
+                        <tbody id="allergyTableBody"></tbody>
                     </table>
 
                     <form id="addAllergyForm">
@@ -134,16 +123,7 @@
                                 <th>Notes</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>10</td>
-                                <td>Robert Doe</td>
-                                <td>Father</td>
-                                <td>Melanoma</td>
-                                <td>2018-05-15</td>
-                                <td>Surgically removed</td>
-                            </tr>
-                        </tbody>
+                        <tbody id="medicalHistoryTableBody"></tbody>
                     </table>
 
                     <form id="addHistoryForm">
@@ -151,6 +131,7 @@
                         <input type="text" placeholder="Relationship" name="Relationship" required>
                         <input type="text" placeholder="Condition" name="Condition" required>
                         <input type="date" name="Date" required>
+                        <input type="text" placeholder="Notes" name="Notes" style="width: 30%;">
                         <button class="logout" type="submit">+ Add Medical History</button>
                     </form>
                 </div>
@@ -168,15 +149,7 @@
                                 <th>Notes</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>201</td>
-                                <td>Eczema</td>
-                                <td>Topical Corticosteroids</td>
-                                <td>2023-09-01</td>
-                                <td>Cleared inflammation within 2 weeks</td>
-                            </tr>
-                        </tbody>
+                        <tbody id="previousTreatmentsTableBody"></tbody>
                     </table>
 
                     <form id="addTreatmentForm">
@@ -201,24 +174,95 @@
                                 <th>Date</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Diagnosis</td>
-                                <td>Atopic Dermatitis</td>
-                                <td>Moderate severity on flexural surfaces</td>
-                                <td>2026-03-10</td>
-                            </tr>
-                            <tr>
-                                <td>Prescription</td>
-                                <td>Hydrocortisone 2.5% Cream</td>
-                                <td>Apply twice daily for 10 days</td>
-                                <td>2026-03-10</td>
-                            </tr>
-                        </tbody>
+                        <tbody id="doctorRecordsTableBody"></tbody>
                     </table>
                 </div>
             </div>
         </div>
     </section>
+    <script>
+        async function fetchPatients() {
+            try {
+                const res = await fetch('/api/nurse/patients');
+                if (res.ok) {
+                    const patients = await res.json();
+                    const select = document.getElementById('patientSelect');
+                    select.innerHTML = '';
+                    patients.forEach(p => {
+                        select.innerHTML += `<option value="${p.Patient_ID}">${p.First_Name} ${p.Last_Name} - ID: ${p.Patient_ID} (DOB: ${p.BirthDate ? p.BirthDate.split('T')[0] : ''})</option>`;
+                    });
+                    if (patients.length > 0) fetchPatientIntake(patients[0].Patient_ID);
+                }
+            } catch (e) {
+                console.error("Error fetching patients", e);
+            }
+        }
+
+        async function fetchPatientIntake(patientId) {
+            try {
+                const res = await fetch(`/api/nurse/patients/${patientId}/intake`);
+                if (res.ok) {
+                    const data = await res.json();
+                    
+                    document.getElementById('allergyTableBody').innerHTML = data.allergies.map(a => `
+                        <tr><td>${a.Allergy_ID}</td><td>${a.Allergy_Name}</td><td>${a.Time_Occurred || ''}</td><td>${a.Notes || ''}</td></tr>
+                    `).join('') || '<tr><td colspan="4">No allergy records found.</td></tr>';
+
+                    document.getElementById('medicalHistoryTableBody').innerHTML = data.history.map(h => `
+                        <tr><td>${h.Medical_History_ID}</td><td>${h.Family_Member_Name}</td><td>${h.Relationship}</td><td>${h.Condition}</td><td>${h.Date ? h.Date.split('T')[0] : ''}</td><td>${h.Notes || ''}</td></tr>
+                    `).join('') || '<tr><td colspan="6">No medical history found.</td></tr>';
+
+                    document.getElementById('previousTreatmentsTableBody').innerHTML = data.treatments.map(t => `
+                        <tr><td>${t.Previous_Treatment_ID}</td><td>${t.Condition}</td><td>${t.Treatment_Name}</td><td>${t.Treatment_Date ? t.Treatment_Date.split('T')[0] : ''}</td><td>${t.Notes || ''}</td></tr>
+                    `).join('') || '<tr><td colspan="5">No previous treatments found.</td></tr>';
+
+                    document.getElementById('doctorRecordsTableBody').innerHTML = data.doctorRecords.map(d => `
+                        <tr><td>${d.Type}</td><td>${d.Name}</td><td>${d.Details}</td><td>${d.Date ? d.Date.split('T')[0] : ''}</td></tr>
+                    `).join('') || '<tr><td colspan="4">No doctor records found.</td></tr>';
+                }
+            } catch (e) {
+                console.error("Error fetching patient intake data", e);
+            }
+        }
+
+        document.getElementById('patientSelect').addEventListener('change', (e) => {
+            fetchPatientIntake(e.target.value);
+        });
+
+        document.getElementById('addAllergyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const patientId = document.getElementById('patientSelect').value;
+            const formData = Object.fromEntries(new FormData(e.target));
+            await fetch(`/api/nurse/patients/${patientId}/allergies`, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData)
+            });
+            e.target.reset();
+            fetchPatientIntake(patientId);
+        });
+
+        document.getElementById('addHistoryForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const patientId = document.getElementById('patientSelect').value;
+            const formData = Object.fromEntries(new FormData(e.target));
+            await fetch(`/api/nurse/patients/${patientId}/history`, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData)
+            });
+            e.target.reset();
+            fetchPatientIntake(patientId);
+        });
+
+        document.getElementById('addTreatmentForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const patientId = document.getElementById('patientSelect').value;
+            const formData = Object.fromEntries(new FormData(e.target));
+            await fetch(`/api/nurse/patients/${patientId}/treatments`, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData)
+            });
+            e.target.reset();
+            fetchPatientIntake(patientId);
+        });
+
+        fetchPatients();
+    </script>
 </body>
 </html>

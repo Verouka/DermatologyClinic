@@ -28,7 +28,7 @@
         <div class="sidebar"> 
             <ul class="sidebar--items">
                 <li>
-                    <a href="NurseDashBoard.html" class="active--link">
+                    <a href="NurseDashBoard.html">
                         <span class="icon">
                             <i class="ri-layout-grid-line"></i>
                         </span>
@@ -57,7 +57,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="NurseProfile.html">
+                    <a href="NurseProfile.html" class="active--link">
                         <span class="icon"><i class="ri-user-line"></i>
                         </span>
                         <span class="sidebar--item">Profile</span>
@@ -82,66 +82,106 @@
                 <p>Manage your personal details, contact information, and license status </p>
             </div>
 
-            <form style="max-width: 800px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <form id="nurseProfileForm" style="max-width: 800px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div>
                     <label><strong>Nurse ID:</strong></label><br>
-                    <input type="text" name="Nurse_ID" value="501" disabled style="width: 100%; background-color: #f0f0f0;">
+                    <input type="text" name="Nurse_ID" id="Nurse_ID" disabled style="width: 100%; background-color: #f0f0f0;">
                 </div>
                 <div>
                     <label><strong>License Number:</strong></label><br>
-                    <input type="text" name="License_Number" value="RN-99201-TX" disabled style="width: 100%; background-color: #f0f0f0;">
+                    <input type="text" name="License_Number" id="License_Number" disabled style="width: 100%; background-color: #f0f0f0;">
                 </div>
 
                 <div>
                     <label><strong>First Name:</strong></label><br>
-                    <input type="text" name="First_Name" value="Verouka" style="width: 100%;">
+                    <input type="text" name="First_Name" id="First_Name" style="width: 100%;">
                 </div>
                 <div>
                     <label><strong>Last Name:</strong></label><br>
-                    <input type="text" name="Last_Name" value="Salt" style="width: 100%;">
+                    <input type="text" name="Last_Name" id="Last_Name" style="width: 100%;">
                 </div>
 
                 <div>
                     <label><strong>Email:</strong></label><br>
-                    <input type="email" name="Email" value="verouka.salt@dermclinic.com" style="width: 100%;">
+                    <input type="email" name="Email" id="Email" style="width: 100%;">
                 </div>
                 <div>
                     <label><strong>Phone:</strong></label><br>
-                    <input type="tel" name="Phone" value="(555) 349-8201" style="width: 100%;">
+                    <input type="tel" name="Phone" id="Phone" style="width: 100%;">
                 </div>
 
                 <div>
                     <label><strong>Street Address:</strong></label><br>
-                    <input type="text" name="Street" value="123 Health Ave" style="width: 100%;">
+                    <input type="text" name="Street" id="Street" style="width: 100%;">
                 </div>
                 <div>
                     <label><strong>City:</strong></label><br>
-                    <input type="text" name="City" value="Houston" style="width: 100%;">
+                    <input type="text" name="City" id="City" style="width: 100%;">
                 </div>
 
                 <div>
                     <label><strong>State:</strong></label><br>
-                    <input type="text" name="State" value="TX" style="width: 100%;">
+                    <input type="text" name="State" id="State" style="width: 100%;">
                 </div>
                 <div>
                     <label><strong>Zip Code:</strong></label><br>
-                    <input type="text" name="Zip_Code" value="77001" style="width: 100%;">
+                    <input type="text" name="Zip_Code" id="Zip_Code" style="width: 100%;">
                 </div>
 
                 <div>
                     <label><strong>Assigned Office ID:</strong></label><br>
-                    <input type="text" name="OFFICE_Office_ID" value="1 (Main Branch)" disabled style="width: 100%; background-color: #f0f0f0;">
+                    <input type="text" name="OFFICE_Office_ID" id="OFFICE_Office_ID" disabled style="width: 100%; background-color: #f0f0f0;">
                 </div>
                 <div>
                     <label><strong>Start Date:</strong></label><br>
-                    <input type="date" name="Start_Date" value="2021-08-15" disabled style="width: 100%; background-color: #f0f0f0;">
+                    <input type="date" name="Start_Date" id="Start_Date" disabled style="width: 100%; background-color: #f0f0f0;">
                 </div>
 
                 <div style="grid-column: span 2; margin-top: 10px;">
-                    <button class="logout" type="button" onclick="alert('Profile changes saved successfully!')">Save Changes</button>
+                    <button class="logout" type="submit">Save Changes</button>
                 </div>
             </form>
         </div>
     </section>
+    <script>
+        async function fetchProfile() {
+            try {
+                const res = await fetch('/api/nurse/profile');
+                if (res.ok) {
+                    const data = await res.json();
+                    for (const key in data) {
+                        const el = document.getElementById(key);
+                        if (el) {
+                            el.value = (key === 'Start_Date' && data[key]) ? data[key].split('T')[0] : data[key];
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error("Error fetching profile", e);
+            }
+        }
+
+        document.getElementById('nurseProfileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = {
+                First_Name: document.getElementById('First_Name').value,
+                Last_Name: document.getElementById('Last_Name').value,
+                Email: document.getElementById('Email').value,
+                Phone: document.getElementById('Phone').value,
+                Street: document.getElementById('Street').value,
+                City: document.getElementById('City').value,
+                State: document.getElementById('State').value,
+                Zip_Code: document.getElementById('Zip_Code').value,
+            };
+            const res = await fetch('/api/nurse/profile', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            if (res.ok) alert('Profile changes saved successfully!');
+        });
+
+        fetchProfile();
+    </script>
 </body>
 </html>
