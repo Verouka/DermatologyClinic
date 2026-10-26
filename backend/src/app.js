@@ -1,15 +1,25 @@
+import { handleReceptionistRoutes } from "./routes/receptionistRoutes.js";
+import { handleAuthRoutes } from "./routes/authenticationRoute.js";
 
-import pool from "./database.js";
+const allowedOrigins = [
+    "http://localhost:5500",
+    "http://127.0.0.1:5500"
+];
 
-const sendJSON = (res, statusCode, data) => {
-    res.writeHead(statusCode, {
+const sendJSON = (res, statusCode, data, origin) => {
+    const headers = {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "http://localhost:5500",
-        "Access-Control-Allow-Credentials": "true",
         "Access-Control-Allow-Methods": "GET, POST, PATCH, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type"
-    });
+    };
 
+    if (allowedOrigins.includes(origin)) {
+        headers["Access-Control-Allow-Origin"] = origin;
+        headers["Access-Control-Allow-Credentials"] = "true";
+        headers["Vary"] = "Origin";
+    }
+
+    res.writeHead(statusCode, headers);
     res.end(JSON.stringify(data));
 };
 
@@ -33,103 +43,100 @@ const readBody = (req) =>
     });
 
 const app = async (req, res) => {
+    console.log("Incoming request:", req.method, req.url);
+    const origin = req.headers.origin;
+
+    // Add CORS headers to authentication responses too
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader("Access-Control-Allow-Origin", origin);
+        res.setHeader("Access-Control-Allow-Credentials", "true");
+        res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, OPTIONS");
+        res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+        res.setHeader("Vary", "Origin");
+    }
+
     if (req.method === "OPTIONS") {
-        res.writeHead(204, {
-            "Access-Control-Allow-Origin": "http://localhost:5500",
-            "Access-Control-Allow-Credentials": "true",
+        const headers = {
             "Access-Control-Allow-Methods": "GET, POST, PATCH, OPTIONS",
             "Access-Control-Allow-Headers": "Content-Type"
-        });
+        };
+
+        if (allowedOrigins.includes(origin)) {
+            headers["Access-Control-Allow-Origin"] = origin;
+            headers["Access-Control-Allow-Credentials"] = "true";
+            headers["Vary"] = "Origin";
+        }
+
+        res.writeHead(204, headers);
         return res.end();
     }
 
     const url = new URL(req.url, `http://${req.headers.host}`);
     const path = url.pathname;
 
+    // Corrected: res is supplied automatically.
+    const respond = (statusCode, data) =>
+    sendJSON(res, statusCode, data, origin);
+
+    const routeSendJSON = (response, statusCode, data) =>
+    sendJSON(response, statusCode, data, origin);
+
     try {
         if (req.method === "GET" && path === "/") {
-            res.writeHead(200, { "Content-Type": "text/plain" });
-            return res.end("Dermatology Clinic Backend is running!");
-        }
-
-        if (req.method === "GET" && path === "/api/patients") {
-            const [rows] = await pool.query(`
-                SELECT
-                    Patient_ID AS id,
-                    First_Name AS firstName,
-                    Last_Name AS lastName,
-                    BirthDate AS dob,
-                    Phone AS phone,
-                    Email AS email,
-                    CONCAT_WS(', ', Street, City, State, Zip_Code) AS address
-                FROM patient
-                ORDER BY Last_Name, First_Name
-            `);
-
-            return sendJSON(res, 200, rows);
-        }
-
-        if (req.method === "POST" && path === "/api/patients") {
-            const body = await readBody(req);
-
-            const {
-                firstName,
-                lastName,
-                dob,
-                phone,
-                email,
-                address
-            } = body;
-
-            if (!firstName || !lastName || !dob || !phone || !email) {
-                return sendJSON(res, 400, {
-                    error: "First name, last name, date of birth, phone, and email are required."
-                });
-            }
-
-            const addressParts = (address || "")
-                .split(",")
-                .map(part => part.trim());
-
-            const [result] = await pool.execute(`
-                INSERT INTO patient
-                    (First_Name, Last_Name, Email, BirthDate, Phone,
-                     Street, City, State, Zip_Code, Date_Admitted)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE())
-            `, [
-                firstName.trim(),
-                lastName.trim(),
-                email.trim(),
-                dob,
-                phone.trim(),
-                addressParts[0] || null,
-                addressParts[1] || null,
-                addressParts[2] || null,
-                addressParts[3] || null
-            ]);
-
-            return sendJSON(res, 201, {
-                id: result.insertId,
-                firstName,
-                lastName,
-                dob,
-                phone,
-                email,
-                address: address || ""
+            res.writeHead(200, {
+                "Content-Type": "text/plain"
             });
+
+            return res.end(
+                "Dermatology Clinic Backend is running!"
+            );
         }
 
-        return sendJSON(res, 404, { error: "Endpoint not found." });
+        // Authentication routes must be registered here
+        // after confirming their exported function.
+        // Authentication routes
+        const authHandled = await handleAuthRoutes(req, res);
+        if (authHandled !== false) {
+            return;
+        }
+
+        // Receptionist routes
+        const handled = await handleReceptionistRoutes(
+            req,
+            res,
+            routeSendJSON,
+            readBody,
+            path
+        );
+
+        if (handled !== false) {
+            return handled;
+        }
+
+        return respond(404, {
+            error: "Endpoint not found."
+        });
+
     } catch (error) {
-        console.error("API error:", error.message);
+        console.error("API error:", error);
+
+        if (res.headersSent) {
+            return;
+        }
 
         if (error.code === "ER_DUP_ENTRY") {
-            return sendJSON(res, 409, {
-                error: "A patient with this email already exists."
+            return respond(409, {
+                error: "A record with that unique value already exists."
             });
         }
 
-        return sendJSON(res, 500, {
+        if (error.code === "ER_NO_REFERENCED_ROW_2") {
+            return respond(400, {
+                error: "The selected patient, doctor, or office does not exist."
+            });
+        }
+
+        return respond(500, {
             error: "The request could not be completed."
         });
     }
