@@ -1,52 +1,55 @@
 <!DOCTYPE html>
 <html>
-<head> 
-
-<title> Login Page</title>
-<link rel="stylesheet" href="LoginStyle.css">
-
+<head>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="LoginStyle.css">
 </head>
-<body>
-<form action="UserRecords.html" method="POST">
-<div class="loginbox">
+<body >
 
-    <div class="a">
-       <img src=" icons8-heart-with-pulse-40.png " alt="Clinic logo" width="35">
+<form id="loginForm">
+    <div class="loginbox">
 
-       <h1 class="h1"> Dermatology Clinic </h1> 
+        <div class="a">
+            <img src="icons8-heart-with-pulse-40.png"
+                 alt="Clinic logo" width="35">
+
+            <h1 class="h1">Dermatology Clinic</h1>
+        </div>
+
+        <div>
+            <h2 class="h2">Login</h2>
+
+            <label for="loginIdentifier">Email Address</label>
+            <input type="email"
+                   name="loginIdentifier"
+                   id="loginIdentifier"
+                   placeholder="Enter your email"
+                   required>
+        </div>
+
+        <div>
+            <label for="password">Password</label>
+            <input type="password"
+                   name="password"
+                   id="password"
+                   required>
+        </div>
+
+        <div class="log">
+            <button type="submit" class="submit">Log In</button>
+        </div>
+
+        <div class="signUp">
+            <p>Don't have an account?</p>
+            <a href="SignUp.html">Sign Up</a>
+        </div>
 
     </div>
-    <div > 
-        <h2 class="h2"> Login </h2>  
-        <label for="loginIdentifier">User ID, Email, or Username</label>
-        <input type="text" name="loginIdentifier" id="loginIdentifier" 
-        placeholder="Enter User ID, Email, or Username" required>
-    </div>
-
-    <div>
-       <label for="password">Password</label>
-       <input type="password" name="password" id="password" maxlength="15" required>
-    </div>
-
-    <div class="log">
-       <button class="submit"> Log In </button>
-    </div>
-
-    <div class="signUp"> 
-        <p> Don't have an account?</p>
-        <a href="SignUp.html"> sign up</a>
-
-    </div>
-
-</div>
 </form>
+
+<script src="./login.js"></script>
 
 
 </body>
-
-
-
-
-
 
 </html>
