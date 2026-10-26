@@ -20,23 +20,19 @@ loginForm.addEventListener("submit", async (event) => {
 
         if (response.ok) {
             if (result.role === "patient") {
-                //window.location.href = "patientDashboard.html";
-                window.location.href = "html/adminDashboard.html";
+                window.location.href = "patientDashboard.html";
 
             } else if (result.role === "administrator") {
-                window.location.href = "html/adminDashboard.html";
+                window.location.href = "../../html/adminDashboard.html";
 
             } else if (result.role === "nurse") {
-                window.location.href = "html/adminDashboard.html";
-                //window.location.href = "Nurse/NurseDashboard.html";
+                window.location.href = "Nurse/NurseDashboard.html";
 
             } else if (result.role === "doctor") {
-                window.location.href = "html/adminDashboard.html";
-                //window.location.href = "Doctor/doctorDashboard.html";
+                window.location.href = "Doctor/doctorDashboard.html";
 
             } else if (result.role === "receptionist") {
-                window.location.href = "html/adminDashboard.html";
-                //window.location.href = "Receptionist/Receptionist_Dashboard.html";
+                window.location.href = "../Receptionist_Dashboard.html";
 
             } else {
                 alert("Dashboard for this role is not connected yet.");
