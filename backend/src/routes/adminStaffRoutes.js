@@ -1,8 +1,3 @@
-<<<<<<< Updated upstream
-
-
-=======
->>>>>>> Stashed changes
 import pool from "../database.js";
 import { hashPassword } from "../utils/password.js";
 import { getSession } from "../services/sessionService.js";
@@ -15,8 +10,6 @@ function sendJSON(res, status, data) {
 }
 
 export async function handleAdminStaffRoutes(req, res) {
-<<<<<<< Updated upstream
-=======
     const routes = {
         "/api/admin/loadDoctors": {
             query: `
@@ -87,7 +80,6 @@ export async function handleAdminStaffRoutes(req, res) {
     }
 
     // CREATE STAFF
->>>>>>> Stashed changes
     if (req.method !== "POST" || req.url !== "/api/admin/staff") {
         return false;
     }
@@ -95,27 +87,14 @@ export async function handleAdminStaffRoutes(req, res) {
     const session = getSession(req);
 
     if (!session || session.role !== "administrator") {
-<<<<<<< Updated upstream
-        sendJSON(res, 403, { error: "Administrator access required" });
-=======
         sendJSON(res, 403, {
             error: "Administrator access required"
         });
->>>>>>> Stashed changes
         return true;
     }
 
     let body = "";
 
-<<<<<<< Updated upstream
-    for await (const chunk of req) {
-        body += chunk;
-
-        if (body.length > 10000) {
-            sendJSON(res, 413, { error: "Request too large" });
-            return true;
-        }
-=======
     try {
         for await (const chunk of req) {
             body += chunk;
@@ -134,7 +113,6 @@ export async function handleAdminStaffRoutes(req, res) {
             error: "Could not read request body"
         });
         return true;
->>>>>>> Stashed changes
     }
 
     let data;
@@ -142,21 +120,13 @@ export async function handleAdminStaffRoutes(req, res) {
     try {
         data = JSON.parse(body);
     } catch {
-<<<<<<< Updated upstream
-        sendJSON(res, 400, { error: "Invalid JSON" });
-=======
         sendJSON(res, 400, {
             error: "Invalid JSON"
         });
->>>>>>> Stashed changes
         return true;
     }
 
     const {
-<<<<<<< Updated upstream
-        role, firstName, lastName, email, password,
-        officeId, officeIds, specialtyId, nurseId
-=======
         role,
         firstName,
         lastName,
@@ -166,7 +136,6 @@ export async function handleAdminStaffRoutes(req, res) {
         officeIds,
         specialtyId,
         nurseId
->>>>>>> Stashed changes
     } = data;
 
     const validId = (value) =>
@@ -174,27 +143,15 @@ export async function handleAdminStaffRoutes(req, res) {
 
     if (
         !["doctor", "nurse", "receptionist"].includes(role) ||
-<<<<<<< Updated upstream
-        typeof firstName !== "string" || !firstName.trim() ||
-        typeof lastName !== "string" || !lastName.trim() ||
-=======
         typeof firstName !== "string" ||
         !firstName.trim() ||
         typeof lastName !== "string" ||
         !lastName.trim() ||
->>>>>>> Stashed changes
         typeof email !== "string" ||
         !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()) ||
         typeof password !== "string" ||
         password.length < 12 ||
         password.length > 128 ||
-<<<<<<< Updated upstream
-        firstName.length > 45 ||
-        lastName.length > 45 ||
-        email.trim().length > 45
-    ) {
-        sendJSON(res, 400, { error: "Invalid staff information" });
-=======
         firstName.trim().length > 45 ||
         lastName.trim().length > 45 ||
         email.trim().length > 45
@@ -202,7 +159,6 @@ export async function handleAdminStaffRoutes(req, res) {
         sendJSON(res, 400, {
             error: "Invalid staff information"
         });
->>>>>>> Stashed changes
         return true;
     }
 
@@ -216,23 +172,13 @@ export async function handleAdminStaffRoutes(req, res) {
               new Set(officeIds.map(Number)).size !== officeIds.length
             : !validId(officeId)
     ) {
-<<<<<<< Updated upstream
-        sendJSON(res, 400, { error: "Invalid staff assignments" });
-=======
         sendJSON(res, 400, {
             error: "Invalid staff assignments"
         });
->>>>>>> Stashed changes
         return true;
     }
 
     const normalizedEmail = email.trim().toLowerCase();
-<<<<<<< Updated upstream
-    const passwordHash = await hashPassword(password);
-    const connection = await pool.getConnection();
-
-    try {
-=======
 
     let passwordHash;
 
@@ -251,7 +197,6 @@ export async function handleAdminStaffRoutes(req, res) {
 
     try {
         connection = await pool.getConnection();
->>>>>>> Stashed changes
         await connection.beginTransaction();
 
         let staffId;
@@ -260,12 +205,6 @@ export async function handleAdminStaffRoutes(req, res) {
         if (role === "nurse") {
             const [result] = await connection.execute(
                 `INSERT INTO nurse
-<<<<<<< Updated upstream
-                 (First_Name, Last_Name, Email, OFFICE_Office_ID)
-                 VALUES (?, ?, ?, ?)`,
-                [firstName.trim(), lastName.trim(),
-                 normalizedEmail, Number(officeId)]
-=======
                     (First_Name, Last_Name, Email, OFFICE_Office_ID)
                  VALUES (?, ?, ?, ?)`,
                 [
@@ -274,7 +213,6 @@ export async function handleAdminStaffRoutes(req, res) {
                     normalizedEmail,
                     Number(officeId)
                 ]
->>>>>>> Stashed changes
             );
 
             staffId = result.insertId;
@@ -283,12 +221,6 @@ export async function handleAdminStaffRoutes(req, res) {
         } else if (role === "receptionist") {
             const [result] = await connection.execute(
                 `INSERT INTO receptionist
-<<<<<<< Updated upstream
-                 (First_Name, Last_Name, Email, OFFICE_Office_ID)
-                 VALUES (?, ?, ?, ?)`,
-                [firstName.trim(), lastName.trim(),
-                 normalizedEmail, Number(officeId)]
-=======
                     (First_Name, Last_Name, Email, OFFICE_Office_ID)
                  VALUES (?, ?, ?, ?)`,
                 [
@@ -297,7 +229,6 @@ export async function handleAdminStaffRoutes(req, res) {
                     normalizedEmail,
                     Number(officeId)
                 ]
->>>>>>> Stashed changes
             );
 
             staffId = result.insertId;
@@ -306,13 +237,6 @@ export async function handleAdminStaffRoutes(req, res) {
         } else {
             const [result] = await connection.execute(
                 `INSERT INTO doctor
-<<<<<<< Updated upstream
-                 (First_Name, Last_Name, Email,
-                  SPECIALTY_Specialty_ID, NURSE_Nurse_ID)
-                 VALUES (?, ?, ?, ?, ?)`,
-                [firstName.trim(), lastName.trim(),
-                 normalizedEmail, Number(specialtyId), Number(nurseId)]
-=======
                     (
                         First_Name,
                         Last_Name,
@@ -328,25 +252,15 @@ export async function handleAdminStaffRoutes(req, res) {
                     Number(specialtyId),
                     Number(nurseId)
                 ]
->>>>>>> Stashed changes
             );
 
             staffId = result.insertId;
             foreignKeyColumn = "DOCTOR_Doctor_ID";
 
-<<<<<<< Updated upstream
-            // Insert each assigned office into the junction table.
-            // Confirm its exact column names before enabling this block.
-            for (const assignedOfficeId of officeIds) {
-                await connection.execute(
-                    `INSERT INTO office_has_doctor
-                     (OFFICE_Office_ID, DOCTOR_Doctor_ID)
-=======
             for (const assignedOfficeId of officeIds) {
                 await connection.execute(
                     `INSERT INTO office_has_doctor
                         (OFFICE_Office_ID, DOCTOR_Doctor_ID)
->>>>>>> Stashed changes
                      VALUES (?, ?)`,
                     [Number(assignedOfficeId), staffId]
                 );
@@ -355,11 +269,7 @@ export async function handleAdminStaffRoutes(req, res) {
 
         await connection.execute(
             `INSERT INTO usercredential
-<<<<<<< Updated upstream
-             (Email, Password_hash, role, ${foreignKeyColumn})
-=======
                 (Email, Password_hash, role, ${foreignKeyColumn})
->>>>>>> Stashed changes
              VALUES (?, ?, ?, ?)`,
             [normalizedEmail, passwordHash, role, staffId]
         );
@@ -373,9 +283,6 @@ export async function handleAdminStaffRoutes(req, res) {
         });
 
     } catch (error) {
-<<<<<<< Updated upstream
-        await connection.rollback();
-=======
         if (connection) {
             try {
                 await connection.rollback();
@@ -384,7 +291,6 @@ export async function handleAdminStaffRoutes(req, res) {
             }
         }
 
->>>>>>> Stashed changes
         console.error("Staff creation error:", error);
 
         sendJSON(res, error.code === "ER_DUP_ENTRY" ? 409 : 500, {
@@ -394,13 +300,6 @@ export async function handleAdminStaffRoutes(req, res) {
         });
 
     } finally {
-<<<<<<< Updated upstream
-        connection.release();
-    }
-
-    return true;
-}
-=======
         if (connection) {
             connection.release();
         }
@@ -408,4 +307,3 @@ export async function handleAdminStaffRoutes(req, res) {
 
     return true;
 }
->>>>>>> Stashed changes
