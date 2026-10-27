@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../../securityrole.js" data-role="administrator"></script>
+    <title>Reports</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="brand">
+            <i class="ri-heart-pulse-line"></i>
+            <h1>Dermatology Clinic</h1>
+        </div>
+        <div class="header-right">
+            <a href="doctorProfile.html">
+                <i class="ri-user-line"></i>
+                Admin Dashboard
+            </a>
+
+            <button class="logout" type="button" >
+                Log Out
+            </button>
+        </div>
+
+    </header>
+    <section class="main">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+             <nav class="sidebar--items">
+
+                <a href="adminDashboard.html">
+                    <i class="ri-layout-grid-line"></i> Dashboard
+                </a>
+
+                <a href="adminProfile.html">
+                    <i class="ri-user-line"></i> My Profile
+                </a>
+
+                <a href="adminStaff.html">
+                    <i class="ri-group-line"></i> Manage Staff
+                </a>
+
+                <a href="adminAppointments.html">
+                    <i class="ri-calendar-line"></i> Appointments
+                </a>
+
+                <a href="adminBilling.html">
+                    <i class="ri-bill-line"></i> Billing & Payments
+                </a>
+
+                <a href="adminReport.html" class="active--link">
+                    <i class="ri-folder-chart-line"></i> Reports
+                </a>
+
+                <a href="adminClinicInfo.html">
+                    <i class="ri-hospital-line"></i> Clinic Information
+                </a>
+                
+            </nav>
+
+            <nav class="sidebar--bottom-items">
+                <a href="settings.html">
+                    <i class="ri-settings-3-line"></i> Settings
+                </a>
+            </nav>
+
+        </aside>
+        
+        <div class="mainContent">
+        <div class="overview">
+
+
+        <h2 class="maintitle">Reports</h2>
+        <p>Generate a report.</p>
+            
+
+        <div class="profileCard">
+            <div class="profileHeader">
+                <i class="ri-file-chart-line"></i>
+                <h3>Report Generator</h3>
+            </div>
+
+            <div class="profileData">
+
+                <div class="profileField">
+                    <label for="FirstName">Office</label>
+                    <input type="text" id="FirstName" name="FirstName" maxlength="45" readonly>
+                </div>
+
+                <div class="profileField">
+                    <label for="patientID">Patient ID</label>
+                    <input type="text" id="patientID" name="patientID" readonly>
+                </div>
+                
+                <div class="profileField">
+                    <label for="patientID">Doctor ID</label>
+                    <input type="text" id="patientID" name="patientID" readonly>
+                </div>
+                
+                <div class="profileField">
+                    <label for="patientID">Nurse ID</label>
+                    <input type="text" id="patientID" name="patientID" readonly>
+                </div>
+
+                <div class="profileField">
+                    <label for="dateOfBirth">Start Date</label>
+                    <input type="date" id="dateOfBirth" name="dateOfBirth" readonly>
+                </div>
+
+                <div class="profileField">
+                    <label for="dateOfBirth">End Date</label>
+                    <input type="date" id="dateOfBirth" name="dateOfBirth" readonly>
+                </div>
+
+            </div>
+
+        </div>
+
+        </div>
+        <div class="profileActions">
+            <button type="button" class="editBtn">Generate</button>
+        </div>
+        </div>
+
+
+
+
+
+
+
+
+    </section>
+
+     <script src="../../logout.js"></script>
+
+</body>
+</html>

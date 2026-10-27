@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../securityrole.js" data-role="nurse"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nurse Settings</title>
+    <link rel="stylesheet" href="NurseDashBoard.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <section class="header"> 
+        <div class="a">
+           <img src="../icons8-heart-with-pulse-40.png" alt="Clinic logo" width="35">
+           <h1 class="h1">Dermatology Clinic</h1>
+        </div> 
+        <div class="notification--profile">
+            <div class="picon bell">
+                <i class="ri-notification-2-line"></i>
+            </div>
+            <div class="picon profile">
+                <img class="img" src="../account.png" alt="Nurse Profile">
+            </div>
+            <button class="logout" type="button" >Log Out</button>
+        </div>
+    </section>
+
+    <section class="main">
+        <div class="sidebar"> 
+            <ul class="sidebar--items">
+                <li>
+                    <a href="NurseDashBoard.html" >
+                        <span class="icon">
+                            <i class="ri-layout-grid-line"></i>
+                        </span>
+                        <span class="sidebar--item">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="NurseAppointments.html">
+                        <span class="icon"><i class="ri-calendar-2-line"></i>
+                        </span>
+                        <span class="sidebar--item">Appointments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="NursePatients.html">
+                        <span class="icon"><i class="ri-file-list-3-line"></i>
+                        </span>
+                        <span class="sidebar--item">Patient Intake Records</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="NurseSchedule.html">
+                        <span class="icon"><i class="ri-bank-card-line"></i>
+                        </span>
+                        <span class="sidebar--item">My Schedule</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="NurseProfile.html">
+                        <span class="icon"><i class="ri-user-line"></i>
+                        </span>
+                        <span class="sidebar--item">Profile</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="sidebar--bottom-items">
+                <li>
+                    <a href="NurseSettings.html" class="active--link">
+                        <span class="icon">
+                            <i class="ri-settings-3-line"></i>
+                        </span>
+                        <span class="sidebar--item">Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="mainContent">
+            <div class="title">
+                <h2 class="maintitle"><i class="ri-settings-3-line"></i> Account Settings</h2>
+                <p>Configure dashboard preferences and application settings.</p>
+            </div>
+
+            <div style="max-width: 600px; margin-top: 20px; display: flex; flex-direction: column; gap: 20px;">
+                <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #ddd;">
+                    <h3 style="color: rgb(2, 2, 85);">Notifications</h3>
+                    <label style="display: block; margin-top: 10px;">
+                        <input type="checkbox" checked> Email notifications for patient check-ins
+                    </label>
+                    <label style="display: block; margin-top: 10px;">
+                        <input type="checkbox" checked> SMS alerts for urgent schedule changes
+                    </label>
+                </div>
+
+                <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #ddd;">
+                    <h3 style="color: rgb(2, 2, 85);">Security</h3>
+                    <button class="logout" type="button" style="margin-top: 10px;" onclick="alert('Password reset link sent to your email.')">Change Password</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <script src="../logout.js"></script>
+</body>
+</html>

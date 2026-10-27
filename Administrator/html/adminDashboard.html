@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../../securityrole.js" data-role="administrator"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="../css/admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="brand">
+            <i class="ri-heart-pulse-line"></i>
+            <h1>Dermatology Clinic</h1>
+        </div>
+
+        <div class="header-right">
+            <a href="adminDashboard.html">
+                <i class="ri-user-line"></i>
+                Admin Dashboard
+            </a>
+
+            <button class="logout" type="button">
+                Log Out
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN LAYOUT -->
+    <div class="main">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <nav class="sidebar--items">
+
+                <a href="adminDashboard.html" class="active--link">
+                    <i class="ri-layout-grid-line"></i> Dashboard
+                </a>
+
+                <a href="adminProfile.html">
+                    <i class="ri-user-line"></i> My Profile
+                </a>
+
+                <a href="adminStaff.html">
+                    <i class="ri-group-line"></i> Manage Staff
+                </a>
+
+                <a href="adminAppointments.html">
+                    <i class="ri-calendar-line"></i> Appointments
+                </a>
+
+                <a href="adminBilling.html">
+                    <i class="ri-bill-line"></i> Billing & Payments
+                </a>
+
+                <a href="adminClinicInfo.html">
+                    <i class="ri-hospital-line"></i> Clinic Information
+                </a>
+
+            </nav>
+
+            <nav class="sidebar--bottom-items">
+                <a href="settings.html">
+                    <i class="ri-settings-3-line"></i> Settings
+                </a>
+            </nav>
+        </aside>
+
+        <!-- DASHBOARD CONTENT -->
+        <main class="mainContent">
+
+            <h2 class="maintitle">Administrator Dashboard</h2>
+
+            <p>
+                Manage people, appointments, finances, and gather reports.
+            </p>
+
+            <!-- OVERVIEW CARDS -->
+            <section class="cards">
+
+                <div class="card">
+                    <div class="cardData">
+                        <div>
+                            <h3>Total Patients</h3>
+                            <p id="totalPatients">Loading...</p>
+                        </div>
+                        <i class="ri-group-line card--icon"></i>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="cardData">
+                        <div>
+                            <h3>Total Doctors</h3>
+                            <p id="totalDoctors">Loading...</p>
+                        </div>
+                        <i class="ri-stethoscope-line card--icon"></i>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="cardData">
+                        <div>
+                            <h3>Total Nurses</h3>
+                            <p id="totalNurses">Loading...</p>
+                        </div>
+                        <i class="ri-nurse-line card--icon"></i>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="cardData">
+                        <div>
+                            <h3>Total Revenue</h3>
+                            <p id="totalRevenue">Loading...</p>
+                        </div>
+                        <i class="ri-money-dollar-box-line card--icon"></i>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ADDITIONAL DASHBOARD CONTENT CAN GO HERE -->
+
+        </main>
+
+    </div>
+
+    <script src="../../logout.js"></script>
+    <script src="../js/adminDashboard.js" defer></script>
+
+</body>
+</html>

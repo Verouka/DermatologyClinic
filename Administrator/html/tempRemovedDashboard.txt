@@ -1,0 +1,159 @@
+<!-- REFERRALS -->
+            <section class="panel" id="referrals">
+
+                <h2>Referrals</h2>
+
+                <p class="notice">
+                    Patients need approval from their primary doctor
+                    before scheduling a specialist appointment.
+                </p>
+
+
+                <!-- Pending Referrals -->
+                <h3>Pending Referrals</h3>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Patient</th>
+                                <th>Specialist</th>
+                                <th>Reason</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <!-- Pending referral records -->
+                            <tr>
+                                <td colspan="5" class="empty">
+                                    No records loaded.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <!-- Approved Referrals -->
+                <h3>Approved Referrals</h3>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Patient</th>
+                                <th>Specialist</th>
+                                <th>Reason</th>
+                                <th>Approval Date</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <!-- Approved referral records -->
+                            <tr>
+                                <td colspan="4" class="empty">
+                                    No records loaded.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <!-- Canceled Referrals -->
+                <h3>Canceled Referrals</h3>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Patient</th>
+                                <th>Specialist</th>
+                                <th>Reason</th>
+                                <th>Referral Date</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <!-- Canceled referral records -->
+                            <tr>
+                                <td colspan="4" class="empty">
+                                    No records loaded.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+
+            <!-- MY PATIENTS -->
+            <section class="panel" id="patients">
+
+                <h2>My Patients</h2>
+
+                <p>
+                    View assigned patients, the reason
+                    for their visit, diagnosis, and
+                    recommended treatment.
+                </p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Patient ID</th>
+                                <th>Patient Name</th>
+                                <th>Reason for Visit</th>
+                                <th>Diagnosis</th>
+                                <th>Recommended Treatment</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <!-- Patient records -->
+                            <tr>
+                                <td colspan="6" class="empty">
+                                    No patient records loaded.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+
+            <!-- APPOINTMENTS -->
+            <section class="panel" id="appointments">
+
+                <h2>Upcoming Appointments</h2>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Appointment ID</th>
+                                <th>Patient</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <!-- Appointment records -->
+                            <tr>
+                                <td colspan="5" class="empty">
+                                    No appointments loaded.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>

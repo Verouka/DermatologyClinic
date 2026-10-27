@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="./securityrole.js" data-role="patient"></script>
     <title>My Appointments</title>
     <link rel="stylesheet" href="patientAppointment.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
@@ -20,7 +21,7 @@
                 <img class="img" src="account.png" alt="">
                 
             </div>
-            <button class="logout" type="button" onclick="window.location.href='LoginPage.html'">
+            <button class="logout" type="button" >
                      Log Out
             </button>
 
@@ -101,7 +102,7 @@
             <div class="upcomingAppointments">
                 <h3>Upcoming Appointments</h3>
 
-                <a href="AppointmentForm.html" class="requestBtn">
+                <a href="PatientAppointmentForm.html" class="requestBtn">
                    <i class="ri-add-line"></i>
                       Request Appointment
                 </a>
@@ -121,20 +122,17 @@
                         </tr>
                     </thead>
 
-                    <tbody>
-                          <td>10/22/2026</td>
-                            <td>10:30</td>
-                            <td>Dr.tiffany Anderson</td>
-                            <td>Eczema</td>
-                            <td>Cypress</td>
-                            <td>Pending</td>
-                            <td>Cancel</td>
+                    <tbody id="upcomingAppointmentsBody">
+                         <tr>
+                            <td colspan="7">No upcoming appointments found.</td>
+                         </tr>
+                            
                     </tbody>
                 </table>
             </div>
 
             <div class="pastAppointments">
-                <h3>Past Appointments</h3>
+                <h3>Appointment History</h3>
 
                 <table>
                     <thead>
@@ -148,15 +146,10 @@
                         </tr>
                     </thead>
 
-                    <tbody>
+                    <tbody id="pastAppointmentsBody">
                         <tr>
-                            <td>06/15/2026</td>
-                            <td>10:30</td>
-                            <td>Dr.tiffany Anderson</td>
-                            <td>Eczema</td>
-                            <td>Cypress</td>
-                            <td>Approve</td>
                             
+                            <td colspan="6">No past appointments found.</td>
 
                         </tr>
                         
@@ -170,6 +163,9 @@
 
 
     </section>
+
+     <script src="../logout.js"></script>
+     <script src="./patientAppointment.js"></script>
 
 </body>
 </html>

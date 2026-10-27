@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <a href="PatientAppointmentForm.html" class="requestBtn"></a>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="./securityrole.js" data-role="patient"></script>
+
+    <title>Request Appointment - Dermatology Clinic</title>
+
+    <link rel="stylesheet" href="./AppointmentForm.css">
+</head>
+
+<body>
+
+<form id="appointmentForm">
+
+    <div class="AppointmentForm">
+
+        <div class="a">
+            <img src="icons8-heart-with-pulse-40.png"
+                 alt="Clinic logo"
+                 width="35">
+
+            <h1 class="h1">Dermatology Clinic</h1>
+        </div>
+
+        <h2 class="h2">Request Appointment</h2>
+
+        <p class="description">
+            Select your preferred doctor, office, date, and time.
+            Our receptionist will review your request.
+        </p>
+
+        <div>
+
+            <label for="FirstName">First Name</label>
+            <input
+                type="text"
+                id="FirstName"
+                name="FirstName"
+                maxlength="45"
+                readonly
+                required
+            >
+
+            <label for="LastName">Last Name</label>
+            <input
+                type="text"
+                id="LastName"
+                name="LastName"
+                maxlength="45"
+                readonly
+                required
+            >
+
+            <label for="email">Email Address</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                readonly
+                required
+            >
+
+            <label for="phone">Phone Number</label>
+            <input
+                type="tel"
+                id="phone"
+                name="phone"
+                readonly
+                required
+            >
+
+            <label for="office">Select Office</label>
+            <select id="office" name="office" required>
+                <option value="">Select an office</option>
+            </select>
+
+            <label for="doctor">Select Doctor</label>
+            <select id="doctor" name="doctor" required disabled>
+                <option value="">Select an office first</option>
+            </select>
+
+            <label for="appointmentDate">
+                Preferred Appointment Date
+            </label>
+            <input
+                type="date"
+                id="appointmentDate"
+                name="appointmentDate"
+                required
+            >
+
+            <label for="appointmentTime">
+                Preferred Appointment Time
+            </label>
+            <input
+                type="time"
+                id="appointmentTime"
+                name="appointmentTime"
+                required
+            >
+
+            <label for="reason">Reason for Visit</label>
+            <input
+                type="text"
+                id="reason"
+                name="reason"
+                maxlength="250"
+                placeholder="Example: Acne consultation"
+                required
+            >
+
+            <label for="message">
+                Additional Message (optional)
+            </label>
+            <textarea
+                id="message"
+                name="message"
+                rows="5"
+                placeholder="Enter any additional information"
+            ></textarea>
+
+        </div>
+
+        <div class="checkbox">
+            <input
+                type="checkbox"
+                id="contactAgreement"
+                required
+            >
+
+            <label for="contactAgreement">
+                I agree to be contacted regarding my
+                appointment request.
+            </label>
+        </div>
+
+        <div>
+            <button class="submit" type="submit">
+                Submit Request
+            </button>
+        </div>
+
+        <a href="patientAppointment.html">
+            Back to My Appointments
+        </a>
+
+    </div>
+
+</form>
+
+<script src="./appointmentForm.js"></script>
+
+</body>
+</html>

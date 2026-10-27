@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../../securityrole.js" data-role="administrator"></script>
+    <title>Appointments</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="brand">
+            <i class="ri-heart-pulse-line"></i>
+            <h1>Dermatology Clinic</h1>
+        </div>
+        <div class="header-right">
+            <a href="doctorProfile.html">
+                <i class="ri-user-line"></i>
+                Admin Dashboard
+            </a>
+
+            <button class="logout" type="button" >
+                Log Out
+            </button>
+        </div>
+
+    </header>
+    <section class="main">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+             <nav class="sidebar--items">
+
+                <a href="adminDashboard.html">
+                    <i class="ri-layout-grid-line"></i> Dashboard
+                </a>
+
+                <a href="adminProfile.html">
+                    <i class="ri-user-line"></i> My Profile
+                </a>
+
+                <a href="adminStaff.html">
+                    <i class="ri-group-line"></i> Manage Staff
+                </a>
+
+                <a href="adminAppointments.html" class="active--link">
+                    <i class="ri-calendar-line"></i> Appointments
+                </a>
+
+                <a href="adminBilling.html">
+                    <i class="ri-bill-line"></i> Billing & Payments
+                </a>
+
+                <a href="adminClinicInfo.html">
+                    <i class="ri-hospital-line"></i> Clinic Information
+                </a>
+                
+            </nav>
+
+            <nav class="sidebar--bottom-items">
+                <a href="settings.html">
+                    <i class="ri-settings-3-line"></i> Settings
+                </a>
+            </nav>
+
+        </aside>
+
+        <div class="mainContent">
+        <div class="overview">
+            <h2 class="maintitle">Appointments</h2>
+            <p>View and manage appointments.</p>
+
+        
+        <div class="appointments">
+
+            <div class="upcomingAppointments">
+                <h3>Upcoming Appointments</h3>
+            </div>
+
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Doctor Name</th>
+                            <th>Office ID</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="upcomingAppointmentsBody">
+                        <tr>
+                            <td colspan="5">Loading appointments...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pastAppointments">
+                <h3>Past Appointments</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Doctor Name</th>
+                            <th>Office ID</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pastAppointmentsBody">
+                        <tr>
+                            <td colspan="5">Loading appointments...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+    </section>
+
+     <script src="../../logout.js"></script>
+     <script src="../js/adminAppointments.js" defer></script>
+
+</body>
+</html>

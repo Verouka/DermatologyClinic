@@ -1,0 +1,91 @@
+
+
+.settingsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    margin-top: 30px;
+    max-width: 850px;
+}
+
+.settingsCard {
+    background: white;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    padding: 25px;
+}
+
+.settingsCard h3 {
+    color: #000b5c;
+    font-size: 19px;
+    margin: 0 0 10px;
+}
+
+.settingsCard h3 i {
+    margin-right: 8px;
+}
+
+.settingsCard > p,
+.settingsCard form > p {
+    color: #777777;
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+.settingsCard label:not(.checkboxSetting) {
+    display: block;
+    font-weight: 600;
+    color: #000b5c;
+    margin: 15px 0 7px;
+}
+
+.settingsCard input[type="email"],
+.settingsCard input[type="password"] {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px;
+    border: 1px solid #cccccc;
+    border-radius: 7px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.settingsCard input[readonly] {
+    background-color: #f5f5f5;
+}
+
+.saveSettingsBtn {
+    display: block;
+    background-color: #000b5c;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    padding: 12px 22px;
+    margin-top: 20px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.saveSettingsBtn:hover {
+    background-color: #172b80;
+}
+
+.checkboxSetting {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+    cursor: pointer;
+}
+
+.checkboxSetting input {
+    accent-color: #91d9c4;
+    width: 17px;
+    height: 17px;
+}
+
+#passwordMessage,
+#notificationMessage {
+    margin-top: 12px;
+    font-size: 14px;
+}

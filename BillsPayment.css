@@ -209,3 +209,141 @@ a{
     padding: 15px;
     border-bottom: 1px solid lightgray;
 }
+
+
+/* Pay Now Button */
+
+.payNowBtn {
+    background-color: rgb(148, 219, 195);
+    color: rgb(2, 2, 85);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.payNowBtn:hover {
+    background-color: rgb(115, 202, 174);
+}
+
+
+/* Make a Payment Form */
+
+#paymentFormContainer[hidden] {
+    display: none;
+}
+
+#paymentFormContainer {
+    background-color: rgb(230, 247, 241);
+    border: 1px solid lightgray;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+#paymentFormContainer h3 {
+    color: rgb(2, 2, 85);
+    margin-bottom: 15px;
+}
+
+#selectedBillInfo {
+    color: rgb(2, 2, 85);
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+#paymentForm {
+    max-width: 500px;
+}
+
+#paymentForm > div {
+    margin-bottom: 18px;
+}
+
+#paymentForm label {
+    display: block;
+    color: rgb(2, 2, 85);
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+#paymentAmount,
+#paymentMethod {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    background-color: white;
+    font-size: 15px;
+}
+
+#paymentAmount:focus,
+#paymentMethod:focus {
+    outline: 2px solid rgb(148, 219, 195);
+    border-color: rgb(148, 219, 195);
+}
+
+.paymentActions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+#submitPaymentBtn {
+    background-color: rgb(2, 2, 85);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#submitPaymentBtn:hover {
+    opacity: 0.85;
+}
+
+#submitPaymentBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#cancelPaymentBtn {
+    background-color: white;
+    color: rgb(2, 2, 85);
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    padding: 12px 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#cancelPaymentBtn:hover {
+    background-color: #f1f1f1;
+}
+
+#paymentMessage {
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+/* Billing Page Responsive Layout */
+
+@media (max-width: 900px) {
+    .billingSummary {
+        grid-template-columns: 1fr;
+    }
+
+    .billingSection {
+        overflow-x: auto;
+    }
+
+    .billingSection table {
+        min-width: 650px;
+    }
+}
