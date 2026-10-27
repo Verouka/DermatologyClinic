@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../../securityrole.js" data-role="administrator"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Clinic Info</title>
+
+    <link rel="stylesheet" href="../css/admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="brand">
+            <i class="ri-heart-pulse-line"></i>
+            <h1>Dermatology Clinic</h1>
+        </div>
+
+        <div class="header-right">
+            <a href="adminDashboard.html">
+                <i class="ri-layout-grid-line"></i> Dashboard
+            </a>
+
+            <button class="logout" type="button" >
+                Log Out
+            </button>
+        </div>
+
+    </header>
+
+
+    <div class="main">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <nav class="sidebar--items">
+
+                <a href="adminDashboard.html">
+                    <i class="ri-layout-grid-line"></i> Dashboard
+                </a>
+
+                <a href="adminProfile.html">
+                    <i class="ri-user-line"></i> My Profile
+                </a>
+
+                <a href="adminStaff.html">
+                    <i class="ri-group-line"></i> Manage Staff
+                </a>
+
+                <a href="adminAppointments.html">
+                    <i class="ri-calendar-line"></i> Appointments
+                </a>
+
+                <a href="adminBilling.html">
+                    <i class="ri-bill-line"></i> Billing & Payments
+                </a>
+
+                <a href="adminReport.html">
+                    <i class="ri-folder-chart-line"></i> Reports
+                </a>
+
+                <a href="adminClinicInfo.html" class="active--link">
+                    <i class="ri-hospital-line"></i> Clinic Information
+                </a>
+                
+            </nav>
+
+            <nav class="sidebar--bottom-items">
+                <a href="settings.html">
+                    <i class="ri-settings-3-line"></i> Settings
+                </a>
+            </nav>
+
+        </aside>
+
+
+        <!-- PROFILE CONTENT -->
+        <main class="mainContent">
+
+            <h2 class="maintitle">Clinic Info</h2>
+
+            <p>View Clinic Info.</p>
+
+
+            <!-- PERSONAL INFORMATION -->
+            <section class="panel" id="personal">
+
+                <h2>Clinic</h2>
+
+                <div class="profile-grid">
+
+                    <div class="field">
+                        <strong>Office ID</strong>
+                        <span>—</span>
+                    </div>
+
+                    <div class="field">
+                        <strong>Phone Number</strong>
+                        <span>—</span>
+                    </div>
+
+                    <div class="field">
+                        <strong>Address</strong>
+                        <span>—</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+     <script src="../logout.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+
+
+.notificationBadge {
+    position: absolute;
+    top: -7px;
+    right: -8px;
+    background: #d92d20;
+    color: white;
+    border-radius: 20px;
+    min-width: 17px;
+    padding: 2px 5px;
+    font-size: 11px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.notificationBadge[hidden],
+.notificationPanel[hidden] {
+    display: none !important;
+}
+
+.notificationPanel {
+    position: fixed;
+    width: 350px;
+    max-width: calc(100vw - 20px);
+    max-height: 420px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+}
+
+.notificationPanelHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.notificationPanelHeader h3 {
+    margin: 0;
+    color: #000b5c;
+}
+
+.closeNotifications {
+    border: none;
+    background: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.notificationItem {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.notificationItem strong {
+    color: #000b5c;
+}
+
+.notificationItem p {
+    margin: 7px 0;
+    font-size: 13px;
+    color: #555;
+}
+
+.notificationItem small {
+    color: #888;
+}
+
+.unreadNotification {
+    background: #edf9f5;
+}
+
+.markReadBtn {
+    display: block;
+    margin-top: 10px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+    background: #94d9c4;
+    color: #00164d;
+    cursor: pointer;
+}
+
+.notificationEmpty {
+    padding: 20px;
+    color: #777;
+    text-align: center;
+}
