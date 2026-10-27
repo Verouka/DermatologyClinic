@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../securityrole.js" data-role="doctor"></script>
+    <title>Doctor Referrals</title>
+    <link rel="stylesheet" href="doctorDashboard.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="doctorDropdown.css">
+    <link rel="stylesheet" href="doctorAppointments.css">
+    <link rel="stylesheet" href="doctorReferrals.css">
+</head>
+<body>
+    <section class="header"> 
+        <div class="a">
+           <img src="../icons8-heart-with-pulse-40.png" alt="Clinic logo" width="35">
+           <h1 class="h1"> Dermatology Clinic </h1>
+        </div> 
+        <div class="notification--profile">
+            
+            <div class="picon bell">
+                <i class="ri-notification-2-line"></i>
+            </div>
+            <div class="picon profile">
+                <img class="img" src="../account.png" alt="Doctor Profile">
+                
+            </div>
+            <button class="logout" type="button" >
+                     Log Out
+            </button>
+
+            
+
+        </div>
+        
+    
+    
+    </section>
+    <section class="main">
+        <div class="sidebar"> 
+            <ul class="sidebar--items">
+                <li>
+                    <a href="doctorDashboard.html">
+                        <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
+                        <span  class="sidebar--item">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                     <a href="doctorProfile.html">
+                        <span class="icon icon-2"><i class="ri-user-line"></i></span>
+                        <span class="sidebar--item">Doctor Profile</span>
+                     </a>
+                </li>
+                <li>
+                     <a href="doctorAppointments.html">
+                        <span class="icon icon-3"><i class="ri-calendar-2-line"></i></span>
+                        <span class="sidebar--item">My Appointments</span>
+                     </a>
+                </li>
+                <li>
+                    <details class="sidebar-dropdown">
+                        <summary>
+                            <span class="icon icon-4"><i class="ri-file-list-3-line"></i></span>
+                            <span class="sidebar--item">My Patients</span>
+                            <i class="ri-arrow-down-s-line dropdown-arrow"></i>
+                        </summary>
+                        <div class="dropdown-links">
+                        <a href="doctorPatients.html#assigned-patients">Assigned Patients</a>
+                        <a href="doctorPatients.html#medical-records">Medical Records</a>
+                        <a href="doctorPatients.html#medical-history">Medical History</a>
+                        <a href="doctorPatients.html#treatments">Treatments & Prescriptions</a>
+                        </div>
+                    </details>
+                </li>
+                <li>
+                     <a href="doctorSchedule.html">
+                        <span class="icon icon-5"><i class="ri-calendar-schedule-line"></i></span>
+                        <span class="sidebar--item">My Schedule</span>
+                     </a>
+                </li>
+                <li>
+                    <details class="sidebar-dropdown" open>
+                        <summary>
+                            <span class="icon icon-5"><i class="ri-file-list-3-line"></i></span>
+                            <span class="sidebar--item">Referrals</span>
+                            <i class="ri-arrow-down-s-line dropdown-arrow"></i>
+                        </summary>
+                        <div class="dropdown-links">
+                        <a href="doctorReferrals.html#pending-referrals">Pending</a>
+                        <a href="doctorReferrals.html#approved-referrals">Approved</a>
+                        <a href="doctorReferrals.html#denied-referrals">Denied</a>
+                        <a href="doctorReferrals.html#canceled-referrals">Canceled</a>
+                        </div>
+                    </details>
+                </li>
+
+
+            </ul>
+
+
+            <ul class="sidebar--bottom-items">
+                <li>
+                     <a href="settings.html">
+                        <span class="icon icon-6"><i class="ri-settings-3-line"></i></span>
+                        <span class="sidebar--item">Settings</span>
+                     </a>
+                </li>
+              
+            </ul>
+
+                
+
+
+
+    
+        
+        
+        </div>
+
+        <div class="mainContent">
+            <div class="overview">
+
+                <div class="title">
+                    <h2 class="maintitle">Referrals</h2>
+                    <p>Review specialist referrals and their approval status. Approval buttons will work after backend integration.</p>
+                </div>
+
+                <div class="appointments referrals">
+
+                    <!-- PENDING REFERRALS -->
+                    <div class="upcomingAppointments" id="pending-referrals">
+                        <h3>Pending Referrals</h3>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Referral ID</th>
+                                    <th>Patient</th>
+                                    <th>Specialist</th>
+                                    <th>Reason</th>
+                                    <th>Referral Date</th>
+                                    <th>Approval Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pendingReferralRows">
+                                <tr class="empty-referral-row">
+                                    <td colspan="7" class="empty">No pending referrals loaded.</td>
+                                    <td class="referralActions">
+                                        <button class="approveBtn" type="button" disabled>Approve</button>
+                                        <button class="denyBtn" type="button" disabled>Deny</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- APPROVED REFERRALS -->
+                    <div class="pastAppointments" id="approved-referrals">
+                        <h3>Approved Referrals</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr><th>Referral ID</th><th>Patient</th><th>Specialist</th><th>Reason</th><th>Referral Date</th><th>Approval Date</th><th>Status</th><th>Action</th></tr>
+                                </thead>
+                                <tbody id="approvedReferralRows">
+                                    <tr class="empty-referral-row"><td colspan="8" class="empty">No approved referrals loaded.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- DENIED REFERRALS -->
+                    <div class="pastAppointments" id="denied-referrals">
+                        <h3>Denied Referrals</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr><th>Referral ID</th><th>Patient</th><th>Specialist</th><th>Reason</th><th>Referral Date</th><th>Approval Date</th><th>Status</th><th>Action</th></tr>
+                                </thead>
+                                <tbody id="deniedReferralRows">
+                                    <tr class="empty-referral-row"><td colspan="8" class="empty">No denied referrals loaded.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- CANCELED REFERRALS -->
+                    <div class="pastAppointments" id="canceled-referrals">
+                        <h3>Canceled Referrals</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr><th>Referral ID</th><th>Patient</th><th>Specialist</th><th>Reason</th><th>Referral Date</th><th>Approval Date</th><th>Status</th><th>Action</th></tr>
+                                </thead>
+                                <tbody id="canceledReferralRows">
+                                    <tr class="empty-referral-row"><td colspan="8" class="empty">No canceled referrals loaded.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <script src="../logout.js"></script>
+
+</body>
+</html>

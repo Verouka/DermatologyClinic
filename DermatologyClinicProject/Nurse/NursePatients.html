@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nurse Patient Intake - Dermatology Clinic</title>
+
+    <script src="../securityrole.js" data-role="nurse"></script>
+
+    <link rel="stylesheet" href="./NurseDashBoard.css">
+
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+        rel="stylesheet"
+    >
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <section class="header">
+        <div class="a">
+            <img
+                src="../icons8-heart-with-pulse-40.png"
+                alt="Clinic Logo"
+                width="35"
+            >
+            <h1 class="h1">Dermatology Clinic</h1>
+        </div>
+
+        <div class="notification--profile">
+            <div class="picon bell">
+                <i class="ri-notification-2-line"></i>
+            </div>
+
+            <div class="picon profile">
+                <a href="NurseProfile.html">
+                    <img
+                        class="img"
+                        src="../account.png"
+                        alt="Nurse Profile"
+                    >
+                </a>
+            </div>
+
+            <button class="logout" type="button">
+                Log Out
+            </button>
+        </div>
+    </section>
+
+    <!-- MAIN LAYOUT -->
+    <section class="main">
+
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <ul class="sidebar--items">
+
+                <li>
+                    <a href="NurseDashBoard.html">
+                        <span class="icon">
+                            <i class="ri-layout-grid-line"></i>
+                        </span>
+                        <span class="sidebar--item">
+                            Dashboard
+                        </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="NurseAppointments.html">
+                        <span class="icon">
+                            <i class="ri-calendar-2-line"></i>
+                        </span>
+                        <span class="sidebar--item">
+                            Appointments
+                        </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="NursePatients.html" class="active--link">
+                        <span class="icon">
+                            <i class="ri-file-list-3-line"></i>
+                        </span>
+                        <span class="sidebar--item">
+                            Patient Intake Records
+                        </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="NurseSchedule.html">
+                        <span class="icon">
+                            <i class="ri-calendar-check-line"></i>
+
+                        </span>
+                        <span class="sidebar--item">
+                            My Schedule
+                        </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="NurseProfile.html">
+                        <span class="icon">
+                            <i class="ri-user-line"></i>
+                        </span>
+                        <span class="sidebar--item">
+                            Profile
+                        </span>
+                    </a>
+                </li>
+
+            </ul>
+
+            <ul class="sidebar--bottom-items">
+                <li>
+                    <a href="NurseSettings.html">
+                        <span class="icon">
+                            <i class="ri-settings-3-line"></i>
+                        </span>
+                        <span class="sidebar--item">
+                            Settings
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="mainContent">
+
+            <div class="patient-selector-section">
+                <h3 class="maintitle">
+                    Active Patient Triage
+                </h3>
+
+                <label for="patientSelect">
+                    Select Patient to Manage:
+                </label>
+
+                <select id="patientSelect">
+                    <option value="">
+                        Loading patients...
+                    </option>
+                </select>
+            </div>
+
+            <p
+                id="intakeMessage"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+            <div class="records-container">
+
+                <!-- ALLERGIES -->
+
+                <div class="record-section">
+
+                    <h3 class="maintitle">
+                        <i class="ri-capsule-line"></i>
+                        Patient Allergies
+                    </h3>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Allergy ID</th>
+                                <th>Allergy Name</th>
+                                <th>Time Occurred</th>
+                                <th>Notes</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="allergyTableBody">
+                            <tr>
+                                <td colspan="5">
+                                    Loading allergies...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <form id="addAllergyForm">
+
+                        <input
+                            type="text"
+                            name="Allergy_Name"
+                            placeholder="Allergy Name"
+                            maxlength="100"
+                            required
+                        >
+
+                        <input
+                            type="datetime-local"
+                            name="Time_Occurred"
+                        >
+
+                        <input
+                            type="text"
+                            name="Notes"
+                            placeholder="Notes"
+                            maxlength="250"
+                        >
+
+                        <button
+                            type="submit"
+                            class="intake-button"
+
+                        >
+                            + Add Allergy
+                        </button>
+
+                    </form>
+                </div>
+
+                <!-- FAMILY MEDICAL HISTORY -->
+                <div class="record-section">
+
+                    <h3 class="maintitle">
+                        <i class="ri-history-line"></i>
+                        Family Medical History
+                    </h3>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>History ID</th>
+                                <th>Family Member</th>
+                                <th>Relationship</th>
+                                <th>Condition</th>
+                                <th>Date Noted</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="historyTableBody">
+                            <tr>
+                                <td colspan="6">
+                                    Loading medical history...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <form id="addHistoryForm">
+
+                        <input
+                            type="text"
+                            name="Family_Member_Name"
+                            placeholder="Family Member Name"
+                            maxlength="45"
+                            required
+                        >
+
+                        <input
+                            type="text"
+                            name="Relationship"
+                            placeholder="Relationship"
+                            maxlength="45"
+                            required
+                        >
+
+                        <input
+                            type="text"
+                            name="Condition"
+                            placeholder="Condition"
+                            maxlength="100"
+                            required
+                        >
+
+                        <input
+                            type="date"
+                            name="Date"
+                        >
+
+                        <input
+                            type="text"
+                            name="Notes"
+                            placeholder="Notes"
+                            maxlength="250"
+                        >
+
+                        <button
+                            type="submit"
+                            class="intake-button"
+                        >
+                            + Add Medical History
+                        </button>
+
+                    </form>
+                </div>
+
+                <!-- PREVIOUS TREATMENTS -->
+                <div class="record-section">
+
+                    <h3 class="maintitle">
+                        <i class="ri-stethoscope-line"></i>
+                        Previous Treatments
+                    </h3>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Treatment ID</th>
+                                <th>Condition</th>
+                                <th>Treatment Name</th>
+                                <th>Treatment Date</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="treatmentTableBody">
+                            <tr>
+                                <td colspan="5">
+                                    Loading previous treatments...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <form id="addTreatmentForm">
+
+                        <input
+                            type="text"
+                            name="Condition"
+                            placeholder="Condition"
+                            maxlength="100"
+                            required
+                        >
+
+                        <input
+                            type="text"
+                            name="Treatment_Name"
+                            placeholder="Treatment Name"
+                            maxlength="100"
+                            required
+                        >
+
+                        <input
+                            type="date"
+                            name="Treatment_Date"
+                            required
+                        >
+
+                        <input
+                            type="text"
+                            name="Notes"
+                            placeholder="Notes"
+                            maxlength="250"
+                        >
+
+                        <button
+                            type="submit"
+                            class="intake-button"
+                        >
+                            + Add Treatment
+                        </button>
+
+                    </form>
+                </div>
+
+                <!-- DOCTOR RECORDS -->
+                <div class="record-section">
+
+                    <h3 class="maintitle">
+                        <i class="ri-file-text-line"></i>
+                        Doctor Records (Read-Only)
+                    </h3>
+
+                    <p>
+                        <em>
+                            Diagnoses and prescriptions entered by doctors.
+                            Nurses can view these records but cannot edit them.
+                        </em>
+                    </p>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Name / Diagnosis</th>
+                                <th>Details / Dosage</th>
+                                <th>Date</th>
+                                <th>Doctor ID</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="doctorRecordsBody">
+                            <tr>
+                                <td colspan="5">
+                                    Loading doctor records...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="./NursePatients.js"></script>
+    <script src="../logout.js"></script>
+
+</body>
+</html>

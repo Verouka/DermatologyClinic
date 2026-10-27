@@ -1,0 +1,160 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="./securityrole.js" data-role="patient"></script>
+
+    <title>Patient Settings</title>
+
+    <link rel="stylesheet" href="MedicalRecords.css">
+    <link rel="stylesheet" href="PatientSettings.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+    <section class="header">
+        <div class="a">
+            <img src="icons8-heart-with-pulse-40.png"
+                 alt="Clinic logo" width="35">
+            <h1 class="h1">Dermatology Clinic</h1>
+        </div>
+
+        <div class="notification--profile">
+            <div class="picon bell">
+                <i class="ri-notification-2-line"></i>
+            </div>
+
+            <div class="picon profile">
+                <img class="img" src="account.png" alt="Profile">
+            </div>
+
+            <button class="logout" type="button">Log Out</button>
+        </div>
+    </section>
+
+    <section class="main">
+        <div class="sidebar">
+            <ul class="sidebar--items">
+                <li>
+                    <a href="patientDashboard.html">
+                        <span class="icon"><i class="ri-layout-grid-line"></i></span>
+                        <span class="sidebar--item">Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="PatientProfile.html">
+                        <span class="icon"><i class="ri-user-line"></i></span>
+                        <span class="sidebar--item">My Profile</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="patientAppointment.html">
+                        <span class="icon"><i class="ri-calendar-2-line"></i></span>
+                        <span class="sidebar--item">My Appointments</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="MedicalRecords.html">
+                        <span class="icon"><i class="ri-file-list-3-line"></i></span>
+                        <span class="sidebar--item">Medical Records</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="BillsPayment.html">
+                        <span class="icon"><i class="ri-bank-card-line"></i></span>
+                        <span class="sidebar--item">Bills And Payments</span>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="sidebar--bottom-items">
+                <li>
+                    <a href="PatientSettings.html" class="active--link">
+                        <span class="icon"><i class="ri-settings-3-line"></i></span>
+                        <span class="sidebar--item">Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="mainContent">
+            <div class="overview">
+
+                <div class="title">
+                    <h2 class="maintitle">Settings</h2>
+                    <p>Manage your account and security preferences.</p>
+                </div>
+
+                <div class="settingsContainer">
+
+                    <div class="settingsCard">
+                        <h3><i class="ri-user-settings-line"></i> Account Information</h3>
+                        <p>View the email associated with your account.</p>
+
+                        <label for="accountEmail">Email Address</label>
+                        <input type="email" id="accountEmail"
+                               placeholder="Loading..." readonly>
+                    </div>
+
+                    <div class="settingsCard">
+                        <h3><i class="ri-lock-password-line"></i> Change Password</h3>
+                        <p>Update your password to keep your account secure.</p>
+
+                        <form id="passwordForm">
+                            <label for="currentPassword">Current Password</label>
+                            <input type="password" id="currentPassword"
+                                   autocomplete="current-password" required>
+
+                            <label for="newPassword">New Password</label>
+                            <input type="password" id="newPassword"
+                                   minlength="8" maxlength="128"
+                                   autocomplete="new-password" required>
+
+                            <label for="confirmPassword">Confirm New Password</label>
+                            <input type="password" id="confirmPassword"
+                                   autocomplete="new-password" required>
+
+                            <button type="submit" class="saveSettingsBtn">
+                                Change Password
+                            </button>
+
+                            <p id="passwordMessage" role="status"></p>
+                        </form>
+                    </div>
+
+                    <div class="settingsCard">
+                        <h3><i class="ri-notification-3-line"></i> Notification Preferences</h3>
+                        <p>Choose which notifications you want to receive.</p>
+
+                        <label class="checkboxSetting">
+                            <input type="checkbox" id="appointmentReminders">
+                            Appointment reminders
+                        </label>
+
+                        <label class="checkboxSetting">
+                            <input type="checkbox" id="medicalUpdates">
+                            Medical record updates
+                        </label>
+
+                        <p id="notificationMessage" role="status"></p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="./patientSettings.js"></script>
+    <script src="./logout.js"></script>
+</body>
+</html>

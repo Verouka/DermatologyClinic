@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../../securityrole.js" data-role="administrator"></script>
+    <title>Manage Staff</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="brand">
+            <i class="ri-heart-pulse-line"></i>
+            <h1>Dermatology Clinic</h1>
+        </div>
+        <div class="header-right">
+            <a href="doctorProfile.html">
+                <i class="ri-user-line"></i>
+                Admin Dashboard
+            </a>
+
+            <button class="logout" type="button" >
+                Log Out
+            </button>
+        </div>
+
+    </header>
+    <section class="main">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+             <nav class="sidebar--items">
+
+                <a href="adminDashboard.html">
+                    <i class="ri-layout-grid-line"></i> Dashboard
+                </a>
+
+                <a href="adminProfile.html">
+                    <i class="ri-user-line"></i> My Profile
+                </a>
+
+                <a href="adminStaff.html" class="active--link">
+                    <i class="ri-group-line"></i> Manage Staff
+                </a>
+
+                <a href="adminAppointments.html">
+                    <i class="ri-calendar-line"></i> Appointments
+                </a>
+
+                <a href="adminBilling.html">
+                    <i class="ri-bill-line"></i> Billing & Payments
+                </a>
+
+                <a href="adminReport.html">
+                    <i class="ri-folder-chart-line"></i> Reports
+                </a>
+
+                <a href="adminClinicInfo.html">
+                    <i class="ri-hospital-line"></i> Clinic Information
+                </a>
+                
+            </nav>
+
+            <nav class="sidebar--bottom-items">
+                <a href="settings.html">
+                    <i class="ri-settings-3-line"></i> Settings
+                </a>
+            </nav>
+
+        </aside>
+
+        <main class="mainContent">
+
+            <h2 class="maintitle">Manage Staff</h2>
+
+                 <p>View and manage staff.</p>
+
+            <button type="button" id="addStaffBtn">
+                 <i class="ri-user-add-line"></i>
+                        Add Staff
+            </button>
+            
+<form id="staffForm" hidden>
+    <h3>Create Staff Account</h3>
+
+    <label for="staffRole">Staff Role</label>
+    <select id="staffRole" required>
+        <option value="">Select role</option>
+        <option value="nurse">Nurse</option>
+        <option value="doctor">Doctor</option>
+        <option value="receptionist">Receptionist</option>
+    </select>
+
+    <input id="staffFirstName" placeholder="First Name" required>
+    <input id="staffLastName" placeholder="Last Name" required>
+    <input id="staffEmail" type="email" placeholder="Email" required>
+    <input id="staffPassword" type="password"
+           placeholder="Temporary Password (12+ characters)"
+           minlength="12" required>
+
+    <div id="singleOfficeSection">
+        <label for="staffOffice">Office</label>
+        <select id="staffOffice">
+            <option value="1">Office 1 - Houston</option>
+        </select>
+    </div>
+
+    <div id="doctorSection" hidden>
+        <label for="staffSpecialty">Specialty</label>
+        <select id="staffSpecialty">
+            <option value="1">Medical Dermatology</option>
+            <option value="2">Cosmetic Dermatology</option>
+            <option value="3">Surgical Dermatology</option>
+        </select>
+
+        <label for="staffNurse">Assigned Nurse ID</label>
+        <input id="staffNurse" type="number" min="1">
+
+        <label for="doctorOffices">Office IDs (comma-separated)</label>
+        <input id="doctorOffices" placeholder="Example: 1,2">
+    </div>
+
+    <button type="submit">Create Account</button>
+</form>
+
+<p id="staffMessage"></p>
+
+<script src="../js/adminStaff.js" defer></script>
+
+
+            <div class="appointments">
+
+                <div class="upcomingAppointments">
+                    <h3>Doctors</h3>
+                </div>
+                <div>   
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Doctor ID</th>
+                                <th>Specialty</th>
+                                <th>Start Date</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>No entries</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="upcomingAppointments">
+                    <h3>Nurses</h3>
+                </div>
+                <div>   
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Nurse ID</th>
+                                <th>Doctor ID</th>
+                                <th>Start Date</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>No entries</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="upcomingAppointments">
+                    <h3>Receptionist</h3>
+                </div>
+                <div>   
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Receptionist ID</th>
+                                <th>Start Date</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>No entries</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </main>
+        <div class="overview">
+        
+        
+    </div>
+</div>
+
+
+    </section>
+
+    <script src="../logout.js"></script>
+
+</body>
+</html>

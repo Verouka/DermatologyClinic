@@ -1,0 +1,100 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Request Appointment</title>
+    <link rel="stylesheet" href="AppointmentForm.css">
+</head>
+
+<body>
+    <form id="appointmentForm">
+        <div class="AppointmentForm">
+
+            <div class="a">
+                <img src="icons8-heart-with-pulse-40.png"
+                     alt="Clinic logo" width="35">
+                <h1 class="h1">Dermatology Clinic</h1>
+            </div>
+
+            <h2 class="h2">Request Appointment</h2>
+
+            <p class="description">
+                Complete the form and our receptionist
+                will contact you.
+            </p>
+
+            <div>
+                <label for="FirstName">First Name</label>
+                <input type="text" maxlength="45"
+                       id="FirstName" name="FirstName" required>
+
+                <label for="LastName">Last Name</label>
+                <input type="text" maxlength="45"
+                       id="LastName" name="LastName" required>
+
+                <label for="email">Email Address</label>
+                <input type="email" maxlength="100"
+                       id="email" name="email" required>
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone"
+                       placeholder="xxx-xxx-xxxx"
+                       pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                       required>
+
+                <label for="currentPatient">
+                    Are you a current patient?
+                </label>
+                <select id="currentPatient"
+                        name="currentPatient" required>
+                    <option value="">Select an option</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+
+                <label for="appointmentDate">
+                    Preferred Appointment Date
+                </label>
+                <input type="date" id="appointmentDate"
+                       name="appointmentDate" required>
+
+                <label for="reason">Reason for Visit</label>
+                <input type="text" id="reason"
+                       name="reason" maxlength="250" required>
+
+                <label for="message">
+                    Additional Message (optional)
+                </label>
+                <textarea id="message" name="message"
+                          maxlength="500" rows="5"></textarea>
+            </div>
+
+            <div class="checkbox">
+                <input type="checkbox" id="consent" required>
+                <label for="consent">
+                    I agree to be contacted regarding
+                    my appointment request.
+                </label>
+            </div>
+
+            <div>
+                <button type="submit" class="submit">
+                    Submit Request
+                </button>
+            </div>
+
+            <p id="formStatus" role="status"
+               aria-live="polite"></p>
+
+            <a href="HomePage.html">Back to Home</a>
+
+        </div>
+    </form>
+
+    <script src="./publicAppointment.js"></script>
+</body>
+</html>

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../securityrole.js" data-role="receptionist"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receptionist Dashboard | Dermatology Clinic</title>
+    <link rel="stylesheet" href="dashboard_style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <div class="dashboard">
+
+        <!-- LEFT SIDEBAR -->
+        <aside class="sidebar">
+            <div class="clinicLogo">
+                <img src="../icons8-heart-with-pulse-40.png" alt="Clinic logo">
+                <h2>Dermatology Clinic</h2>
+            </div>
+
+            <nav class="sidebarNav">
+                <a href="#dashboard" class="navLink active" data-section="dashboard"><span>⌂</span> Dashboard</a>
+                <a href="#schedule" class="navLink" data-section="schedule"><span>◷</span> My Schedule</a>
+                <a href="#appointments" class="navLink" data-section="appointments"><span>✓</span> Appointments</a>
+                <a href="#requests" class="navLink" data-section="requests"><span>▣</span> Appointment Requests</a>
+                <a href="#registration" class="navLink" data-section="registration"><span>♙</span> Patient Registration</a>
+                <a href="#patients" class="navLink" data-section="patients"><span>♧</span> Patient Search</a>
+                <a href="#checkin" class="navLink" data-section="checkin"><span>☑</span> Check-in / Check-out</a>
+                <a href="#billing" class="navLink" data-section="billing"><span>$</span> Billing &amp; Payments</a>
+                <a href="#reports" class="navLink" data-section="reports"><span>▤</span> Reports</a>
+                <a href="#profile" class="navLink" data-section="profile"><span>♙</span> My Profile</a>
+                <a href="#settings" class="navLink" data-section="settings"><span>⚙</span> Settings</a>
+            </nav>
+
+            <button class="sidebarLogout logout" id="logoutButton" type="button">↪ Logout</button>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="mainContent">
+
+            <header class="topHeader">
+                <div>
+                    <p class="headerDate" id="currentDate"></p>
+                    <p class="headerGreeting">Receptionist Portal</p>
+                </div>
+                <div class="userBadge">
+                    <span class="userIcon" id="userIcon">R</span>
+                    <span id="userLabel">Receptionist</span>
+                </div>
+            </header>
+
+            <!-- Shown when the backend cannot be reached -->
+            <div class="errorBanner" id="errorBanner" role="alert" hidden></div>
+
+            <!-- DASHBOARD -->
+            <section class="pageSection active" id="dashboard">
+                <div class="welcomeSection">
+                    <p class="eyebrow">DERMATOLOGY CLINIC</p>
+                    <h1 id="welcomeHeading">WELCOME, RECEPTIONIST</h1>
+                    <p>Manage patients and appointments with ease.</p>
+                </div>
+
+                <div class="summaryCards">
+                    <article class="summaryCard">
+                        <div class="summaryIcon">♧</div>
+                        <div><p>Total Patients</p><h2 id="totalPatients">—</h2></div>
+                    </article>
+                    <article class="summaryCard">
+                        <div class="summaryIcon">▣</div>
+                        <div><p>Today's Appointments</p><h2 id="totalAppointments">—</h2></div>
+                    </article>
+                    <article class="summaryCard">
+                        <div class="summaryIcon">◷</div>
+                        <div><p>Pending Requests</p><h2 id="totalPending">—</h2></div>
+                    </article>
+                </div>
+
+                <div class="serviceSection">
+                    <button class="serviceCard" type="button" data-go="registration">
+                        <div class="cardImage patientImage"><span>♙</span></div>
+                        <div class="cardText">
+                            <h2>Patient Registration</h2>
+                            <p>Add new patients to our system.</p>
+                        </div>
+                    </button>
+                    <button class="serviceCard" type="button" data-go="requests">
+                        <div class="cardImage requestImage"><span>▣</span></div>
+                        <div class="cardText">
+                            <h2>Appointment Requests</h2>
+                            <p>Review and approve appointment requests.</p>
+                        </div>
+                    </button>
+                    <button class="serviceCard" type="button" data-go="appointments">
+                        <div class="cardImage manageImage"><span>✓</span></div>
+                        <div class="cardText">
+                            <h2>Manage Appointments</h2>
+                            <p>View, reschedule, or cancel appointments.</p>
+                        </div>
+                    </button>
+                </div>
+
+                <section class="contentCard appointmentsSection">
+                    <div class="sectionHeader">
+                        <div>
+                            <h2>Today's Appointments</h2>
+                            <p>Review the clinic's daily schedule.</p>
+                        </div>
+                        <button class="primaryButton" type="button" data-go="appointments">View All</button>
+                    </div>
+                    <div class="tableContainer">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Patient Name</th>
+                                    <th>Time</th>
+                                    <th>Doctor</th>
+                                    <th>Reason</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="todayTable"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+
+            <!-- MY SCHEDULE -->
+            <section class="pageSection" id="schedule">
+                <div class="pageHeading">
+                    <p class="eyebrow">SCHEDULING</p>
+                    <h1>My Schedule</h1>
+                    <p>Your weekly working hours. The clinic is open Monday to Friday, 9:00 AM – 5:00 PM.</p>
+                </div>
+
+                <section class="contentCard">
+                    <div class="sectionHeader">
+                        <div>
+                            <h2>Weekly Work Schedule</h2>
+                            <p>Today is highlighted.</p>
+                        </div>
+                        <button class="primaryButton" type="button" data-go="appointments">Manage Appointments</button>
+                    </div>
+
+                    <div class="tableContainer">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Start</th>
+                                    <th>End</th>
+                                    <th>Hours</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scheduleTable">
+                                <tr data-day="1"><td>Monday</td><td>9:00 AM</td><td>5:00 PM</td><td>8 hrs</td><td><span class="status scheduled">Working</span></td></tr>
+                                <tr data-day="2"><td>Tuesday</td><td>9:00 AM</td><td>5:00 PM</td><td>8 hrs</td><td><span class="status scheduled">Working</span></td></tr>
+                                <tr data-day="3"><td>Wednesday</td><td>9:00 AM</td><td>5:00 PM</td><td>8 hrs</td><td><span class="status scheduled">Working</span></td></tr>
+                                <tr data-day="4"><td>Thursday</td><td>9:00 AM</td><td>5:00 PM</td><td>8 hrs</td><td><span class="status scheduled">Working</span></td></tr>
+                                <tr data-day="5"><td>Friday</td><td>9:00 AM</td><td>5:00 PM</td><td>8 hrs</td><td><span class="status scheduled">Working</span></td></tr>
+                                <tr data-day="6"><td>Saturday</td><td>—</td><td>—</td><td>—</td><td><span class="status checked-out">Clinic closed</span></td></tr>
+                                <tr data-day="0"><td>Sunday</td><td>—</td><td>—</td><td>—</td><td><span class="status checked-out">Clinic closed</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="formNote">Total: 40 hours per week.</p>
+                </section>
+            </section>
+
+            <!-- APPOINTMENTS -->
+            <section class="pageSection" id="appointments">
+                <div class="pageHeading">
+                    <p class="eyebrow">SCHEDULING</p>
+                    <h1>Appointments</h1>
+                    <p>Patients with upcoming appointments.</p>
+                </div>
+
+                <section class="contentCard">
+                    <div class="sectionHeader">
+                        <h2>Upcoming Appointments</h2>
+                        <button class="primaryButton" type="button" id="addAppointmentButton">+ New Appointment</button>
+                    </div>
+
+                    <div class="tableContainer">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Doctor</th>
+                                    <th>Reason</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appointmentsTable"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+
+            <!-- APPOINTMENT REQUESTS -->
+            <section class="pageSection" id="requests">
+                <div class="pageHeading">
+                    <p class="eyebrow">SCHEDULING</p>
+                    <h1>Appointment Requests</h1>
+                    <p>Review pending appointment requests.</p>
+                </div>
+
+                <section class="contentCard">
+                    <h2>Pending Requests</h2>
+                    <div class="tableContainer">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Doctor</th>
+                                    <th>Reason</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="requestsTable"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+
+            <!-- PATIENT REGISTRATION -->
+            <section class="pageSection" id="registration">
+                <div class="pageHeading">
+                    <p class="eyebrow">PATIENT MANAGEMENT</p>
+                    <h1>Patient Registration</h1>
+                    <p>Enter the information needed to register a patient.</p>
+                </div>
+
+                <section class="contentCard">
+                    <h2>New Patient Information</h2>
+
+                    <form id="patientForm">
+                        <div class="formGrid">
+                            <div class="formGroup">
+                                <label for="patientFirstName">First Name *</label>
+                                <input type="text" id="patientFirstName" required>
+                            </div>
+                            <div class="formGroup">
+                                <label for="patientLastName">Last Name *</label>
+                                <input type="text" id="patientLastName" required>
+                            </div>
+                            <div class="formGroup">
+                                <label for="patientDOB">Date of Birth *</label>
+                                <input type="date" id="patientDOB" required>
+                            </div>
+                            <div class="formGroup">
+                                <label for="patientPhone">Phone Number *</label>
+                                <input type="tel" id="patientPhone" required>
+                            </div>
+                            <div class="formGroup">
+                                <label for="patientEmail">Email Address</label>
+                                <input type="email" id="patientEmail">
+                            </div>
+                            <div class="formGroup">
+                                <label for="patientAddress">Address</label>
+                                <input type="text" id="patientAddress">
+                            </div>
+                            <div class="formGroup">
+                                <label for="patientReason">Reason for Visit</label>
+                                <select id="patientReason">
+                                    <option value="Consultation">Consultation</option>
+                                    <option value="Acne Follow-up">Acne Follow-up</option>
+                                    <option value="Skin Check">Skin Check</option>
+                                    <option value="Rash or Irritation">Rash or Irritation</option>
+                                    <option value="Procedure">Procedure</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="formActions">
+                            <button class="primaryButton" type="submit">Register Patient</button>
+                            <button class="secondaryButton" type="reset">Clear Form</button>
+                        </div>
+                    </form>
+                </section>
+            </section>
+
+            <!-- PATIENT SEARCH -->
+            <section class="pageSection" id="patients">
+                <div class="pageHeading">
+                    <p class="eyebrow">PATIENT MANAGEMENT</p>
+                    <h1>Patient Search</h1>
+                    <p>Search and review registered patients.</p>
+                </div>
+
+                <section class="contentCard">
+                    <div class="sectionHeader">
+                        <h2>Registered Patients</h2>
+                        <button class="primaryButton" type="button" data-go="registration">+ Add Patient</button>
+                    </div>
+
+                    <input type="search" id="patientSearch" class="searchInput"
+                        placeholder="Search by patient name, phone, or email...">
+
+                    <div class="tableContainer">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Patient ID</th>
+                                    <th>Name</th>
+                                    <th>Date of Birth</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody id="patientTable"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+
+            <!-- CHECK-IN / CHECK-OUT -->
+            <section class="pageSection" id="checkin">
+                <div class="pageHeading">
+                    <p class="eyebrow">FRONT DESK</p>
+                    <h1>Check-in / Check-out</h1>
+                    <p>Track patient arrival and completion of visits.</p>
+                </div>
+
+                <section class="contentCard">
+                    <h2>Find Appointment</h2>
+
+                    <div class="formGrid">
+                        <div class="formGroup">
+                            <label for="checkinSearch">Search patient or appointment</label>
+                            <input id="checkinSearch" class="searchInput" type="search"
+                                placeholder="Enter patient name or appointment ID">
+                        </div>
+                        <div class="formGroup">
+                            <label for="visitStatusFilter">Visit status</label>
+                            <select id="visitStatusFilter">
+                                <option value="">All statuses</option>
+                                <option value="Scheduled">Scheduled</option>
+                                <option value="Checked In">Checked In</option>
+                                <option value="Checked Out">Checked Out</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="tableContainer">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Appointment</th>
+                                    <th>Time</th>
+                                    <th>Doctor</th>
+                                    <th>Visit Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="checkinTable"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+
+            <!-- BILLING & PAYMENTS -->
+            <section class="pageSection" id="billing">
+                <div class="pageHeading">
+                    <p class="eyebrow">PAYMENTS</p>
+                    <h1>Billing &amp; Payments</h1>
+                    <p>Review patient balances and record payment information.</p>
+                </div>
+
+                <section class="contentCard">
+                    <div class="sectionHeader">
+                        <h2>Patient Billing</h2>
+                    </div>
+
+                    <input type="search" id="billingSearch" class="searchInput"
+                        placeholder="Search by patient name or invoice number">
+
+                    <div class="tableContainer">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Invoice</th>
+                                    <th>Patient</th>
+                                    <th>Date</th>
+                                    <th>Amount Due</th>
+                                    <th>Payment Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="billingTable"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </section>
+
+            <!-- REPORTS -->
+            <section class="pageSection" id="reports">
+                <div class="pageHeading">
+                    <p class="eyebrow">CLINIC OVERVIEW</p>
+                    <h1>Reports</h1>
+                    <p>Summary of clinic activity.</p>
+                </div>
+
+                <div class="summaryCards reportCards">
+                    <article class="summaryCard">
+                        <div class="summaryIcon">♧</div>
+                        <div><p>Registered Patients</p><h2 id="reportPatients">—</h2></div>
+                    </article>
+                    <article class="summaryCard">
+                        <div class="summaryIcon">▣</div>
+                        <div><p>Total Appointments</p><h2 id="reportAppointments">—</h2></div>
+                    </article>
+                    <article class="summaryCard">
+                        <div class="summaryIcon">✓</div>
+                        <div><p>Approved Appointments</p><h2 id="reportApproved">—</h2></div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- MY PROFILE (read-only, loaded from the server after login) -->
+            <section class="pageSection" id="profile">
+                <div class="pageHeading">
+                    <p class="eyebrow">ACCOUNT</p>
+                    <h1>My Profile</h1>
+                    <p>Your account details. To change your phone number or address, go to Settings.</p>
+                </div>
+
+                <section class="contentCard">
+                    <h2>Profile Information</h2>
+
+                    <dl class="detailGrid">
+                        <div class="detailItem">
+                            <dt>Full Name</dt>
+                            <dd id="profileName">—</dd>
+                        </div>
+                        <div class="detailItem">
+                            <dt>Role</dt>
+                            <dd id="profileRole">Receptionist</dd>
+                        </div>
+                        <div class="detailItem">
+                            <dt>Address</dt>
+                            <dd id="profileAddress">—</dd>
+                        </div>
+                        <div class="detailItem">
+                            <dt>Phone Number</dt>
+                            <dd id="profilePhone">—</dd>
+                        </div>
+                    </dl>
+                </section>
+            </section>
+
+            <!-- SETTINGS -->
+            <section class="pageSection" id="settings">
+                <div class="pageHeading">
+                    <p class="eyebrow">PREFERENCES</p>
+                    <h1>Settings</h1>
+                    <p>Update your contact details, preferences, and account security.</p>
+                </div>
+
+                <section class="contentCard">
+                    <h2>Contact Information</h2>
+                    <form id="contactForm">
+                        <div class="formGrid">
+                            <div class="formGroup">
+                                <label for="settingsPhone">Phone Number</label>
+                                <input id="settingsPhone" type="tel" autocomplete="tel">
+                            </div>
+                            <div class="formGroup">
+                                <label for="settingsEmail">Email</label>
+                                <input id="settingsEmail" type="email" autocomplete="email">
+                            </div>
+                            <div class="formGroup fullWidth">
+                                <label for="settingsAddress">Address</label>
+                                <input id="settingsAddress" type="text" autocomplete="street-address">
+                            </div>
+                        </div>
+                        <div class="formActions">
+                            <button class="primaryButton" type="submit">Save Contact Info</button>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="contentCard">
+                    <h2>Dashboard Preferences</h2>
+                    <form id="preferencesForm">
+                        <div class="formGrid">
+                            <div class="formGroup">
+                                <label for="settingsDateFormat">Date Format</label>
+                                <select id="settingsDateFormat">
+                                    <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                                    <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                                    <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                                </select>
+                            </div>
+                            <div class="formGroup">
+                                <label for="settingsTimeFormat">Time Format</label>
+                                <select id="settingsTimeFormat">
+                                    <option value="12">12-hour (2:30 PM)</option>
+                                    <option value="24">24-hour (14:30)</option>
+                                </select>
+                            </div>
+                            <div class="formGroup">
+                                <label for="settingsNotifications">Appointment notifications</label>
+                                <select id="settingsNotifications">
+                                    <option value="on">Enabled</option>
+                                    <option value="off">Disabled</option>
+                                </select>
+                            </div>
+                            <div class="formGroup">
+                                <label for="settingsTimeout">Auto-logout when inactive</label>
+                                <select id="settingsTimeout">
+                                    <option value="0">Never</option>
+                                    <option value="10">After 10 minutes</option>
+                                    <option value="15">After 15 minutes</option>
+                                    <option value="30">After 30 minutes</option>
+                                </select>
+                            </div>
+                            <div class="formGroup">
+                                <label for="settingsStartPage">Start page after login</label>
+                                <select id="settingsStartPage">
+                                    <option value="dashboard">Dashboard</option>
+                                    <option value="appointments">Appointments</option>
+                                    <option value="checkin">Check-in / Check-out</option>
+                                    <option value="schedule">My Schedule</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="formActions">
+                            <button class="primaryButton" type="submit">Save Preferences</button>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="contentCard">
+                    <h2>Change Password</h2>
+                    <form id="passwordForm">
+                        <div class="formGrid">
+                            <div class="formGroup fullWidth">
+                                <label for="currentPassword">Current Password</label>
+                                <input id="currentPassword" type="password" autocomplete="current-password" required>
+                            </div>
+                            <div class="formGroup">
+                                <label for="newPassword">New Password</label>
+                                <input id="newPassword" type="password" autocomplete="new-password" minlength="8" required>
+                            </div>
+                            <div class="formGroup">
+                                <label for="confirmPassword">Confirm New Password</label>
+                                <input id="confirmPassword" type="password" autocomplete="new-password" minlength="8" required>
+                            </div>
+                        </div>
+                        <p class="formNote">Use at least 8 characters.</p>
+                        <div class="formActions">
+                            <button class="primaryButton" type="submit">Update Password</button>
+                        </div>
+                    </form>
+                </section>
+            </section>
+
+            <footer class="dashboardFooter">
+                <p>Dermatology Clinic Receptionist Portal</p>
+                <p>Patient information should be handled securely.</p>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- NEW / RESCHEDULE APPOINTMENT MODAL -->
+    <div class="modal" id="appointmentModal" aria-hidden="true">
+        <div class="modalContent">
+            <div class="sectionHeader">
+                <h2 id="appointmentModalTitle">New Appointment</h2>
+                <button type="button" class="closeButton" id="closeModalButton" aria-label="Close dialog">×</button>
+            </div>
+
+            <form id="appointmentForm">
+                <div class="formGroup">
+                    <label for="appointmentPatient">Patient *</label>
+                    <select id="appointmentPatient" required></select>
+                </div>
+                <div class="formGroup">
+                    <label for="appointmentDoctor">Doctor *</label>
+                    <select id="appointmentDoctor" required></select>
+                </div>
+                <div class="formGroup">
+                    <label for="appointmentDate">Appointment Date *</label>
+                    <input type="date" id="appointmentDate" required>
+                </div>
+                <div class="formGroup">
+                    <label for="appointmentTime">Appointment Time *</label>
+                    <input type="time" id="appointmentTime" min="09:00" max="16:59" required>
+                </div>
+                <div class="formGroup">
+                    <label for="appointmentReason">Reason for Visit *</label>
+                    <input type="text" id="appointmentReason" required>
+                </div>
+
+                <div class="formActions">
+                    <button class="primaryButton" type="submit">Save Appointment</button>
+                    <button class="secondaryButton" type="button" id="cancelModalButton">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+
+    <script src="../logout.js"></script>
+
+</body>
+</html>
