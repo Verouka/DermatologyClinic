@@ -25,8 +25,8 @@ document.addEventListener("DOMContentLoaded", function () {
          POST  /api/logout
        ===================================================== */
 
-    const API_BASE = "http://localhost:3000";                // e.g. "https://api.yourclinic.com"
-    const LOGIN_PAGE = "login.html";     // where to send the user on logout / expired session
+    const API_BASE = "http://127.0.0.1:3000";                // e.g. "https://api.yourclinic.com"
+    const LOGIN_PAGE = "LoginPage.html";     // where to send the user on logout / expired session
 
     const CLINIC_DAYS = [1, 2, 3, 4, 5]; // Monday–Friday
     const CLINIC_OPEN = "09:00";

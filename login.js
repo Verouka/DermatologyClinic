@@ -32,7 +32,7 @@ loginForm.addEventListener("submit", async (event) => {
                 window.location.href = "Doctor/doctorDashboard.html";
 
             } else if (result.role === "receptionist") {
-                window.location.href = "Receptionist/Receptionist_Dashboard.html";
+                window.location.href = "Receptionist_Dashboard.html";
             }
 
             else {
