@@ -355,3 +355,153 @@ document.addEventListener("DOMContentLoaded", () => {
     // LOAD DATABASE RECORDS WHEN PAGE OPENS
     loadAllStaff();
 });
+
+//#region FILL TABLES
+
+
+async function loadDoctors() {
+    const tableBody = document.getElementById("doctorsTable");
+
+    // Stop if this page does not contain the doctors table
+    if (!tableBody) return;
+
+    try {
+        const response = await fetch(
+            "http://localhost:3000/api/admin/loadDoctors",
+            {
+                method: "GET",
+                credentials: "include"
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch doctors: ${response.status}`);
+        }
+
+        const doctors = await response.json();
+
+        tableBody.replaceChildren();
+
+        if (doctors.length === 0) {
+            const row = tableBody.insertRow();
+            const cell = row.insertCell();
+
+            cell.colSpan = 4;
+            cell.textContent = "No entries";
+            return;
+        }
+
+        doctors.forEach(doctor => {
+            const row = tableBody.insertRow();
+
+            row.insertCell().textContent =
+                `${doctor.firstName} ${doctor.lastName}`;
+            row.insertCell().textContent = doctor.id;
+            row.insertCell().textContent = doctor.specialtyId;
+            row.insertCell().textContent = "N/A";
+        });
+
+    } catch (error) {
+        console.error("Error loading doctors:", error);
+    }
+}
+
+
+async function loadNurses() {
+    const tableBody = document.getElementById("nursesTable");
+    if (!tableBody) return;
+
+    try {
+        const response = await fetch(
+            "http://127.0.0.1:3000/api/admin/loadNurses",
+            { credentials: "include" }
+        );
+
+        if (!response.ok) {
+            throw new Error(`Failed to load nurses: ${response.status}`);
+        }
+
+        const nurses = await response.json();
+        tableBody.replaceChildren();
+
+        if (nurses.length === 0) {
+            const row = tableBody.insertRow();
+            const cell = row.insertCell();
+            cell.colSpan = 3;
+            cell.textContent = "No entries";
+            return;
+        }
+
+        nurses.forEach(nurse => {
+            const row = tableBody.insertRow();
+            row.insertCell().textContent =
+                `${nurse.firstName} ${nurse.lastName}`;
+            row.insertCell().textContent = nurse.id;
+            row.insertCell().textContent = "None";
+            row.insertCell().textContent = nurse.officeId;
+            row.insertCell().textContent = "N/A";
+        });
+    } catch (error) {
+        console.error("Error loading nurses:", error);
+    }
+}
+
+
+async function loadReceptionists() {
+    const tableBody = document.getElementById("receptionistsTable");
+    if (!tableBody) return;
+
+    try {
+        const response = await fetch(
+            "http://127.0.0.1:3000/api/admin/loadReceptionists",
+            {
+                method: "GET",
+                credentials: "include"
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch receptionists: ${response.status}`);
+        }
+
+        const receptionists = await response.json();
+
+        tableBody.replaceChildren();
+
+        if (receptionists.length === 0) {
+            const row = tableBody.insertRow();
+            const cell = row.insertCell();
+            cell.colSpan = 4;
+            cell.textContent = "No receptionists found";
+            return;
+        }
+
+        receptionists.forEach(receptionist => {
+            const row = tableBody.insertRow();
+
+            row.insertCell().textContent =
+                `${receptionist.firstName} ${receptionist.lastName}`;
+
+            row.insertCell().textContent = receptionist.id;
+            row.insertCell().textContent = receptionist.officeId;
+            row.insertCell().textContent = "N/A"; // Start date
+        });
+
+    } catch (error) {
+        console.error("Error loading receptionists:", error);
+
+        tableBody.replaceChildren();
+        const row = tableBody.insertRow();
+        const cell = row.insertCell();
+        cell.colSpan = 4;
+        cell.textContent = "Could not load receptionists";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadDoctors();
+    loadNurses();
+    loadReceptionists();
+});
+
+//#endregion
