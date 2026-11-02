@@ -12,8 +12,8 @@ const startServer = async () => {
         const [rows] = await pool.query("SELECT 1 AS connected");
         console.log("MySQL connected successfully!", rows);
 
-        // Start the Express server
-    http.createServer(app).listen(PORT, () => {
+        // Start the Node.js HTTP server
+        http.createServer(app).listen(PORT, "0.0.0.0", () => {
             console.log(`Dermatology Clinic server running on port ${PORT}`);
         });
 

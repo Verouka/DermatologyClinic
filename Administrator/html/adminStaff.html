@@ -1,36 +1,43 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="../../securityrole.js" data-role="administrator"></script>
+
     <title>Manage Staff</title>
+
     <link rel="stylesheet" href="../css/admin.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
 </head>
+
 <body>
     <!-- HEADER -->
     <header class="header">
-
         <div class="brand">
             <i class="ri-heart-pulse-line"></i>
             <h1>Dermatology Clinic</h1>
         </div>
+
         <div class="header-right">
-            <a href="doctorProfile.html">
-                <i class="ri-user-line"></i>
+            <a href="adminDashboard.html">
+                <i class="ri-layout-grid-line"></i>
                 Admin Dashboard
             </a>
 
-            <button class="logout" type="button" >
+            <button class="logout" type="button">
                 Log Out
             </button>
         </div>
-
     </header>
+
     <section class="main">
+
         <!-- SIDEBAR -->
         <aside class="sidebar">
-
-             <nav class="sidebar--items">
+            <nav class="sidebar--items">
 
                 <a href="adminDashboard.html">
                     <i class="ri-layout-grid-line"></i> Dashboard
@@ -59,7 +66,7 @@
                 <a href="adminClinicInfo.html">
                     <i class="ri-hospital-line"></i> Clinic Information
                 </a>
-                
+
             </nav>
 
             <nav class="sidebar--bottom-items">
@@ -67,74 +74,105 @@
                     <i class="ri-settings-3-line"></i> Settings
                 </a>
             </nav>
-
         </aside>
 
+        <!-- MAIN CONTENT -->
         <main class="mainContent">
 
             <h2 class="maintitle">Manage Staff</h2>
-
-                 <p>View and manage staff.</p>
+            <p>View and manage clinic staff.</p>
 
             <button type="button" id="addStaffBtn">
-                 <i class="ri-user-add-line"></i>
-                        Add Staff
+                <i class="ri-user-add-line"></i>
+                Add Staff
             </button>
-            
-<form id="staffForm" hidden>
-    <h3>Create Staff Account</h3>
 
-    <label for="staffRole">Staff Role</label>
-    <select id="staffRole" required>
-        <option value="">Select role</option>
-        <option value="nurse">Nurse</option>
-        <option value="doctor">Doctor</option>
-        <option value="receptionist">Receptionist</option>
-    </select>
+            <!-- CREATE STAFF FORM -->
+            <form id="staffForm" hidden>
+                <h3>Create Staff Account</h3>
 
-    <input id="staffFirstName" placeholder="First Name" required>
-    <input id="staffLastName" placeholder="Last Name" required>
-    <input id="staffEmail" type="email" placeholder="Email" required>
-    <input id="staffPassword" type="password"
-           placeholder="Temporary Password (12+ characters)"
-           minlength="12" required>
+                <label for="staffRole">Staff Role</label>
+                <select id="staffRole" required>
+                    <option value="">Select role</option>
+                    <option value="nurse">Nurse</option>
+                    <option value="doctor">Doctor</option>
+                    <option value="receptionist">Receptionist</option>
+                </select>
 
-    <div id="singleOfficeSection">
-        <label for="staffOffice">Office</label>
-        <select id="staffOffice">
-            <option value="1">Office 1 - Houston</option>
-        </select>
-    </div>
+                <input
+                    id="staffFirstName"
+                    placeholder="First Name"
+                    required
+                >
 
-    <div id="doctorSection" hidden>
-        <label for="staffSpecialty">Specialty</label>
-        <select id="staffSpecialty">
-            <option value="1">Medical Dermatology</option>
-            <option value="2">Cosmetic Dermatology</option>
-            <option value="3">Surgical Dermatology</option>
-        </select>
+                <input
+                    id="staffLastName"
+                    placeholder="Last Name"
+                    required
+                >
 
-        <label for="staffNurse">Assigned Nurse ID</label>
-        <input id="staffNurse" type="number" min="1">
+                <input
+                    id="staffEmail"
+                    type="email"
+                    placeholder="Email"
+                    required
+                >
 
-        <label for="doctorOffices">Office IDs (comma-separated)</label>
-        <input id="doctorOffices" placeholder="Example: 1,2">
-    </div>
+                <input
+                    id="staffPassword"
+                    type="password"
+                    placeholder="Temporary Password (12+ characters)"
+                    minlength="12"
+                    required
+                >
 
-    <button type="submit">Create Account</button>
-</form>
+                <div id="singleOfficeSection">
+                    <label for="staffOffice">Office</label>
+                    <select id="staffOffice">
+                        <option value="1">Office 1 - Houston</option>
+                    </select>
+                </div>
 
-<p id="staffMessage"></p>
+                <div id="doctorSection" hidden>
+                    <label for="staffSpecialty">Specialty</label>
+                    <select id="staffSpecialty">
+                        <option value="1">Medical Dermatology</option>
+                        <option value="2">Cosmetic Dermatology</option>
+                        <option value="3">Surgical Dermatology</option>
+                    </select>
 
-<script src="../js/adminStaff.js" defer></script>
+                    <label for="staffNurse">Assigned Nurse ID</label>
+                    <input
+                        id="staffNurse"
+                        type="number"
+                        min="1"
+                    >
 
+                    <label for="doctorOffices">
+                        Office IDs (comma-separated)
+                    </label>
+                    <input
+                        id="doctorOffices"
+                        placeholder="Example: 1,2"
+                    >
+                </div>
 
+                <button type="submit" id="createStaffBtn">
+                    Create Account
+                </button>
+            </form>
+
+            <p id="staffMessage" role="status" aria-live="polite"></p>
+
+            <!-- STAFF TABLES -->
             <div class="appointments">
 
+                <!-- DOCTORS -->
                 <div class="upcomingAppointments">
                     <h3>Doctors</h3>
                 </div>
-                <div>   
+
+                <div class="table-container">
                     <table>
                         <thead>
                             <tr>
@@ -145,17 +183,20 @@
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="doctorsTable">
                             <tr>
-                                <td>No entries</td>
+                                <td colspan="4">Loading doctors...</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
+                <!-- NURSES -->
                 <div class="upcomingAppointments">
                     <h3>Nurses</h3>
                 </div>
-                <div>   
+
+                <div class="table-container">
                     <table>
                         <thead>
                             <tr>
@@ -166,17 +207,20 @@
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="nursesTable">
                             <tr>
-                                <td>No entries</td>
+                                <td colspan="4">Loading nurses...</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
+                <!-- RECEPTIONISTS -->
                 <div class="upcomingAppointments">
-                    <h3>Receptionist</h3>
+                    <h3>Receptionists</h3>
                 </div>
-                <div>   
+
+                <div class="table-container">
                     <table>
                         <thead>
                             <tr>
@@ -186,9 +230,9 @@
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="receptionistsTable">
                             <tr>
-                                <td>No entries</td>
+                                <td colspan="3">Loading receptionists...</td>
                             </tr>
                         </tbody>
                     </table>
@@ -197,16 +241,12 @@
             </div>
 
         </main>
-        <div class="overview">
-        
-        
-    </div>
-</div>
-
 
     </section>
 
-    <script src="../logout.js"></script>
+    <!-- JAVASCRIPT -->
+    <script src="../../logout.js"></script>
+    <script src="../js/adminStaff.js" defer></script>
 
 </body>
 </html>

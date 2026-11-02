@@ -1,9 +1,10 @@
 
 
+
 async function loadPatientProfile() {
     try {
         const response = await fetch(
-            "http://127.0.0.1:3000/api/patient/me",
+            "/api/patient/me",
             {
                 method: "GET",
                 credentials: "include"
@@ -80,7 +81,7 @@ editButton.addEventListener("click", async () => {
 
     try {
         const response = await fetch(
-            "http://127.0.0.1:3000/api/patient/me",
+            "/api/patient/me",
             {
                 method: "PATCH",
                 credentials: "include",

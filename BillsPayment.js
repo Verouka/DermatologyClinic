@@ -1,5 +1,5 @@
 
-const BILLING_API = "http://127.0.0.1:3000/api/patient/billing";
+const BILLING_API = "/api/patient/billing";
 
 let selectedBillId = null;
 let selectedRemainingBalance = 0;

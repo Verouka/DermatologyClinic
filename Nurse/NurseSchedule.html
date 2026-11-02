@@ -1,70 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="../securityrole.js" data-role="nurse"></script>
+    <script src="../securityRole.js" data-role="nurse"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nurse Schedule</title>
     <link rel="stylesheet" href="NurseDashBoard.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
 </head>
+
 <body>
-    <section class="header"> 
+    <section class="header">
         <div class="a">
-           <img src="../icons8-heart-with-pulse-40.png" alt="Clinic logo" width="35">
-           <h1 class="h1">Dermatology Clinic</h1>
-        </div> 
+            <img src="../icons8-heart-with-pulse-40.png"
+                 alt="Clinic logo" width="35">
+            <h1 class="h1">Dermatology Clinic</h1>
+        </div>
+
         <div class="notification--profile">
             <div class="picon bell">
                 <i class="ri-notification-2-line"></i>
             </div>
+
             <div class="picon profile">
-                <img class="img" src="../account.png" alt="Nurse Profile">
+                <a href="NurseProfile.html">
+                    <img class="img" src="../account.png" alt="Nurse Profile">
+                </a>
+
             </div>
-            <button class="logout" type="button" >Log Out</button>
+
+            <button class="logout" type="button">Log Out</button>
         </div>
     </section>
 
     <section class="main">
-        <div class="sidebar"> 
+        <div class="sidebar">
             <ul class="sidebar--items">
                 <li>
-                    <a href="NurseDashBoard.html" >
+                    <a href="NurseDashBoard.html">
                         <span class="icon">
                             <i class="ri-layout-grid-line"></i>
                         </span>
                         <span class="sidebar--item">Dashboard</span>
                     </a>
                 </li>
+
                 <li>
                     <a href="NurseAppointments.html">
-                        <span class="icon"><i class="ri-calendar-2-line"></i>
+                        <span class="icon">
+                            <i class="ri-calendar-2-line"></i>
                         </span>
                         <span class="sidebar--item">Appointments</span>
                     </a>
                 </li>
+
                 <li>
                     <a href="NursePatients.html">
-                        <span class="icon"><i class="ri-file-list-3-line"></i>
+                        <span class="icon">
+                            <i class="ri-file-list-3-line"></i>
                         </span>
                         <span class="sidebar--item">Patient Intake Records</span>
                     </a>
                 </li>
+
                 <li>
                     <a href="NurseSchedule.html" class="active--link">
-                        <span class="icon"><i class="ri-bank-card-line"></i>
+
+                        <span class="icon">
+                            <i class="ri-bank-card-line"></i>
                         </span>
                         <span class="sidebar--item">My Schedule</span>
                     </a>
                 </li>
+
                 <li>
                     <a href="NurseProfile.html">
-                        <span class="icon"><i class="ri-user-line"></i>
+                        <span class="icon">
+                            <i class="ri-user-line"></i>
                         </span>
                         <span class="sidebar--item">Profile</span>
                     </a>
                 </li>
             </ul>
+
             <ul class="sidebar--bottom-items">
                 <li>
                     <a href="NurseSettings.html">
@@ -79,7 +97,9 @@
 
         <div class="mainContent">
             <div class="title">
-                <h2 class="maintitle"><i class="ri-time-line"></i> Weekly Duty Schedule </h2>
+                <h2 class="maintitle">
+                    <i class="ri-time-line"></i> Weekly Duty Schedule
+                </h2>
                 <p>View your scheduled shifts and assigned office locations.</p>
             </div>
 
@@ -93,47 +113,17 @@
                         <th>Collaborating Doctor</th>
                     </tr>
                 </thead>
-                <tbody>
+
+                <tbody id="nurseScheduleBody">
                     <tr>
-                        <td>Monday</td>
-                        <td>08:00 AM</td>
-                        <td>04:00 PM</td>
-                        <td>Main Branch (Office #1)</td>
-                        <td>Dr. Sarah Jenkins</td>
-                    </tr>
-                    <tr>
-                        <td>Tuesday</td>
-                        <td>08:00 AM</td>
-                        <td>04:00 PM</td>
-                        <td>Main Branch (Office #1)</td>
-                        <td>Dr. Sarah Jenkins</td>
-                    </tr>
-                    <tr>
-                        <td>Wednesday</td>
-                        <td>08:00 AM</td>
-                        <td>04:00 PM</td>
-                        <td>North Clinic (Office #2)</td>
-                        <td>Dr. Alex Rivera</td>
-                    </tr>
-                    <tr>
-                        <td>Thursday</td>
-                        <td>08:00 AM</td>
-                        <td>04:00 PM</td>
-                        <td>Main Branch (Office #1)</td>
-                        <td>Dr. Sarah Jenkins</td>
-                    </tr>
-                    <tr>
-                        <td>Friday</td>
-                        <td>08:00 AM</td>
-                        <td>01:00 PM</td>
-                        <td>Main Branch (Office #1)</td>
-                        <td>Dr. Sarah Jenkins</td>
+                        <td colspan="5">Loading your schedule...</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </section>
 
-     <script src="../logout.js"></script>
+    <script src="./NurseSchedule.js"></script>
+    <script src="../logout.js"></script>
 </body>
-</html>
+</html>l>

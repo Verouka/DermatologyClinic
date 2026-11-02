@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <script src="../securityrole.js" data-role="doctor"></script>
     <title>Doctor Referrals</title>
     <link rel="stylesheet" href="doctorDashboard.css">
@@ -21,10 +22,9 @@
             <div class="picon bell">
                 <i class="ri-notification-2-line"></i>
             </div>
-            <div class="picon profile">
-                <img class="img" src="../account.png" alt="Doctor Profile">
-                
-            </div>
+            <a href="doctorProfile.html" class="picon profile">
+    <img class="img" src="../account.png" alt="Doctor Profile">
+</a>
             <button class="logout" type="button" >
                      Log Out
             </button>
@@ -122,7 +122,8 @@
 
                 <div class="title">
                     <h2 class="maintitle">Referrals</h2>
-                    <p>Review specialist referrals and their approval status. Approval buttons will work after backend integration.</p>
+                    <p>Review specialist referrals, approve or deny pending requests, and view their status history.</p>
+                    <p id="referralFeedback" role="status" aria-live="polite"></p>
                 </div>
 
                 <div class="appointments referrals">
@@ -207,6 +208,7 @@
         </div>
 
     </section>
+    <script src="doctorReferrals.js" defer></script>
     <script src="../logout.js"></script>
 
 </body>

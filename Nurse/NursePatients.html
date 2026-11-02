@@ -1,97 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <script src="../securityrole.js" data-role="nurse"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nurse Patient Log & Intake</title>
-    <link rel="stylesheet" href="NurseDashBoard.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+
+    <title>Nurse Patient Intake - Dermatology Clinic</title>
+
+    <script src="../securityrole.js" data-role="nurse"></script>
+
+    <link rel="stylesheet" href="./NurseDashBoard.css">
+
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+        rel="stylesheet"
+    >
 </head>
+
 <body>
-    <section class="header"> 
+
+    <!-- HEADER -->
+    <section class="header">
         <div class="a">
-           <img src="../icons8-heart-with-pulse-40.png" alt="Clinic logo" width="35">
-           <h1 class="h1">Dermatology Clinic</h1>
-        </div> 
+            <img
+                src="../icons8-heart-with-pulse-40.png"
+                alt="Clinic Logo"
+                width="35"
+            >
+            <h1 class="h1">Dermatology Clinic</h1>
+        </div>
+
         <div class="notification--profile">
             <div class="picon bell">
                 <i class="ri-notification-2-line"></i>
             </div>
+
             <div class="picon profile">
-                <img class="img" src="../account.png" alt="Nurse Profile">
+                <a href="NurseProfile.html">
+                    <img
+                        class="img"
+                        src="../account.png"
+                        alt="Nurse Profile"
+                    >
+                </a>
             </div>
-            <button class="logout" type="button" >Log Out</button>
+
+            <button class="logout" type="button">
+                Log Out
+            </button>
         </div>
     </section>
 
+    <!-- MAIN LAYOUT -->
     <section class="main">
-        <div class="sidebar"> 
+
+        <!-- SIDEBAR -->
+        <div class="sidebar">
             <ul class="sidebar--items">
+
                 <li>
-                    <a href="NurseDashBoard.html" >
+                    <a href="NurseDashBoard.html">
                         <span class="icon">
                             <i class="ri-layout-grid-line"></i>
                         </span>
-                        <span class="sidebar--item">Dashboard</span>
+                        <span class="sidebar--item">
+                            Dashboard
+                        </span>
                     </a>
                 </li>
+
                 <li>
                     <a href="NurseAppointments.html">
-                        <span class="icon"><i class="ri-calendar-2-line"></i>
+                        <span class="icon">
+                            <i class="ri-calendar-2-line"></i>
                         </span>
-                        <span class="sidebar--item">Appointments</span>
+                        <span class="sidebar--item">
+                            Appointments
+                        </span>
                     </a>
                 </li>
+
                 <li>
                     <a href="NursePatients.html" class="active--link">
-                        <span class="icon"><i class="ri-file-list-3-line"></i>
+                        <span class="icon">
+                            <i class="ri-file-list-3-line"></i>
                         </span>
-                        <span class="sidebar--item">Patient Intake Records</span>
+                        <span class="sidebar--item">
+                            Patient Intake Records
+                        </span>
                     </a>
                 </li>
+
                 <li>
                     <a href="NurseSchedule.html">
-                        <span class="icon"><i class="ri-bank-card-line"></i>
+                        <span class="icon">
+                            <i class="ri-calendar-check-line"></i>
+
                         </span>
-                        <span class="sidebar--item">My Schedule</span>
+                        <span class="sidebar--item">
+                            My Schedule
+                        </span>
                     </a>
                 </li>
+
                 <li>
                     <a href="NurseProfile.html">
-                        <span class="icon"><i class="ri-user-line"></i>
+                        <span class="icon">
+                            <i class="ri-user-line"></i>
                         </span>
-                        <span class="sidebar--item">Profile</span>
+                        <span class="sidebar--item">
+                            Profile
+                        </span>
                     </a>
                 </li>
+
             </ul>
+
             <ul class="sidebar--bottom-items">
                 <li>
                     <a href="NurseSettings.html">
                         <span class="icon">
                             <i class="ri-settings-3-line"></i>
                         </span>
-                        <span class="sidebar--item">Settings</span>
+                        <span class="sidebar--item">
+                            Settings
+                        </span>
                     </a>
                 </li>
             </ul>
         </div>
 
+        <!-- MAIN CONTENT -->
         <div class="mainContent">
+
             <div class="patient-selector-section">
-                <h3 class="maintitle">Active Patient Triage</h3>
-                <label for="patientSelect">Select Patient to Manage:</label>
+                <h3 class="maintitle">
+                    Active Patient Triage
+                </h3>
+
+                <label for="patientSelect">
+                    Select Patient to Manage:
+                </label>
+
                 <select id="patientSelect">
-                    <option value="101">John Doe - ID: 101 (DOB: 1985-04-12)</option>
-                    <option value="102">Jane Smith - ID: 102 (DOB: 1990-08-22)</option>
-                    <option value="103">Michael Brown - ID: 103 (DOB: 1978-11-05)</option>
+                    <option value="">
+                        Loading patients...
+                    </option>
                 </select>
             </div>
 
-            <div class="records-container" style="margin-top: 30px;">
-                <!-- 1. Allergies -->
-                <div class="record-section" style="margin-bottom: 30px;">
-                    <h3 class="maintitle"><i class="ri-capsule-line"></i> Patient Allergies </h3>
+            <p
+                id="intakeMessage"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+            <div class="records-container">
+
+                <!-- ALLERGIES -->
+
+                <div class="record-section">
+
+                    <h3 class="maintitle">
+                        <i class="ri-capsule-line"></i>
+                        Patient Allergies
+                    </h3>
+
                     <table>
                         <thead>
                             <tr>
@@ -102,28 +177,57 @@
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
+
+                        <tbody id="allergyTableBody">
                             <tr>
-                                <td>1</td>
-                                <td>Penicillin</td>
-                                <td>2024-02-10 14:30:00</td>
-                                <td>Mild rash on forearms</td>
-                                <td><button type="button" class="logout" style="padding: 4px 10px; font-size: 0.85rem;">Edit</button></td>
+                                <td colspan="5">
+                                    Loading allergies...
+                                </td>
                             </tr>
                         </tbody>
                     </table>
 
                     <form id="addAllergyForm">
-                        <input type="text" placeholder="Allergy Name" name="Allergy_Name" required>
-                        <input type="datetime-local" name="Time_Occurred" required>
-                        <input type="text" placeholder="Notes" name="Notes" style="width: 35%;">
-                        <button class="logout" type="submit">+ Add Allergy</button>
+
+                        <input
+                            type="text"
+                            name="Allergy_Name"
+                            placeholder="Allergy Name"
+                            maxlength="100"
+                            required
+                        >
+
+                        <input
+                            type="datetime-local"
+                            name="Time_Occurred"
+                        >
+
+                        <input
+                            type="text"
+                            name="Notes"
+                            placeholder="Notes"
+                            maxlength="250"
+                        >
+
+                        <button
+                            type="submit"
+                            class="intake-button"
+
+                        >
+                            + Add Allergy
+                        </button>
+
                     </form>
                 </div>
 
-                <!-- 2. Medical History -->
-                <div class="record-section" style="margin-bottom: 30px;">
-                    <h3 class="maintitle"><i class="ri-history-line"></i> Family Medical History </h3>
+                <!-- FAMILY MEDICAL HISTORY -->
+                <div class="record-section">
+
+                    <h3 class="maintitle">
+                        <i class="ri-history-line"></i>
+                        Family Medical History
+                    </h3>
+
                     <table>
                         <thead>
                             <tr>
@@ -135,30 +239,72 @@
                                 <th>Notes</th>
                             </tr>
                         </thead>
-                        <tbody>
+
+                        <tbody id="historyTableBody">
                             <tr>
-                                <td>10</td>
-                                <td>Robert Doe</td>
-                                <td>Father</td>
-                                <td>Melanoma</td>
-                                <td>2018-05-15</td>
-                                <td>Surgically removed</td>
+                                <td colspan="6">
+                                    Loading medical history...
+                                </td>
                             </tr>
                         </tbody>
                     </table>
 
                     <form id="addHistoryForm">
-                        <input type="text" placeholder="Family Member Name" name="Family_Member_Name" required>
-                        <input type="text" placeholder="Relationship" name="Relationship" required>
-                        <input type="text" placeholder="Condition" name="Condition" required>
-                        <input type="date" name="Date" required>
-                        <button class="logout" type="submit">+ Add Medical History</button>
+
+                        <input
+                            type="text"
+                            name="Family_Member_Name"
+                            placeholder="Family Member Name"
+                            maxlength="45"
+                            required
+                        >
+
+                        <input
+                            type="text"
+                            name="Relationship"
+                            placeholder="Relationship"
+                            maxlength="45"
+                            required
+                        >
+
+                        <input
+                            type="text"
+                            name="Condition"
+                            placeholder="Condition"
+                            maxlength="100"
+                            required
+                        >
+
+                        <input
+                            type="date"
+                            name="Date"
+                        >
+
+                        <input
+                            type="text"
+                            name="Notes"
+                            placeholder="Notes"
+                            maxlength="250"
+                        >
+
+                        <button
+                            type="submit"
+                            class="intake-button"
+                        >
+                            + Add Medical History
+                        </button>
+
                     </form>
                 </div>
 
-                <!-- 3. Previous Treatments -->
-                <div class="record-section" style="margin-bottom: 30px;">
-                    <h3 class="maintitle"><i class="ri-stethoscope-line"></i> Previous Treatments </h3>
+                <!-- PREVIOUS TREATMENTS -->
+                <div class="record-section">
+
+                    <h3 class="maintitle">
+                        <i class="ri-stethoscope-line"></i>
+                        Previous Treatments
+                    </h3>
+
                     <table>
                         <thead>
                             <tr>
@@ -169,59 +315,100 @@
                                 <th>Notes</th>
                             </tr>
                         </thead>
-                        <tbody>
+
+                        <tbody id="treatmentTableBody">
                             <tr>
-                                <td>201</td>
-                                <td>Eczema</td>
-                                <td>Topical Corticosteroids</td>
-                                <td>2023-09-01</td>
-                                <td>Cleared inflammation within 2 weeks</td>
+                                <td colspan="5">
+                                    Loading previous treatments...
+                                </td>
                             </tr>
                         </tbody>
                     </table>
 
                     <form id="addTreatmentForm">
-                        <input type="text" placeholder="Condition" name="Condition" required>
-                        <input type="text" placeholder="Treatment Name" name="Treatment_Name" required>
-                        <input type="date" name="Treatment_Date" required>
-                        <input type="text" placeholder="Notes" name="Notes" style="width: 30%;">
-                        <button class="logout" type="submit">+ Add Treatment</button>
+
+                        <input
+                            type="text"
+                            name="Condition"
+                            placeholder="Condition"
+                            maxlength="100"
+                            required
+                        >
+
+                        <input
+                            type="text"
+                            name="Treatment_Name"
+                            placeholder="Treatment Name"
+                            maxlength="100"
+                            required
+                        >
+
+                        <input
+                            type="date"
+                            name="Treatment_Date"
+                            required
+                        >
+
+                        <input
+                            type="text"
+                            name="Notes"
+                            placeholder="Notes"
+                            maxlength="250"
+                        >
+
+                        <button
+                            type="submit"
+                            class="intake-button"
+                        >
+                            + Add Treatment
+                        </button>
+
                     </form>
                 </div>
 
-                <!-- 4. Read-Only Doctor Records -->
-                <div class="record-section" style="margin-bottom: 40px;">
-                    <h3 class="maintitle"><i class="ri-file-text-line"></i> Doctor Records (Read-Only)</h3>
-                    <p><em>Diagnoses and prescriptions recorded by assigned physicians.</em></p>
+                <!-- DOCTOR RECORDS -->
+                <div class="record-section">
+
+                    <h3 class="maintitle">
+                        <i class="ri-file-text-line"></i>
+                        Doctor Records (Read-Only)
+                    </h3>
+
+                    <p>
+                        <em>
+                            Diagnoses and prescriptions entered by doctors.
+                            Nurses can view these records but cannot edit them.
+                        </em>
+                    </p>
+
                     <table>
                         <thead>
-                            <tr style="background-color: #f0f0f0;">
+                            <tr>
                                 <th>Type</th>
                                 <th>Name / Diagnosis</th>
                                 <th>Details / Dosage</th>
                                 <th>Date</th>
+                                <th>Doctor ID</th>
                             </tr>
                         </thead>
-                        <tbody>
+
+                        <tbody id="doctorRecordsBody">
                             <tr>
-                                <td>Diagnosis</td>
-                                <td>Atopic Dermatitis</td>
-                                <td>Moderate severity on flexural surfaces</td>
-                                <td>2026-03-10</td>
-                            </tr>
-                            <tr>
-                                <td>Prescription</td>
-                                <td>Hydrocortisone 2.5% Cream</td>
-                                <td>Apply twice daily for 10 days</td>
-                                <td>2026-03-10</td>
+                                <td colspan="5">
+                                    Loading doctor records...
+                                </td>
                             </tr>
                         </tbody>
                     </table>
+
                 </div>
+
             </div>
         </div>
     </section>
 
-     <script src="../logout.js"></script>
+    <script src="./NursePatients.js"></script>
+    <script src="../logout.js"></script>
+
 </body>
 </html>

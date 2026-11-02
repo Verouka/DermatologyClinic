@@ -9,3 +9,20 @@
 .scheduleCalendar thead th { min-width: 100px; }
 .appointmentList tbody td { height: auto; }
 .scheduleNotice { color: #666; }
+
+/* Weekly navigation uses the existing mint/navy colors. */
+.calendarToolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+#calendarMonthTitle { color: rgb(2, 2, 85); margin-top: 10px; }
+#calendarRange { color: #666; }
+.calendarButtons { display: flex; gap: 8px; flex-wrap: wrap; }
+.calendarButtons button { background: rgb(2, 2, 85); color: white; border: 0; border-radius: 6px; padding: 9px 12px; cursor: pointer; }
+.calendarButtons button:hover { opacity: .85; }
+.calendarWeekday, .calendarDate { display: block; }
+.calendarDate { font-size: 20px; margin-top: 5px; color: rgb(2, 2, 85); }
+.calendarIsToday { outline: 2px solid rgb(2, 2, 85); outline-offset: -2px; }
+.calendarCell { min-width: 125px; }
+.calendarShift { padding: 5px; margin-bottom: 5px; border-radius: 4px; background: #e8f7f1; color: #234f43; font-size: 12px; }
+.calendarEvent { display: block; background: rgb(2, 2, 85); color: white; padding: 6px; border-radius: 5px; margin-bottom: 5px; text-decoration: none; font-size: 12px; }
+.calendarEvent:hover { opacity: .85; }
+.calendarEvent strong, .calendarEvent span { display: block; }
+.calendarEmpty { color: #999; }

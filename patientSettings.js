@@ -10,7 +10,7 @@ const passwordMessage = document.getElementById("passwordMessage");
 async function loadAccountInformation() {
     try {
         const response = await fetch(
-            "http://127.0.0.1:3000/api/auth/me",
+            "/api/auth/me",
             {
                 method: "GET",
                 credentials: "include"
@@ -64,7 +64,7 @@ passwordForm.addEventListener("submit", async (event) => {
 
     try {
         const response = await fetch(
-            "http://127.0.0.1:3000/api/patient/settings/password",
+            "/api/patient/settings/password",
             {
                 method: "PATCH",
                 credentials: "include",
@@ -100,3 +100,4 @@ passwordForm.addEventListener("submit", async (event) => {
 });
 
 loadAccountInformation();
+

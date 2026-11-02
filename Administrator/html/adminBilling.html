@@ -1,16 +1,22 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="../../securityrole.js" data-role="administrator"></script>
-    <title>Bills</title>
+
+    <title>Billing & Payments</title>
+
     <link rel="stylesheet" href="../css/admin.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
 </head>
+
 <body>
+
     <!-- HEADER -->
     <header class="header">
-
         <div class="brand">
             <i class="ri-heart-pulse-line"></i>
             <h1>Dermatology Clinic</h1>
@@ -18,22 +24,23 @@
 
         <div class="header-right">
             <a href="adminDashboard.html">
-                <i class="ri-layout-grid-line"></i> Dashboard
+                <i class="ri-layout-grid-line"></i>
+                Dashboard
             </a>
 
-            <button class="logout" type="button" >
+            <button class="logout" type="button">
                 Log Out
             </button>
         </div>
-
     </header>
 
-
+    <!-- MAIN LAYOUT -->
     <section class="main">
+
         <!-- SIDEBAR -->
         <aside class="sidebar">
-             <nav class="sidebar--items">
 
+            <nav class="sidebar--items">
                 <a href="adminDashboard.html">
                     <i class="ri-layout-grid-line"></i> Dashboard
                 </a>
@@ -61,7 +68,6 @@
                 <a href="adminClinicInfo.html">
                     <i class="ri-hospital-line"></i> Clinic Information
                 </a>
-                
             </nav>
 
             <nav class="sidebar--bottom-items">
@@ -72,20 +78,20 @@
 
         </aside>
 
-
-        <div class="mainContent">
+        <!-- MAIN CONTENT -->
+        <main class="mainContent">
 
             <h2 class="maintitle">Bills and Payments</h2>
-            <p>View bills, outstanding balances, and payment historys.</p>
+            <p>View bills, outstanding balances, and payment history.</p>
 
-            <!-- OVERVIEW CARDS TEST  -->
+            <!-- OVERVIEW CARDS -->
             <section class="cards">
 
                 <div class="card">
                     <div class="cardData">
                         <div>
                             <h3>Total Paid</h3>
-                            <p>--</p>
+                            <p id="totalPaid">Loading...</p>
                         </div>
                         <i class="ri-money-dollar-box-line card--icon"></i>
                     </div>
@@ -95,7 +101,7 @@
                     <div class="cardData">
                         <div>
                             <h3>Outstanding Balances</h3>
-                            <p>--</p>
+                            <p id="outstandingBalances">Loading...</p>
                         </div>
                         <i class="ri-group-line card--icon"></i>
                     </div>
@@ -105,7 +111,7 @@
                     <div class="cardData">
                         <div>
                             <h3>Total Bills</h3>
-                            <p>--</p>
+                            <p id="totalBills">Loading...</p>
                         </div>
                         <i class="ri-bill-line card--icon"></i>
                     </div>
@@ -113,70 +119,64 @@
 
             </section>
 
-            
+            <!-- BILLING TABLES -->
+            <div class="billingContent">
 
-        <!-- CONTENT  -->
-        <div class="billingContent">
+                <!-- ALL BILLS -->
+                <div class="billingSection">
+                    <h3>All Bills</h3>
 
-            <div class="billingSection">
-                <h3>All Bills</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Bill ID</th>
+                                <th>Patient</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Bill ID</th>
-                            <th>Patient ID</th>
-                            <th>Date</th>
-                            <th>Amount</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td colspan="4">No bills to display yet.</td>
-                        </tr>
-                    </tbody>
-                </table>
+                        <tbody id="billsTableBody">
+                            <tr>
+                                <td colspan="5">Loading bills...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ALL PAYMENTS -->
+                <div class="billingSection">
+                    <h3>All Payments</h3>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Bill ID</th>
+                                <th>Patient</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Payment Method</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="paymentsTableBody">
+                            <tr>
+                                <td colspan="5">Loading payments...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
 
-            
-            <div class="billingSection">
-                <h3>All Payments</h3>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Patient ID</th>
-                            <th>Bill ID</th>
-                            <th>Payment ID</th>
-                            <th>Date</th>
-                            <th>Amount</th>
-                            <th>Payment Method</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td colspan="4">No payments to display yet.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
-        </div>
-        <div class="overview">
-
-        
-
-        </div>
-        </div>
-
-
-
+        </main>
 
     </section>
 
-     <script src="../logout.js"></script>
+    <!-- JAVASCRIPT -->
+    <script src="../../logout.js"></script>
+    <script src="../js/adminBilling.js" defer></script>
 
 </body>
 </html>

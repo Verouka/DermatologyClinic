@@ -1,5 +1,4 @@
 
-
 const appointmentForm = document.getElementById("appointmentForm");
 const appointmentDateInput = document.getElementById("appointmentDate");
 const formStatus = document.getElementById("formStatus");
@@ -47,7 +46,7 @@ appointmentForm.addEventListener("submit", async (event) => {
 
     try {
         const response = await fetch(
-            "http://127.0.0.1:3000/api/public/appointment-requests",
+            "/api/public/appointment-requests",
             {
                 method: "POST",
                 headers: {
@@ -87,3 +86,4 @@ appointmentForm.addEventListener("submit", async (event) => {
         submitButton.disabled = false;
     }
 });
+

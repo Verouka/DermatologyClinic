@@ -3,9 +3,10 @@
 <html lang="en">
 
 <head>
-    <script src="../../securityrole.js" data-role="administrator"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="../../securityrole.js" data-role="administrator"></script>
 
     <title>My Profile</title>
 
@@ -25,62 +26,70 @@
 
         <div class="header-right">
             <a href="adminDashboard.html">
-                <i class="ri-layout-grid-line"></i> Dashboard
+                <i class="ri-layout-grid-line"></i>
+                Dashboard
             </a>
 
-            <button class="logout" type="button" >
+            <button class="logout" type="button">
                 Log Out
             </button>
         </div>
 
     </header>
 
-
+    <!-- MAIN LAYOUT -->
     <div class="main">
 
         <!-- SIDEBAR -->
         <aside class="sidebar">
 
-             <nav class="sidebar--items">
+            <nav class="sidebar--items">
 
                 <a href="adminDashboard.html">
-                    <i class="ri-layout-grid-line"></i> Dashboard
+                    <i class="ri-layout-grid-line"></i>
+                    Dashboard
                 </a>
 
-                <a href="adminProfile.html" class="active--link"> 
-                    <i class="ri-user-line"></i> My Profile
+                <a href="adminProfile.html" class="active--link">
+                    <i class="ri-user-line"></i>
+                    My Profile
                 </a>
 
                 <a href="adminStaff.html">
-                    <i class="ri-group-line"></i> Manage Staff
+                    <i class="ri-group-line"></i>
+                    Manage Staff
                 </a>
 
                 <a href="adminAppointments.html">
-                    <i class="ri-calendar-line"></i> Appointments
+                    <i class="ri-calendar-line"></i>
+                    Appointments
                 </a>
 
                 <a href="adminBilling.html">
-                    <i class="ri-bill-line"></i> Billing & Payments
+                    <i class="ri-bill-line"></i>
+                    Billing & Payments
                 </a>
 
                 <a href="adminReport.html">
-                    <i class="ri-folder-chart-line"></i> Reports
+                    <i class="ri-folder-chart-line"></i>
+                    Reports
                 </a>
 
                 <a href="adminClinicInfo.html">
-                    <i class="ri-hospital-line"></i> Clinic Information
+                    <i class="ri-hospital-line"></i>
+                    Clinic Information
                 </a>
-                
+
             </nav>
 
             <nav class="sidebar--bottom-items">
                 <a href="settings.html">
-                    <i class="ri-settings-3-line"></i> Settings
+                    <i class="ri-settings-3-line"></i>
+                    Settings
                 </a>
             </nav>
 
         </aside>
-
 
         <!-- PROFILE CONTENT -->
         <main class="mainContent">
@@ -89,16 +98,11 @@
 
             <p>View your personal and professional information.</p>
 
-
             <!-- PROFILE TABS -->
             <nav class="profile-tabs">
-
                 <a href="#personal">Personal Information</a>
-
                 <a href="#professional">Professional Information</a>
-
             </nav>
-
 
             <!-- PERSONAL INFORMATION -->
             <section class="panel" id="personal">
@@ -109,68 +113,67 @@
 
                     <div class="field">
                         <strong>Admin ID</strong>
-                        <span>—</span>
+                        <span data-field="adminId">Loading...</span>
                     </div>
 
                     <div class="field">
                         <strong>First Name</strong>
-                        <span>—</span>
+                        <span data-field="firstName">Loading...</span>
                     </div>
 
                     <div class="field">
                         <strong>Middle Name</strong>
-                        <span>—</span>
+                        <span data-field="middleName">Loading...</span>
                     </div>
 
                     <div class="field">
                         <strong>Last Name</strong>
-                        <span>—</span>
+                        <span data-field="lastName">Loading...</span>
                     </div>
 
                     <div class="field">
                         <strong>Date of Birth</strong>
-                        <span>—</span>
+                        <span data-field="dateOfBirth">Loading...</span>
                     </div>
 
                     <div class="field">
                         <strong>Gender</strong>
-                        <span>—</span>
+                        <span data-field="gender">Loading...</span>
                     </div>
 
                     <div class="field">
                         <strong>Email</strong>
-                        <span>—</span>
+                        <span data-field="email">Loading...</span>
                     </div>
 
                     <div class="field">
                         <strong>Phone</strong>
-                        <span>—</span>
+                        <span data-field="phone">Loading...</span>
                     </div>
 
                     <div class="field">
                         <strong>Street</strong>
-                        <span>—</span>
+                        <span data-field="street">Loading...</span>
                     </div>
 
                     <div class="field">
                         <strong>City</strong>
-                        <span>—</span>
+                        <span data-field="city">Loading...</span>
                     </div>
 
                     <div class="field">
                         <strong>State</strong>
-                        <span>—</span>
+                        <span data-field="state">Loading...</span>
                     </div>
 
                     <div class="field">
                         <strong>ZIP Code</strong>
-                        <span>—</span>
+                        <span data-field="zipCode">Loading...</span>
                     </div>
 
                 </div>
 
             </section>
-
 
             <!-- PROFESSIONAL INFORMATION -->
             <section class="panel" id="professional">
@@ -179,20 +182,19 @@
 
                 <div class="profile-grid">
 
-                    <!-- Possiblty change to show office location instead? -->
                     <div class="field">
                         <strong>Office ID</strong>
-                        <span>—</span>
+                        <span data-field="officeId">Loading...</span>
                     </div>
 
                     <div class="field">
                         <strong>Start Date</strong>
-                        <span>—</span>
+                        <span data-field="startDate">Loading...</span>
                     </div>
 
                     <div class="field">
                         <strong>Salary</strong>
-                        <span>—</span>
+                        <span data-field="salary">Loading...</span>
                     </div>
 
                 </div>
@@ -203,7 +205,10 @@
 
     </div>
 
- <script src="../logout.js"></script>
+    <!-- JAVASCRIPT -->
+    <script src="../../logout.js"></script>
+    <script src="../js/adminProfile.js" defer></script>
 
 </body>
 </html>
+

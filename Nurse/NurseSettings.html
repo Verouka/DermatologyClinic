@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="../securityrole.js" data-role="nurse"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nurse Settings</title>
@@ -11,7 +10,7 @@
 <body>
     <section class="header"> 
         <div class="a">
-           <img src="../icons8-heart-with-pulse-40.png" alt="Clinic logo" width="35">
+           <img src="icons8-heart-with-pulse-40.png" alt="Clinic logo" width="35">
            <h1 class="h1">Dermatology Clinic</h1>
         </div> 
         <div class="notification--profile">
@@ -19,9 +18,9 @@
                 <i class="ri-notification-2-line"></i>
             </div>
             <div class="picon profile">
-                <img class="img" src="../account.png" alt="Nurse Profile">
+                <img class="img" src="account.png" alt="Nurse Profile">
             </div>
-            <button class="logout" type="button" >Log Out</button>
+            <button class="logout" type="button" onclick="window.location.href='LoginPage.html'">Log Out</button>
         </div>
     </section>
 
@@ -29,7 +28,7 @@
         <div class="sidebar"> 
             <ul class="sidebar--items">
                 <li>
-                    <a href="NurseDashBoard.html" >
+                    <a href="NurseDashBoard.html">
                         <span class="icon">
                             <i class="ri-layout-grid-line"></i>
                         </span>
@@ -101,7 +100,5 @@
             </div>
         </div>
     </section>
-
-     <script src="../logout.js"></script>
 </body>
 </html>

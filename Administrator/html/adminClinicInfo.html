@@ -3,11 +3,12 @@
 <html lang="en">
 
 <head>
-    <script src="../../securityrole.js" data-role="administrator"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Clinic Info</title>
+    <script src="../../securityrole.js" data-role="administrator"></script>
+
+    <title>Clinic Information</title>
 
     <link rel="stylesheet" href="../css/admin.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
@@ -25,72 +26,79 @@
 
         <div class="header-right">
             <a href="adminDashboard.html">
-                <i class="ri-layout-grid-line"></i> Dashboard
+                <i class="ri-layout-grid-line"></i>
+                Dashboard
             </a>
 
-            <button class="logout" type="button" >
+            <button class="logout" type="button">
                 Log Out
             </button>
         </div>
 
     </header>
 
-
+    <!-- MAIN LAYOUT -->
     <div class="main">
 
         <!-- SIDEBAR -->
         <aside class="sidebar">
+
             <nav class="sidebar--items">
 
                 <a href="adminDashboard.html">
-                    <i class="ri-layout-grid-line"></i> Dashboard
+                    <i class="ri-layout-grid-line"></i>
+                    Dashboard
                 </a>
 
                 <a href="adminProfile.html">
-                    <i class="ri-user-line"></i> My Profile
+                    <i class="ri-user-line"></i>
+                    My Profile
                 </a>
 
                 <a href="adminStaff.html">
-                    <i class="ri-group-line"></i> Manage Staff
+                    <i class="ri-group-line"></i>
+                    Manage Staff
                 </a>
 
                 <a href="adminAppointments.html">
-                    <i class="ri-calendar-line"></i> Appointments
+                    <i class="ri-calendar-line"></i>
+                    Appointments
                 </a>
 
                 <a href="adminBilling.html">
-                    <i class="ri-bill-line"></i> Billing & Payments
+                    <i class="ri-bill-line"></i>
+                    Billing & Payments
                 </a>
 
                 <a href="adminReport.html">
-                    <i class="ri-folder-chart-line"></i> Reports
+                    <i class="ri-folder-chart-line"></i>
+                    Reports
                 </a>
 
                 <a href="adminClinicInfo.html" class="active--link">
-                    <i class="ri-hospital-line"></i> Clinic Information
+                    <i class="ri-hospital-line"></i>
+                    Clinic Information
                 </a>
-                
+
             </nav>
 
             <nav class="sidebar--bottom-items">
                 <a href="settings.html">
-                    <i class="ri-settings-3-line"></i> Settings
+                    <i class="ri-settings-3-line"></i>
+                    Settings
                 </a>
             </nav>
 
         </aside>
 
-
-        <!-- PROFILE CONTENT -->
+        <!-- CLINIC INFORMATION -->
         <main class="mainContent">
 
             <h2 class="maintitle">Clinic Info</h2>
 
-            <p>View Clinic Info.</p>
+            <p>View clinic information.</p>
 
-
-            <!-- PERSONAL INFORMATION -->
-            <section class="panel" id="personal">
+            <section class="panel" id="clinic">
 
                 <h2>Clinic</h2>
 
@@ -98,17 +106,32 @@
 
                     <div class="field">
                         <strong>Office ID</strong>
-                        <span>—</span>
+                        <span id="officeId">Loading...</span>
                     </div>
 
                     <div class="field">
                         <strong>Phone Number</strong>
-                        <span>—</span>
+                        <span id="officePhone">Loading...</span>
                     </div>
 
                     <div class="field">
-                        <strong>Address</strong>
-                        <span>—</span>
+                        <strong>Street</strong>
+                        <span id="officeStreet">Loading...</span>
+                    </div>
+
+                    <div class="field">
+                        <strong>City</strong>
+                        <span id="officeCity">Loading...</span>
+                    </div>
+
+                    <div class="field">
+                        <strong>State</strong>
+                        <span id="officeState">Loading...</span>
+                    </div>
+
+                    <div class="field">
+                        <strong>ZIP Code</strong>
+                        <span id="officeZipCode">Loading...</span>
                     </div>
 
                 </div>
@@ -118,7 +141,11 @@
         </main>
 
     </div>
-     <script src="../logout.js"></script>
+
+    <!-- JAVASCRIPT -->
+    <script src="../../logout.js"></script>
+    <script src="../js/adminClinicInfo.js" defer></script>
 
 </body>
 </html>
+

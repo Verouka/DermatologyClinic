@@ -1,5 +1,5 @@
 
-const API_BASE = "http://127.0.0.1:3000";
+const API_BASE = "";
 
 async function getPatientData(endpoint) {
     const response = await fetch(`${API_BASE}${endpoint}`, {
@@ -205,14 +205,14 @@ async function checkPatientSession() {
         );
 
         if (!response.ok) {
-            window.location.replace("LoginPage.html");
+            window.location.replace("/LoginPage.html");
             return;
         }
 
         const user = await response.json();
 
         if (user.role !== "patient") {
-            window.location.replace("LoginPage.html");
+            window.location.replace("/LoginPage.html");
             return;
         }
 
@@ -236,7 +236,7 @@ async function checkPatientSession() {
 
     } catch (error) {
         console.error("Dashboard authentication error:", error);
-        window.location.replace("LoginPage.html");
+        window.location.replace("/LoginPage.html");
     }
 }
 

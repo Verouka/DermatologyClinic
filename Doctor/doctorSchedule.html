@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <head>
+    <meta charset="UTF-8">
     <script src="../securityrole.js" data-role="doctor"></script>
     <title>Doctor Schedule</title>
     <link rel="stylesheet" href="doctorDashboard.css">
@@ -20,10 +22,9 @@
             <div class="picon bell">
                 <i class="ri-notification-2-line"></i>
             </div>
-            <div class="picon profile">
-                <img class="img" src="../account.png" alt="Doctor Profile">
-                
-            </div>
+<a href="doctorProfile.html" class="picon profile">
+    <img class="img" src="../account.png" alt="Doctor Profile">
+</a>
             <button class="logout" type="button" >
                      Log Out
             </button>
@@ -128,7 +129,7 @@
                         <div class="cardData">
                             <div class="cardContent">
                                 <h3 class="title">Working Day</h3>
-                                <h4>No data loaded.</h4>
+                                <h4 id="workingDayValue">No data loaded.</h4>
                             </div>
                             <i class="ri-calendar-2-line card--icon"></i>
                         </div>
@@ -138,7 +139,7 @@
                         <div class="cardData">
                             <div class="cardContent">
                                 <h3 class="title">Start Time</h3>
-                                <h4>No data loaded.</h4>
+                                <h4 id="startTimeValue">No data loaded.</h4>
                             </div>
                             <i class="ri-time-line card--icon"></i>
                         </div>
@@ -148,7 +149,7 @@
                         <div class="cardData">
                             <div class="cardContent">
                                 <h3 class="title">End Time</h3>
-                                <h4>No data loaded.</h4>
+                                <h4 id="endTimeValue">No data loaded.</h4>
                             </div>
                             <i class="ri-time-line card--icon"></i>
                         </div>
@@ -158,7 +159,7 @@
                         <div class="cardData">
                             <div class="cardContent">
                                 <h3 class="title">Office</h3>
-                                <h4>No data loaded.</h4>
+                                <h4 id="officeValue">No data loaded.</h4>
                             </div>
                             <i class="ri-hospital-line card--icon"></i>
                         </div>
@@ -168,36 +169,30 @@
 
 
                 <div class="scheduleSection">
-                    <h3 class="maintitle">Weekly Appointment Calendar</h3>
+                    <div class="calendarToolbar">
+                        <div>
+                            <h3 class="maintitle">Weekly Appointment Calendar</h3>
+                            <h4 id="calendarMonthTitle">Loading month...</h4>
+                            <p id="calendarRange"></p>
+                        </div>
+                        <div class="calendarButtons">
+                            <button type="button" id="previousWeek">&#8249; Previous</button>
+                            <button type="button" id="todayWeek">Today</button>
+                            <button type="button" id="nextWeek">Next &#8250;</button>
+                        </div>
+                    </div>
                     <p>Appointments assigned to you will be displayed here.</p>
                     <div class="table-container">
                         <table class="scheduleCalendar">
                             <thead>
-                                <tr>
-                                    <th>Monday</th>
-                                    <th>Tuesday</th>
-                                    <th>Wednesday</th>
-                                    <th>Thursday</th>
-                                    <th>Friday</th>
-                                    <th>Saturday</th>
-                                    <th>Sunday</th>
-                                </tr>
+                                <tr id="calendarDayHeaders"></tr>
                             </thead>
                             <tbody>
-                                <!-- Appointments will be displayed under each day later. -->
-                                <tr>
-                                    <td>—</td>
-                                    <td>—</td>
-                                    <td>—</td>
-                                    <td>—</td>
-                                    <td>—</td>
-                                    <td>—</td>
-                                    <td>—</td>
-                                </tr>
+                                <tr id="calendarAppointmentCells"><td colspan="7">Loading appointments...</td></tr>
                             </tbody>
                         </table>
                     </div>
-                    <p class="scheduleNotice">No assigned appointment data loaded.</p>
+                    <p class="scheduleNotice" id="scheduleNotice" role="status">No assigned appointment data loaded.</p>
                 </div>
 
                 <div class="scheduleSection">
@@ -207,7 +202,7 @@
                             <thead>
                                 <tr><th>Appointment ID</th><th>Date</th><th>Time</th><th>Patient</th><th>Reason for Visit</th><th>Office ID</th><th>Status</th></tr>
                             </thead>
-                            <tbody>
+                            <tbody id="weeklyAppointmentRows">
                                 <tr><td colspan="7">No assigned appointments loaded.</td></tr>
                             </tbody>
                         </table>
@@ -222,6 +217,7 @@
 
 
     </section>
+    <script src="doctorSchedule.js" defer></script>
     <script src="../logout.js"></script>
 </body>
 </html>

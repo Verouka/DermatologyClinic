@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="doctorDashboard.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="doctorDropdown.css">
+    <link rel="stylesheet" href="doctorNotifications.css">
 </head>
 <body>
     <section class="header"> 
@@ -19,10 +20,9 @@
             <div class="picon bell">
                 <i class="ri-notification-2-line"></i>
             </div>
-            <div class="picon profile">
-                <img class="img" src="../account.png" alt="Doctor Profile">
-                
-            </div>
+            <a href="doctorProfile.html" class="picon profile">
+    <img class="img" src="../account.png" alt="Doctor Profile">
+</a>
             <button class="logout" type="button" id="logoutBtn">
                      Log Out
             </button>
@@ -175,6 +175,8 @@
 
 
     </section>
+    <script src="doctorDashboard.js" defer></script>
+    <script src="doctorNotifications.js" defer></script>
     <script src="../logout.js"></script>
 
 </body>

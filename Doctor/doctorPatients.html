@@ -146,8 +146,68 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button type="button" id="createPatientBtn" class="tabBtn">+ Add New Patient</button>
+                            <button type="button" id="editPatientBtn" class="tabBtn" disabled>Edit Selected Patient</button>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Creates or edits an existing row in the patient table. -->
+                <section class="medicalRecords" id="patientManagementSection" hidden>
+                    <div class="recordCard">
+                        <div class="recordHeader">
+                            <i class="ri-user-add-line"></i>
+                            <h3 id="patientManagementHeading">Add New Patient</h3>
+                        </div>
+                        <p>Create a patient and assign them to your account, or edit an assigned patient's information.</p>
+                        <form id="patientManagementForm" autocomplete="off">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+                                <label>First Name *<input style="display:block; width:100%; box-sizing:border-box; padding:8px; margin-top:4px;" name="First_Name" maxlength="45" required></label>
+                                <label>Middle Name<input style="display:block; width:100%; box-sizing:border-box; padding:8px; margin-top:4px;" name="Middle_Name" maxlength="45"></label>
+                                <label>Last Name *<input style="display:block; width:100%; box-sizing:border-box; padding:8px; margin-top:4px;" name="Last_Name" maxlength="45" required></label>
+                                <label>Email *<input style="display:block; width:100%; box-sizing:border-box; padding:8px; margin-top:4px;" name="Email" type="email" maxlength="45" required></label>
+                                <label>Birth Date<input style="display:block; width:100%; box-sizing:border-box; padding:8px; margin-top:4px;" name="BirthDate" type="date"></label>
+                                <label>Gender<input style="display:block; width:100%; box-sizing:border-box; padding:8px; margin-top:4px;" name="Gender" maxlength="45"></label>
+                                <label>Phone<input style="display:block; width:100%; box-sizing:border-box; padding:8px; margin-top:4px;" name="Phone" type="tel" maxlength="20"></label>
+                                <label>Street<input style="display:block; width:100%; box-sizing:border-box; padding:8px; margin-top:4px;" name="Street" maxlength="45"></label>
+                                <label>City<input style="display:block; width:100%; box-sizing:border-box; padding:8px; margin-top:4px;" name="City" maxlength="45"></label>
+                                <label>State<input style="display:block; width:100%; box-sizing:border-box; padding:8px; margin-top:4px;" name="State" maxlength="45"></label>
+                                <label>ZIP Code<input style="display:block; width:100%; box-sizing:border-box; padding:8px; margin-top:4px;" name="Zip_Code" maxlength="10"></label>
+                            </div>
+                            <div style="margin-top: 15px; display: flex; gap: 10px;">
+                                <button type="submit" class="tabBtn">Save Patient</button>
+                                <button type="button" id="cancelPatientManagementBtn" class="tabBtn">Close</button>
+                            </div>
+                            <p id="patientManagementMessage" role="status" aria-live="polite"></p>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Add records for an already-assigned patient. No CSS file changes. -->
+                <section class="medicalRecords" id="newPatientRecord" hidden>
+                    <div class="recordCard">
+                        <div class="recordHeader">
+                            <i class="ri-file-add-line"></i>
+                            <h3>Add Medical Record</h3>
+                        </div>
+                        <p id="newRecordPatient">Select an assigned patient above first.</p>
+                        <form id="newPatientRecordForm">
+                            <label for="newRecordType">Record type</label>
+                            <select id="newRecordType" required>
+                                <option value="medicalHistory">Family Medical History</option>
+                                <option value="allergies">Allergy</option>
+                                <option value="diagnoses">Diagnosis</option>
+                                <option value="treatments">Current Treatment</option>
+                                <option value="previousTreatments">Previous Treatment</option>
+                                <option value="prescriptions">Prescription</option>
+                            </select>
+                            <div id="newPatientRecordFields"></div>
+                            <button type="submit">Save Medical Record</button>
+                            <p id="newPatientRecordMessage" role="status"></p>
+                        </form>
+                    </div>
+                </section>
 
                 <div class="medicalRecords" id="medical-records">
                     <div class="title">
@@ -235,6 +295,9 @@
             </div>
         </div>
     </section>
+    <script src="doctorPatients.js" defer></script>
+    <script src="doctorPatientManagement.js" defer></script>
+    <script src="doctorPatientEntry.js" defer></script>
     <script src="../logout.js"></script>
 </body>
 </html>

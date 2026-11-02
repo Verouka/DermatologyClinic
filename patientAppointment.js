@@ -7,7 +7,7 @@ async function loadPatientAppointments() {
 
     try {
         const response = await fetch(
-            "http://127.0.0.1:3000/api/patient/appointments",
+            "/api/patient/appointments",
             {
                 method: "GET",
                 credentials: "include"
@@ -111,7 +111,7 @@ async function loadPatientAppointments() {
 
                             try {
                                 const response = await fetch(
-                                    `http://127.0.0.1:3000/api/patient/appointments/${appointment.Appointment_ID}/cancel`,
+                                    `/api/patient/appointments/${appointment.Appointment_ID}/cancel`,
                                     {
                                         method: "PATCH",
                                         credentials: "include"

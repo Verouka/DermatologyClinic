@@ -1,0 +1,9 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.deploySubpath": ".",
+    "json.schemas": [],
+    "appService.defaultWebAppToDeploy": "/subscriptions/accdc8cb-f088-492a-b0de-700cb5a9a275/resourceGroups/clinicProject/providers/Microsoft.Web/sites/dermatology-clinic"
+}

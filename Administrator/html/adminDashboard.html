@@ -3,11 +3,12 @@
 <html lang="en">
 
 <head>
-    <script src="../../securityrole.js" data-role="administrator"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Dashboard</title>
+    <script src="../../securityrole.js" data-role="administrator"></script>
+
+    <title>Administrator Dashboard</title>
 
     <link rel="stylesheet" href="../css/admin.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
@@ -22,19 +23,19 @@
             <i class="ri-heart-pulse-line"></i>
             <h1>Dermatology Clinic</h1>
         </div>
+
         <div class="header-right">
-            <a href="doctorProfile.html">
+            <a href="adminProfile.html">
                 <i class="ri-user-line"></i>
-                Admin Dashboard
+                Admin Profile
             </a>
 
-            <button class="logout" type="button" >
+            <button class="logout" type="button">
                 Log Out
             </button>
         </div>
 
     </header>
-
 
     <!-- MAIN LAYOUT -->
     <div class="main">
@@ -71,7 +72,7 @@
                 <a href="adminClinicInfo.html">
                     <i class="ri-hospital-line"></i> Clinic Information
                 </a>
-                
+
             </nav>
 
             <nav class="sidebar--bottom-items">
@@ -82,15 +83,14 @@
 
         </aside>
 
-
         <!-- DASHBOARD CONTENT -->
         <main class="mainContent">
 
             <h2 class="maintitle">Administrator Dashboard</h2>
+
             <p>
                 Manage people, appointments, finances, and gather reports.
             </p>
-
 
             <!-- OVERVIEW CARDS -->
             <section class="cards">
@@ -99,7 +99,7 @@
                     <div class="cardData">
                         <div>
                             <h3>Total Patients</h3>
-                            <p>No data loaded</p>
+                            <p id="totalPatients">Loading...</p>
                         </div>
                         <i class="ri-group-line card--icon"></i>
                     </div>
@@ -109,7 +109,7 @@
                     <div class="cardData">
                         <div>
                             <h3>Total Doctors</h3>
-                            <p>No data loaded</p>
+                            <p id="totalDoctors">Loading...</p>
                         </div>
                         <i class="ri-stethoscope-line card--icon"></i>
                     </div>
@@ -119,7 +119,7 @@
                     <div class="cardData">
                         <div>
                             <h3>Total Nurses</h3>
-                            <p>No data loaded</p>
+                            <p id="totalNurses">Loading...</p>
                         </div>
                         <i class="ri-nurse-line card--icon"></i>
                     </div>
@@ -129,14 +129,13 @@
                     <div class="cardData">
                         <div>
                             <h3>Total Revenue</h3>
-                            <p>No data loaded</p>
+                            <p id="totalRevenue">Loading...</p>
                         </div>
                         <i class="ri-money-dollar-box-line card--icon"></i>
                     </div>
                 </div>
 
             </section>
-
 
             <!-- REFERRALS -->
             <section class="panel" id="referrals">
@@ -147,7 +146,6 @@
                     Patients need approval from their primary doctor
                     before scheduling a specialist appointment.
                 </p>
-
 
                 <!-- Pending Referrals -->
                 <h3>Pending Referrals</h3>
@@ -164,8 +162,7 @@
                             </tr>
                         </thead>
 
-                        <tbody>
-                            <!-- Pending referral records -->
+                        <tbody id="pendingReferralsBody">
                             <tr>
                                 <td colspan="5" class="empty">
                                     No records loaded.
@@ -174,7 +171,6 @@
                         </tbody>
                     </table>
                 </div>
-
 
                 <!-- Approved Referrals -->
                 <h3>Approved Referrals</h3>
@@ -190,8 +186,7 @@
                             </tr>
                         </thead>
 
-                        <tbody>
-                            <!-- Approved referral records -->
+                        <tbody id="approvedReferralsBody">
                             <tr>
                                 <td colspan="4" class="empty">
                                     No records loaded.
@@ -200,7 +195,6 @@
                         </tbody>
                     </table>
                 </div>
-
 
                 <!-- Canceled Referrals -->
                 <h3>Canceled Referrals</h3>
@@ -216,8 +210,7 @@
                             </tr>
                         </thead>
 
-                        <tbody>
-                            <!-- Canceled referral records -->
+                        <tbody id="canceledReferralsBody">
                             <tr>
                                 <td colspan="4" class="empty">
                                     No records loaded.
@@ -228,7 +221,6 @@
                 </div>
 
             </section>
-
 
             <!-- MY PATIENTS -->
             <section class="panel" id="patients">
@@ -254,8 +246,7 @@
                             </tr>
                         </thead>
 
-                        <tbody>
-                            <!-- Patient records -->
+                        <tbody id="adminPatientsBody">
                             <tr>
                                 <td colspan="6" class="empty">
                                     No patient records loaded.
@@ -266,7 +257,6 @@
                 </div>
 
             </section>
-
 
             <!-- APPOINTMENTS -->
             <section class="panel" id="appointments">
@@ -285,8 +275,7 @@
                             </tr>
                         </thead>
 
-                        <tbody>
-                            <!-- Appointment records -->
+                        <tbody id="dashboardAppointmentsBody">
                             <tr>
                                 <td colspan="5" class="empty">
                                     No appointments loaded.
@@ -301,7 +290,11 @@
         </main>
 
     </div>
-     <script src="../logout.js"></script>
+
+    <!-- JAVASCRIPT -->
+    <script src="../../logout.js"></script>
+    <script src="../js/adminDashboard.js" defer></script>
 
 </body>
 </html>
+

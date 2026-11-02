@@ -1,5 +1,4 @@
 
-
 const allowedRole = document.currentScript.dataset.role;
 
 // Hide the dashboard until the user's role is verified.
@@ -7,13 +6,10 @@ document.documentElement.style.visibility = "hidden";
 
 (async function checkSecurity() {
     try {
-        const response = await fetch(
-            "http://127.0.0.1:3000/api/auth/me",
-            {
-                method: "GET",
-                credentials: "include"
-            }
-        );
+        const response = await fetch("/api/auth/me", {
+            method: "GET",
+            credentials: "include"
+        });
 
         if (!response.ok) {
             throw new Error("User is not authenticated");
@@ -21,10 +17,11 @@ document.documentElement.style.visibility = "hidden";
 
         const user = await response.json();
 
-        if (user.role !== allowedRole) {
-            window.location.replace(
-                "http://127.0.0.1:5500/LoginPage.html"
-            );
+        if (
+            String(user.role).toLowerCase() !==
+            String(allowedRole).toLowerCase()
+        ) {
+            window.location.replace("/LoginPage.html");
             return;
         }
 
@@ -34,8 +31,6 @@ document.documentElement.style.visibility = "hidden";
     } catch (error) {
         console.error("Security check failed:", error);
 
-        window.location.replace(
-            "http://127.0.0.1:5500/LoginPage.html"
-        );
+        window.location.replace("/LoginPage.html");
     }
 })();

@@ -1,5 +1,4 @@
 
-
 const tabButtons = document.querySelectorAll(".tabBtn");
 const recordTitle = document.getElementById("recordTitle");
 const recordContent = document.getElementById("recordContent");
@@ -145,7 +144,7 @@ function displayMedicalRecords(tabName) {
 async function loadMedicalRecords() {
     try {
         const response = await fetch(
-            "http://127.0.0.1:3000/api/patient/medical-records",
+            "/api/patient/medical-records",
             {
                 method: "GET",
                 credentials: "include"
@@ -180,3 +179,4 @@ tabButtons.forEach(button => {
 });
 
 loadMedicalRecords();
+

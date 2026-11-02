@@ -2,11 +2,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../securityrole.js" data-role="doctor"></script>
     <title>Doctor Settings</title>
     <link rel="stylesheet" href="doctorDashboard.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="doctorDropdown.css">
+    <link rel="stylesheet" href="doctorSettings.css">
+    <link rel="stylesheet" href="doctorNotifications.css">
 </head>
 <body>
     <section class="header"> 
@@ -19,10 +23,9 @@
             <div class="picon bell">
                 <i class="ri-notification-2-line"></i>
             </div>
-            <div class="picon profile">
-                <img class="img" src="../account.png" alt="Doctor Profile">
-                
-            </div>
+ <a href="doctorProfile.html" class="picon profile">
+    <img class="img" src="../account.png" alt="Doctor Profile">
+</a>
             <button class="logout" type="button" >
                      Log Out
             </button>
@@ -122,47 +125,53 @@
                     <p>Manage your doctor account preferences.</p>
     
                 </div>
-                <div class="cards">
-                    <div class="card card1">
-                        <div class="cardData">
-                            <div class="cardContent">
-                                <h3 class="title">Contact Information</h3>
-                                <h4>No data loaded.</h4>
-                            </div>
-                            <i class="ri-user-line card--icon"></i>
-                        </div>
-                        
+                <div class="settingsContainer">
+
+                    <div class="settingsCard">
+                        <h3><i class="ri-user-settings-line"></i> Account Information</h3>
+                        <p>View the email associated with your doctor account.</p>
+                        <label for="accountEmail">Email Address</label>
+                        <input type="email" id="accountEmail" placeholder="Loading..." readonly>
                     </div>
-                    <div class="card card2">
-                        <div class="cardData">
-                            <div class="cardContent">
-                                <h3 class="title">Notifications</h3>
-                                <h4>No data loaded.</h4>
-                            </div>
-                            <i class="ri-notification-2-line card--icon"></i>
-                        </div>
-                        
+
+                    <div class="settingsCard">
+                        <h3><i class="ri-lock-password-line"></i> Change Password</h3>
+                        <p>Update your password to keep your account secure.</p>
+                        <form id="passwordForm">
+                            <label for="currentPassword">Current Password</label>
+                            <input type="password" id="currentPassword"
+                                   autocomplete="current-password" required>
+
+                            <label for="newPassword">New Password</label>
+                            <input type="password" id="newPassword"
+                                   minlength="8" maxlength="128"
+                                   autocomplete="new-password" required>
+
+                            <label for="confirmPassword">Confirm New Password</label>
+                            <input type="password" id="confirmPassword"
+                                   minlength="8" maxlength="128"
+                                   autocomplete="new-password" required>
+
+                            <button type="submit" class="saveSettingsBtn">Change Password</button>
+                            <p id="passwordMessage" role="status"></p>
+                        </form>
                     </div>
-                    <div class="card card3">
-                        <div class="cardData">
-                            <div class="cardContent">
-                                <h3 class="title">Account Information</h3>
-                                <h4>No data loaded.</h4>
-                            </div>
-                            <i class="ri-settings-3-line card--icon"></i>
-                        </div>
-                        
+
+                    <div class="settingsCard">
+                        <h3><i class="ri-notification-3-line"></i> Notification Preferences</h3>
+                        <p>Choose which notification categories appear in the bell (temporary setting).</p>
+                        <label class="checkboxSetting">
+                            <input type="checkbox" id="appointmentReminders">
+                            Appointment reminders
+                        </label>
+                        <label class="checkboxSetting">
+                            <input type="checkbox" id="medicalUpdates">
+                            Medical record updates
+                        </label>
+                        <button type="button" id="saveNotificationSettings" class="saveSettingsBtn">Save Notification Preferences</button>
+                        <p id="notificationMessage" role="status">Preferences reset when the backend restarts.</p>
                     </div>
-                    <div class="card card4">
-                        <div class="cardData">
-                            <div class="cardContent">
-                                <h3 class="title">Profile</h3>
-                                <h4>View personal information from Doctor Profile.</h4>
-                            </div>
-                            <i class="ri-user-line card--icon"></i>
-                        </div>
-                        
-                    </div>
+
                 </div>
 
 
@@ -175,6 +184,8 @@
 
 
     </section>
+    <script src="settings.js" defer></script>
+    <script src="doctorNotifications.js" defer></script>
     <script src="../logout.js"></script>
 
 </body>

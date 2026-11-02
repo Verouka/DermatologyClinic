@@ -2,6 +2,9 @@
 import mysql from "mysql2/promise";
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
@@ -13,10 +16,11 @@ const pool = mysql.createPool({
     connectionLimit: 10,
     ssl: {
         ca: fs.readFileSync(
-            path.resolve("DigiCertGlobalRootG2.crt.pem")
+            path.resolve(__dirname, "../DigiCertGlobalRootG2.crt.pem")
         ),
         rejectUnauthorized: true
     }
 });
 
 export default pool;
+
