@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="./securityrole.js" data-role="nurse"></script>
+
     <title>Nurse Settings</title>
+
     <link rel="stylesheet" href="NurseDashBoard.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
 </head>
@@ -20,7 +24,7 @@
             <div class="picon profile">
                 <img class="img" src="account.png" alt="Nurse Profile">
             </div>
-            <button class="logout" type="button" onclick="window.location.href='LoginPage.html'">Log Out</button>
+            <button class="logout" type="button">Log Out</button>
         </div>
     </section>
 
@@ -77,28 +81,63 @@
         </div>
 
         <div class="mainContent">
-            <div class="title">
-                <h2 class="maintitle"><i class="ri-settings-3-line"></i> Account Settings</h2>
-                <p>Configure dashboard preferences and application settings.</p>
-            </div>
-
-            <div style="max-width: 600px; margin-top: 20px; display: flex; flex-direction: column; gap: 20px;">
-                <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #ddd;">
-                    <h3 style="color: rgb(2, 2, 85);">Notifications</h3>
-                    <label style="display: block; margin-top: 10px;">
-                        <input type="checkbox" checked> Email notifications for patient check-ins
-                    </label>
-                    <label style="display: block; margin-top: 10px;">
-                        <input type="checkbox" checked> SMS alerts for urgent schedule changes
-                    </label>
+            <div class="overview">
+                <div class="title">
+                    <h2 class="maintitle">Settings</h2>
+                    <p>Manage your account and security preferences.</p>
                 </div>
 
-                <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #ddd;">
-                    <h3 style="color: rgb(2, 2, 85);">Security</h3>
-                    <button class="logout" type="button" style="margin-top: 10px;" onclick="alert('Password reset link sent to your email.')">Change Password</button>
+                <div class="settingsContainer" style="max-width: 600px; margin-top: 20px; display: flex; flex-direction: column; gap: 20px;">
+
+                    <div class="settingsCard" style="background: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #ddd;">
+                        <h3 style="color: rgb(2, 2, 85); margin-bottom: 8px;"><i class="ri-user-settings-line"></i> Account Information</h3>
+                        <p style="margin-bottom: 12px; color: #555;">View the email associated with your account.</p>
+
+                        <label for="accountEmail" style="display: block; margin-bottom: 6px; font-weight: 500;">Email Address</label>
+                        <input type="email" id="accountEmail" placeholder="Loading..." readonly style="width: 100%; padding: 8px 10px; border: 1px solid #ccc; border-radius: 5px; background: #eee;">
+                    </div>
+
+                    <div class="settingsCard" style="background: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #ddd;">
+                        <h3 style="color: rgb(2, 2, 85); margin-bottom: 8px;"><i class="ri-lock-password-line"></i> Change Password</h3>
+                        <p style="margin-bottom: 12px; color: #555;">Update your password to keep your account secure.</p>
+
+                        <form id="passwordForm" style="display: flex; flex-direction: column; gap: 10px;">
+                            <label for="currentPassword">Current Password</label>
+                            <input type="password" id="currentPassword" autocomplete="current-password" required style="padding: 8px 10px; border: 1px solid #ccc; border-radius: 5px;">
+
+                            <label for="newPassword">New Password</label>
+                            <input type="password" id="newPassword" minlength="8" maxlength="128" autocomplete="new-password" required style="padding: 8px 10px; border: 1px solid #ccc; border-radius: 5px;">
+
+                            <label for="confirmPassword">Confirm New Password</label>
+                            <input type="password" id="confirmPassword" autocomplete="new-password" required style="padding: 8px 10px; border: 1px solid #ccc; border-radius: 5px;">
+
+                            <button type="submit" class="logout" style="margin-top: 10px; width: fit-content;">
+                                Change Password
+                            </button>
+
+                            <p id="passwordMessage" role="status" style="margin-top: 5px; font-weight: bold;"></p>
+                        </form>
+                    </div>
+
+                    <div class="settingsCard" style="background: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #ddd;">
+                        <h3 style="color: rgb(2, 2, 85); margin-bottom: 8px;"><i class="ri-notification-3-line"></i> Notification Preferences</h3>
+                        <p style="margin-bottom: 12px; color: #555;">Choose which notifications you want to receive.</p>
+
+                        <label class="checkboxSetting" style="display: block; margin-top: 10px;">
+                            <input type="checkbox" id="appointmentReminders" checked> Appointment check-in reminders
+                        </label>
+
+                        <label class="checkboxSetting" style="display: block; margin-top: 10px;">
+                            <input type="checkbox" id="scheduleAlerts" checked> Urgent schedule change alerts
+                        </label>
+                    </div>
+
                 </div>
             </div>
         </div>
     </section>
+
+    <script src="./NurseSettings.js"></script>
+    <script src="./logout.js"></script>
 </body>
 </html>
