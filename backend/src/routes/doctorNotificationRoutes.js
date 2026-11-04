@@ -1,128 +1,114 @@
-
 import pool from "../database.js";
 import { getSession } from "../services/sessionService.js";
 
+// Cancellation notices are derived from the EXISTING appointment table.
+// Read flags live in this server process only; the browser also caches them
+// locally so they can remain read after a server restart on that browser.
+// No notification table or notification-preferences service is required.
+const readByDoctor = new Map();
+
 export const handleDoctorNotificationRoutes = async (req, res) => {
     const path = new URL(req.url, "http://localhost").pathname;
-
+    const isList = req.method === "GET" && path === "/api/doctor/notifications";
     const readMatch = path.match(
-        /^\/api\/doctor\/notifications\/([1-9]\d*)\/read$/
+        /^\/api\/doctor\/notifications\/cancel-([1-9]\d*)\/read$/
     );
+    const isRead = req.method === "PATCH" && readMatch !== null;
 
-    const isList =
-        path === "/api/doctor/notifications" &&
-        req.method === "GET";
-
-    const isRead =
-        readMatch !== null &&
-        req.method === "PATCH";
-
-    if (!isList && !isRead) {
-        return false;
-    }
+    if (!isList && !isRead) return false;
 
     const sendJSON = (status, data) => {
         res.writeHead(status, {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json; charset=utf-8",
             "Cache-Control": "no-store"
         });
-
         res.end(JSON.stringify(data));
     };
 
+    // Uses the supplied sessionService.js. Nothing is read from the
+    // credential JSON or trusted from a browser-provided doctor ID.
     const session = getSession(req);
-
+    const doctorId = Number(session?.doctorId);
     if (
-        !session ||
-        session.role !== "doctor" ||
-        !session.userId ||
-        !session.doctorId
+        !session || session.role !== "doctor" ||
+        !Number.isSafeInteger(doctorId) || doctorId <= 0
     ) {
-        sendJSON(401, { error: "Unauthorized" });
+        sendJSON(401, {
+            error: "Doctor login required (session must include doctorId)"
+        });
         return true;
     }
 
     try {
+        const read = readByDoctor.get(doctorId) || new Set();
+
         if (isList) {
-            const [notifications] = await pool.execute(
+            const [rows] = await pool.execute(
                 `SELECT
-                    n.Notification_ID,
-                    n.Title,
-                    n.Message,
-                    n.Created_At,
-                    n.Is_Read
-                 FROM notification AS n
-                 INNER JOIN usercredential AS u
-                    ON n.UserID = u.UserID
-                 WHERE u.UserID = ?
-                   AND u.DOCTOR_Doctor_ID = ?
-                 ORDER BY n.Created_At DESC
+                    a.Appointment_ID,
+                    DATE_FORMAT(a.Appointment_Date, '%Y-%m-%d') AS Appointment_Date,
+                    TIME_FORMAT(a.Appointment_Time, '%H:%i') AS Appointment_Time,
+                    p.First_Name,
+                    p.Last_Name
+                 FROM appointment AS a
+                 INNER JOIN patient AS p
+                    ON p.Patient_ID = a.PATIENT_Patient_ID
+                 WHERE a.DOCTOR_Doctor_ID = ?
+                   AND LOWER(TRIM(a.Appointment_Status)) IN ('canceled', 'cancelled')
+                 ORDER BY a.Appointment_Date DESC, a.Appointment_Time DESC
                  LIMIT 100`,
-                [session.userId, session.doctorId]
+                [doctorId]
             );
 
-            const unreadCount = notifications.filter(
-                item => !item.Is_Read
-            ).length;
+            const notifications = rows.map(appt => ({
+                Notification_ID: `cancel-${appt.Appointment_ID}`,
+                Kind: "appointment-cancellation",
+                Title: "Appointment canceled",
+                Message:
+                    `Appointment #${appt.Appointment_ID} for ` +
+                    `${[appt.First_Name, appt.Last_Name].filter(Boolean).join(" ") || "a patient"}` +
+                    ` (scheduled ${appt.Appointment_Date || "date unknown"}` +
+                    `${appt.Appointment_Time ? ` at ${appt.Appointment_Time}` : ""}) was canceled.`,
+                // Appointment date is NOT the cancellation timestamp.
+                Created_At: null,
+                Is_Read: read.has(Number(appt.Appointment_ID))
+            }));
 
             sendJSON(200, {
+                viewerId: doctorId,
                 notifications,
-                unreadCount
-            });
-
-            return true;
-        }
-
-        const notificationId = Number(readMatch[1]);
-
-        if (
-            !Number.isSafeInteger(notificationId) ||
-            notificationId <= 0
-        ) {
-            sendJSON(400, {
-                error: "Invalid notification ID"
+                unreadCount: notifications.filter(n => !n.Is_Read).length
             });
             return true;
         }
 
-        const [result] = await pool.execute(
-            `UPDATE notification AS n
-             INNER JOIN usercredential AS u
-                ON n.UserID = u.UserID
-             SET n.Is_Read = 1
-             WHERE n.Notification_ID = ?
-               AND u.UserID = ?
-               AND u.DOCTOR_Doctor_ID = ?`,
-            [
-                notificationId,
-                session.userId,
-                session.doctorId
-            ]
+        // Mark a synthetic cancellation notification as read. Confirm that
+        // the appointment is actually canceled AND belongs to this doctor.
+        const appointmentId = Number(readMatch[1]);
+        if (!Number.isSafeInteger(appointmentId) || appointmentId <= 0) {
+            sendJSON(400, { error: "Invalid appointment ID" });
+            return true;
+        }
+        const [rows] = await pool.execute(
+            `SELECT Appointment_ID
+             FROM appointment
+             WHERE Appointment_ID = ?
+               AND DOCTOR_Doctor_ID = ?
+               AND LOWER(TRIM(Appointment_Status)) IN ('canceled', 'cancelled')
+             LIMIT 1`,
+            [appointmentId, doctorId]
         );
-
-        if (result.affectedRows === 0) {
-            sendJSON(404, {
-                error: "Notification not found"
-            });
-        } else {
-            sendJSON(200, {
-                message: "Notification marked as read"
-            });
+        if (rows.length === 0) {
+            sendJSON(404, { error: "Cancellation notification not found" });
+            return true;
         }
+        read.add(appointmentId);
+        readByDoctor.set(doctorId, read);
+        sendJSON(200, { message: "Notification marked as read" });
 
     } catch (error) {
-        console.error("Doctor notifications error:", error);
-
-        if (error.code === "ER_NO_SUCH_TABLE") {
-            sendJSON(503, {
-                error: "The notification table does not exist."
-            });
-        } else {
-            sendJSON(500, {
-                error: "Could not load or update notifications"
-            });
-        }
+        console.error("Doctor cancellation notifications error:", error);
+        sendJSON(500, { error: "Could not load or update notifications" });
     }
-
     return true;
 };

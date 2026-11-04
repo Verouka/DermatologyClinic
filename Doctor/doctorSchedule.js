@@ -1,6 +1,6 @@
 
 (() => {
-    const SCHEDULE_API_BASE = '';
+    const SCHEDULE_API_BASE = 'http://127.0.0.1:3000';
     const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     const formatMonth = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' });
     const formatRange = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' });
@@ -140,7 +140,11 @@
                 td.appendChild(item);
             }
 
-            for (const appt of appointments.filter(a => sqlDateKey(a.Appointment_Date) === dateString)) {
+            // Leave canceled visits in MySQL/history, but not on the calendar.
+            for (const appt of appointments.filter(a =>
+                sqlDateKey(a.Appointment_Date) === dateString &&
+                !['canceled', 'cancelled'].includes(normalizeStatus(a.Appointment_Status))
+            )) {
                 const a = document.createElement('a');
                 a.className = 'calendarEvent';
                 a.href = '#weeklyAppointmentRows';
@@ -275,7 +279,12 @@
             showWorkHours(data.workHours);
             showCalendar(data.weeklyAppointments, data.workHours);
             showAppointmentTable(data.weeklyAppointments);
-            if (showLoading) showNotice(`${data.weeklyAppointments.length} appointment(s) this week.`);
+            if (showLoading) {
+                const activeCount = data.weeklyAppointments.filter(a =>
+                    !['canceled', 'cancelled'].includes(normalizeStatus(a.Appointment_Status))
+                ).length;
+                showNotice(`${activeCount} active appointment(s) this week.`);
+            }
         } catch (error) {
             if (requestId !== latestRequest) return;
             console.error('Doctor schedule loading error:', error);
@@ -303,6 +312,14 @@
             loadSchedule();
         });
         loadSchedule();
+
+        // Refresh the same uploaded weekly schedule when other portals cancel.
+        window.setInterval(() => {
+            if (!document.hidden) loadSchedule(false);
+        }, 20000);
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) loadSchedule(false);
+        });
     }
 
     if (document.readyState === 'loading') {
