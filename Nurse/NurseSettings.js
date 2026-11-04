@@ -1,60 +1,90 @@
-import pool from "./database.js";
+const accountEmail = document.getElementById("accountEmail");
 
-// Helper to parse JSON request bodies
-const parseBody = (req) => new Promise((resolve) => {
-    let body = "";
-    req.on("data", chunk => body += chunk);
-    req.on("end", () => {
-        try { resolve(JSON.parse(body)); } catch { resolve({}); }
-    });
-});
+const passwordForm = document.getElementById("passwordForm");
+const currentPassword = document.getElementById("currentPassword");
+const newPassword = document.getElementById("newPassword");
+const confirmPassword = document.getElementById("confirmPassword");
+const passwordMessage = document.getElementById("passwordMessage");
 
-export async function getNurseSettings(req, res) {
+async function loadAccountInformation() {
     try {
-        // Fetch nurse details if needed for settings context
-        const [rows] = await pool.query("SELECT Email, Phone FROM nurse WHERE Nurse_ID = 501");
-        const nurse = rows[0] || {};
+        const response = await fetch(
+            "http://127.0.0.1:3000/api/auth/me",
+            {
+                method: "GET",
+                credentials: "include"
+            }
+        );
 
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({
-            email: nurse.Email,
-            phone: nurse.Phone,
-            emailNotifications: true,
-            smsAlerts: true
-        }));
-    } catch (error) {
-        res.writeHead(500, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ error: error.message }));
-    }
-}
-
-export async function updateNurseSettings(req, res) {
-    try {
-        const data = await parseBody(req);
-        // Handle saving settings preferences
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ success: true, message: "Settings updated successfully" }));
-    } catch (error) {
-        res.writeHead(500, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ error: error.message }));
-    }
-}
-
-export async function requestPasswordReset(req, res) {
-    try {
-        const [rows] = await pool.query("SELECT Email FROM nurse WHERE Nurse_ID = 501");
-        const nurse = rows[0];
-
-        if (!nurse) {
-            res.writeHead(404, { "Content-Type": "application/json" });
-            return res.end(JSON.stringify({ error: "Nurse not found" }));
+        if (!response.ok) {
+            throw new Error("Could not load account information");
         }
 
-        // Logic for handling password reset request simulation
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ success: true, message: `Password reset link sent to ${nurse.Email}` }));
+        const user = await response.json();
+
+        if (user.role !== "nurse") {
+            throw new Error("Nurse access required");
+        }
+
+        accountEmail.value = user.email || "";
+
     } catch (error) {
-        res.writeHead(500, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ error: error.message }));
+        console.error("Account information error:", error);
+        accountEmail.placeholder = "Unable to load email";
     }
 }
+
+passwordForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    passwordMessage.textContent = "";
+    passwordMessage.style.color = "red";
+
+    if (newPassword.value !== confirmPassword.value) {
+        passwordMessage.textContent = "New passwords do not match.";
+        return;
+    }
+
+    if (newPassword.value.length < 8 || newPassword.value.length > 128) {
+        passwordMessage.textContent = "Password must be between 8 and 128 characters.";
+        return;
+    }
+
+    const submitButton = passwordForm.querySelector("button[type='submit']");
+    submitButton.disabled = true;
+
+    try {
+        const response = await fetch(
+            "http://127.0.0.1:3000/api/nurse/settings/password",
+            {
+                method: "PATCH",
+                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    currentPassword: currentPassword.value,
+                    newPassword: newPassword.value
+                })
+            }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || "Could not change password");
+        }
+
+        passwordMessage.style.color = "green";
+        passwordMessage.textContent = "Password changed successfully!";
+
+        passwordForm.reset();
+
+    } catch (error) {
+        passwordMessage.textContent = error.message;
+    } finally {
+        submitButton.disabled = false;
+    }
+});
+
+loadAccountInformation();
