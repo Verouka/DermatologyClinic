@@ -1,13 +1,21 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
     <script src="../../securityrole.js" data-role="administrator"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Reports</title>
+
     <link rel="stylesheet" href="../css/admin.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
 </head>
+
 <body>
+
     <!-- HEADER -->
     <header class="header">
 
@@ -15,23 +23,26 @@
             <i class="ri-heart-pulse-line"></i>
             <h1>Dermatology Clinic</h1>
         </div>
+
         <div class="header-right">
-            <a href="doctorProfile.html">
-                <i class="ri-user-line"></i>
-                Admin Dashboard
+            <a href="adminReport.html">
+                <i class="ri-folder-chart-line"></i>
+                Reports
             </a>
 
-            <button class="logout" type="button" >
+            <button class="logout" type="button">
                 Log Out
             </button>
         </div>
 
     </header>
+
     <section class="main">
+
         <!-- SIDEBAR -->
         <aside class="sidebar">
 
-             <nav class="sidebar--items">
+            <nav class="sidebar--items">
 
                 <a href="adminDashboard.html">
                     <i class="ri-layout-grid-line"></i> Dashboard
@@ -60,7 +71,7 @@
                 <a href="adminClinicInfo.html">
                     <i class="ri-hospital-line"></i> Clinic Information
                 </a>
-                
+
             </nav>
 
             <nav class="sidebar--bottom-items">
@@ -70,73 +81,100 @@
             </nav>
 
         </aside>
-        
+
+        <!-- MAIN CONTENT -->
         <div class="mainContent">
-        <div class="overview">
 
+            <div class="overview">
 
-        <h2 class="maintitle">Reports</h2>
-        <p>Generate a report.</p>
-            
+                <h2 class="maintitle">Reports</h2>
+                <p>Generate a report.</p>
 
-        <div class="profileCard">
-            <div class="profileHeader">
-                <i class="ri-file-chart-line"></i>
-                <h3>Report Generator</h3>
+                <div class="profileCard">
+
+                    <div class="profileHeader">
+                        <i class="ri-file-chart-line"></i>
+                        <h3>Report Generator</h3>
+                    </div>
+
+                    <div class="profileData">
+
+                        <div class="profileField">
+                            <label for="FirstName">Office</label>
+                            <input
+                                type="text"
+                                id="FirstName"
+                                name="FirstName"
+                                maxlength="45"
+                                readonly
+                            >
+                        </div>
+
+                        <div class="profileField">
+                            <label for="patientID">Patient ID</label>
+                            <input
+                                type="text"
+                                id="patientID"
+                                name="patientID"
+                                readonly
+                            >
+                        </div>
+
+                        <div class="profileField">
+                            <label for="doctorID">Doctor ID</label>
+                            <input
+                                type="text"
+                                id="doctorID"
+                                name="doctorID"
+                                readonly
+                            >
+                        </div>
+
+                        <div class="profileField">
+                            <label for="nurseID">Nurse ID</label>
+                            <input
+                                type="text"
+                                id="nurseID"
+                                name="nurseID"
+                                readonly
+                            >
+                        </div>
+
+                        <div class="profileField">
+                            <label for="startDate">Start Date</label>
+                            <input
+                                type="date"
+                                id="startDate"
+                                name="startDate"
+                                readonly
+                            >
+                        </div>
+
+                        <div class="profileField">
+                            <label for="endDate">End Date</label>
+                            <input
+                                type="date"
+                                id="endDate"
+                                name="endDate"
+                                readonly
+                            >
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="profileData">
-
-                <div class="profileField">
-                    <label for="FirstName">Office</label>
-                    <input type="text" id="FirstName" name="FirstName" maxlength="45" readonly>
-                </div>
-
-                <div class="profileField">
-                    <label for="patientID">Patient ID</label>
-                    <input type="text" id="patientID" name="patientID" readonly>
-                </div>
-                
-                <div class="profileField">
-                    <label for="patientID">Doctor ID</label>
-                    <input type="text" id="patientID" name="patientID" readonly>
-                </div>
-                
-                <div class="profileField">
-                    <label for="patientID">Nurse ID</label>
-                    <input type="text" id="patientID" name="patientID" readonly>
-                </div>
-
-                <div class="profileField">
-                    <label for="dateOfBirth">Start Date</label>
-                    <input type="date" id="dateOfBirth" name="dateOfBirth" readonly>
-                </div>
-
-                <div class="profileField">
-                    <label for="dateOfBirth">End Date</label>
-                    <input type="date" id="dateOfBirth" name="dateOfBirth" readonly>
-                </div>
-
+            <div class="profileActions">
+                <button type="button" class="editBtn">Generate</button>
             </div>
 
         </div>
-
-        </div>
-        <div class="profileActions">
-            <button type="button" class="editBtn">Generate</button>
-        </div>
-        </div>
-
-
-
-
-
-
-
 
     </section>
 
-     <script src="../../logout.js"></script>
+    <script src="../../logout.js"></script>
 
 </body>
 </html>

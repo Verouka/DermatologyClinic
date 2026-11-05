@@ -1,18 +1,18 @@
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const fields = {
-        officeId: document.getElementById("officeId"),
-        officePhone: document.getElementById("officePhone"),
-        officeStreet: document.getElementById("officeStreet"),
-        officeCity: document.getElementById("officeCity"),
-        officeState: document.getElementById("officeState"),
-        officeZipCode: document.getElementById("officeZipCode")
-    };
+    const officesTableBody = document.getElementById("officesTableBody");
 
-    function displayValue(element, value) {
-        if (element) {
-            element.textContent = value ?? "—";
-        }
+    function displayMessage(message) {
+        officesTableBody.innerHTML = "";
+
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+
+        cell.colSpan = 6;
+        cell.textContent = message;
+
+        row.appendChild(cell);
+        officesTableBody.appendChild(row);
     }
 
     try {
@@ -35,24 +35,38 @@ document.addEventListener("DOMContentLoaded", async () => {
             );
         }
 
-        const office = result.office;
+        const offices = result.offices;
 
-        if (!office) {
-            throw new Error("No clinic information was found.");
+        if (!Array.isArray(offices) || offices.length === 0) {
+            displayMessage("No clinic offices found.");
+            return;
         }
 
-        displayValue(fields.officeId, office.officeId);
-        displayValue(fields.officePhone, office.phone);
-        displayValue(fields.officeStreet, office.street);
-        displayValue(fields.officeCity, office.city);
-        displayValue(fields.officeState, office.state);
-        displayValue(fields.officeZipCode, office.zipCode);
+        officesTableBody.innerHTML = "";
+
+        offices.forEach((office) => {
+            const row = document.createElement("tr");
+
+            const values = [
+                office.officeId,
+                office.phone,
+                office.street,
+                office.city,
+                office.state,
+                office.zipCode
+            ];
+
+            values.forEach((value) => {
+                const cell = document.createElement("td");
+                cell.textContent = value ?? "—";
+                row.appendChild(cell);
+            });
+
+            officesTableBody.appendChild(row);
+        });
 
     } catch (error) {
         console.error("Error loading clinic information:", error);
-
-        Object.values(fields).forEach((element) => {
-            displayValue(element, "Unavailable");
-        });
+        displayMessage("Unable to load clinic offices.");
     }
 });

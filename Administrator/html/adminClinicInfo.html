@@ -25,8 +25,8 @@
         </div>
 
         <div class="header-right">
-            <a href="adminDashboard.html">
-                <i class="ri-layout-grid-line"></i> Dashboard
+            <a href="adminClinicInfo.html">
+                <i class="ri-hospital-line"></i> Clinic Information
             </a>
 
             <button class="logout" type="button">
@@ -62,6 +62,10 @@
                     <i class="ri-bill-line"></i> Billing & Payments
                 </a>
 
+                <a href="adminReport.html">
+                    <i class="ri-file-chart-line"></i> Reports
+                </a>
+
                 <a href="adminClinicInfo.html" class="active--link">
                     <i class="ri-hospital-line"></i> Clinic Information
                 </a>
@@ -80,47 +84,36 @@
 
             <h2 class="maintitle">Clinic Info</h2>
 
-            <p>View Clinic Information.</p>
+            <p>View information for all clinic offices.</p>
 
-            <section class="panel" id="clinicInfo">
+            <div class="appointments">
 
-                <h2>Clinic</h2>
-
-                <div class="profile-grid">
-
-                    <div class="field">
-                        <strong>Office ID</strong>
-                        <span id="officeId">—</span>
-                    </div>
-
-                    <div class="field">
-                        <strong>Office Phone</strong>
-                        <span id="officePhone">—</span>
-                    </div>
-
-                    <div class="field">
-                        <strong>Street</strong>
-                        <span id="officeStreet">—</span>
-                    </div>
-
-                    <div class="field">
-                        <strong>City</strong>
-                        <span id="officeCity">—</span>
-                    </div>
-
-                    <div class="field">
-                        <strong>State</strong>
-                        <span id="officeState">—</span>
-                    </div>
-
-                    <div class="field">
-                        <strong>ZipCode</strong>
-                        <span id="officeZipCode">—</span>
-                    </div>
-
+                <div>
+                    <h3>Clinic Offices</h3>
                 </div>
 
-            </section>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Office ID</th>
+                                <th>Office Phone</th>
+                                <th>Street</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>ZipCode</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="officesTableBody">
+                            <tr>
+                                <td colspan="6">Loading offices...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
 
         </main>
 

@@ -1,5 +1,10 @@
 
 document.addEventListener("DOMContentLoaded", async () => {
+
+    // ==========================================
+    // LOAD ADMINISTRATOR PROFILE
+    // ==========================================
+
     const fields = document.querySelectorAll("[data-field]");
 
     fields.forEach((field) => {
@@ -80,4 +85,96 @@ document.addEventListener("DOMContentLoaded", async () => {
             field.textContent = "Unavailable";
         });
     }
+
+
+    // ==========================================
+    // CHANGE ADMINISTRATOR PASSWORD
+    // ==========================================
+
+    const changePasswordForm = document.getElementById("changePasswordForm");
+
+    if (!changePasswordForm) return;
+
+    const currentPassword = document.getElementById("currentPassword");
+    const newPassword = document.getElementById("newPassword");
+    const confirmPassword = document.getElementById("confirmPassword");
+    const passwordMessage = document.getElementById("passwordMessage");
+
+    changePasswordForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        passwordMessage.textContent = "";
+
+        // Make sure all fields are filled in.
+        if (
+            !currentPassword.value ||
+            !newPassword.value ||
+            !confirmPassword.value
+        ) {
+            passwordMessage.textContent = "Please fill in all password fields.";
+            return;
+        }
+
+        // Check minimum password length.
+        if (newPassword.value.length < 8) {
+            passwordMessage.textContent =
+                "Your new password must be at least 8 characters long.";
+            return;
+        }
+
+        // Make sure new passwords match.
+        if (newPassword.value !== confirmPassword.value) {
+            passwordMessage.textContent = "New passwords do not match.";
+            return;
+        }
+
+        // Prevent using the existing password again.
+        if (currentPassword.value === newPassword.value) {
+            passwordMessage.textContent =
+                "Your new password must be different from your current password.";
+            return;
+        }
+
+        try {
+            const response = await fetch(
+                "http://127.0.0.1:3000/api/admin/profile/change-password",
+                {
+                    method: "PATCH",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json"
+                    },
+                    body: JSON.stringify({
+                        currentPassword: currentPassword.value,
+                        newPassword: newPassword.value
+                    })
+                }
+            );
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    result.error || "Unable to change password."
+                );
+            }
+
+            passwordMessage.textContent =
+                result.message || "Password changed successfully!";
+
+            passwordMessage.style.color = "green";
+
+            changePasswordForm.reset();
+
+        } catch (error) {
+            console.error("Error changing administrator password:", error);
+
+            passwordMessage.textContent =
+                error.message || "Cannot connect to the server.";
+
+            passwordMessage.style.color = "red";
+        }
+    });
+
 });

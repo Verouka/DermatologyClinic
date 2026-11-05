@@ -1,232 +1,431 @@
 
+document.addEventListener("DOMContentLoaded", () => {
 
-const addStaffBtn = document.getElementById("addStaffBtn");
-const staffForm = document.getElementById("staffForm");
-const staffRole = document.getElementById("staffRole");
-const doctorSection = document.getElementById("doctorSection");
-const singleOfficeSection = document.getElementById("singleOfficeSection");
-const staffMessage = document.getElementById("staffMessage");
+    // ==========================================
+    // ADD STAFF ELEMENTS
+    // ==========================================
 
-addStaffBtn.addEventListener("click", () => {
-    staffForm.hidden = !staffForm.hidden;
-});
+    const addStaffBtn = document.getElementById("addStaffBtn");
+    const staffForm = document.getElementById("staffForm");
+    const staffRole = document.getElementById("staffRole");
+    const doctorSection = document.getElementById("doctorSection");
+    const singleOfficeSection = document.getElementById("singleOfficeSection");
+    const staffMessage = document.getElementById("staffMessage");
 
-staffRole.addEventListener("change", () => {
-    const isDoctor = staffRole.value === "doctor";
 
-    doctorSection.hidden = !isDoctor;
-    singleOfficeSection.hidden = isDoctor;
-});
+    // ==========================================
+    // SHOW / HIDE ADD STAFF FORM
+    // ==========================================
 
-staffForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
+    addStaffBtn.addEventListener("click", () => {
+        staffForm.hidden = !staffForm.hidden;
+    });
 
-    const role = staffRole.value;
 
-    const data = {
-        role,
-        firstName: document.getElementById("staffFirstName").value.trim(),
-        lastName: document.getElementById("staffLastName").value.trim(),
-        email: document.getElementById("staffEmail").value.trim(),
-        password: document.getElementById("staffPassword").value
-    };
+    // ==========================================
+    // STAFF ROLE SELECTION
+    // ==========================================
 
-    if (role === "doctor") {
-        data.specialtyId = Number(
-            document.getElementById("staffSpecialty").value
-        );
+    staffRole.addEventListener("change", () => {
+        const isDoctor = staffRole.value === "doctor";
 
-        data.nurseId = Number(
-            document.getElementById("staffNurse").value
-        );
+        doctorSection.hidden = !isDoctor;
+        singleOfficeSection.hidden = isDoctor;
+    });
 
-        data.officeIds = document.getElementById("doctorOffices")
-            .value.split(",")
-            .map(id => Number(id.trim()));
 
-    } else {
-        data.officeId = Number(
-            document.getElementById("staffOffice").value
-        );
-    }
+    // ==========================================
+    // CREATE STAFF ACCOUNT
+    // ==========================================
 
-    try {
-        const response = await fetch(
-            "http://127.0.0.1:3000/api/admin/staff",
-            {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
+    staffForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const role = staffRole.value;
+
+        const data = {
+            role,
+            firstName: document.getElementById("staffFirstName").value.trim(),
+            lastName: document.getElementById("staffLastName").value.trim(),
+            email: document.getElementById("staffEmail").value.trim(),
+            password: document.getElementById("staffPassword").value
+        };
+
+        if (role === "doctor") {
+            data.specialtyId = Number(
+                document.getElementById("staffSpecialty").value
+            );
+
+            data.nurseId = Number(
+                document.getElementById("staffNurse").value
+            );
+
+            data.officeIds = document.getElementById("doctorOffices")
+                .value.split(",")
+                .map(id => Number(id.trim()));
+
+        } else {
+            data.officeId = Number(
+                document.getElementById("staffOffice").value
+            );
+        }
+
+        try {
+            const response = await fetch(
+                "http://127.0.0.1:3000/api/admin/staff",
+                {
+                    method: "POST",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                }
+            );
+
+            const result = await response.json();
+
+            staffMessage.textContent = response.ok
+                ? "Staff account created successfully!"
+                : result.error || "Could not create staff account.";
+
+            if (response.ok) {
+                staffForm.reset();
+
+                doctorSection.hidden = true;
+                singleOfficeSection.hidden = false;
+
+                // Refresh all staff tables.
+                await loadDoctors();
+                await loadNurses();
+                await loadReceptionists();
             }
-        );
 
-        const result = await response.json();
-
-        staffMessage.textContent = response.ok
-            ? "Staff account created successfully!"
-            : result.error || "Could not create staff account.";
-
-        if (response.ok) {
-            staffForm.reset();
-            doctorSection.hidden = true;
-            singleOfficeSection.hidden = false;
+        } catch (error) {
+            console.error("Error creating staff account:", error);
+            staffMessage.textContent = "Cannot connect to server.";
         }
-
-    } catch (error) {
-        console.error(error);
-        staffMessage.textContent = "Cannot connect to server.";
-    }
-});
-
-//#region FILL TABLES
+    });
 
 
-async function loadDoctors() {
-    const tableBody = document.getElementById("doctorsTable");
+    // ==========================================
+    // HELPER: DISPLAY TABLE MESSAGE
+    // ==========================================
 
-    // Stop if this page does not contain the doctors table
-    if (!tableBody) return;
-
-    try {
-        const response = await fetch(
-            "http://localhost:3000/api/admin/loadDoctors",
-            {
-                method: "GET",
-                credentials: "include"
-            }
-        );
-
-        if (!response.ok) {
-            throw new Error(`Failed to fetch doctors: ${response.status}`);
-        }
-
-        const doctors = await response.json();
-
+    function displayTableMessage(tableBody, message, columnCount) {
         tableBody.replaceChildren();
 
-        if (doctors.length === 0) {
-            const row = tableBody.insertRow();
-            const cell = row.insertCell();
-
-            cell.colSpan = 4;
-            cell.textContent = "No entries";
-            return;
-        }
-
-        doctors.forEach(doctor => {
-            const row = tableBody.insertRow();
-
-            row.insertCell().textContent =
-                `${doctor.firstName} ${doctor.lastName}`;
-            row.insertCell().textContent = doctor.id;
-            row.insertCell().textContent = doctor.specialtyId;
-            row.insertCell().textContent = "N/A";
-        });
-
-    } catch (error) {
-        console.error("Error loading doctors:", error);
-    }
-}
-
-
-async function loadNurses() {
-    const tableBody = document.getElementById("nursesTable");
-    if (!tableBody) return;
-
-    try {
-        const response = await fetch(
-            "http://127.0.0.1:3000/api/admin/loadNurses",
-            { credentials: "include" }
-        );
-
-        if (!response.ok) {
-            throw new Error(`Failed to load nurses: ${response.status}`);
-        }
-
-        const nurses = await response.json();
-        tableBody.replaceChildren();
-
-        if (nurses.length === 0) {
-            const row = tableBody.insertRow();
-            const cell = row.insertCell();
-            cell.colSpan = 3;
-            cell.textContent = "No entries";
-            return;
-        }
-
-        nurses.forEach(nurse => {
-            const row = tableBody.insertRow();
-            row.insertCell().textContent =
-                `${nurse.firstName} ${nurse.lastName}`;
-            row.insertCell().textContent = nurse.id;
-            row.insertCell().textContent = "None";
-            row.insertCell().textContent = nurse.officeId;
-            row.insertCell().textContent = "N/A";
-        });
-    } catch (error) {
-        console.error("Error loading nurses:", error);
-    }
-}
-
-
-async function loadReceptionists() {
-    const tableBody = document.getElementById("receptionistsTable");
-    if (!tableBody) return;
-
-    try {
-        const response = await fetch(
-            "http://127.0.0.1:3000/api/admin/loadReceptionists",
-            {
-                method: "GET",
-                credentials: "include"
-            }
-        );
-
-        if (!response.ok) {
-            throw new Error(`Failed to fetch receptionists: ${response.status}`);
-        }
-
-        const receptionists = await response.json();
-
-        tableBody.replaceChildren();
-
-        if (receptionists.length === 0) {
-            const row = tableBody.insertRow();
-            const cell = row.insertCell();
-            cell.colSpan = 4;
-            cell.textContent = "No receptionists found";
-            return;
-        }
-
-        receptionists.forEach(receptionist => {
-            const row = tableBody.insertRow();
-
-            row.insertCell().textContent =
-                `${receptionist.firstName} ${receptionist.lastName}`;
-
-            row.insertCell().textContent = receptionist.id;
-            row.insertCell().textContent = receptionist.officeId;
-            row.insertCell().textContent = "N/A"; // Start date
-        });
-
-    } catch (error) {
-        console.error("Error loading receptionists:", error);
-
-        tableBody.replaceChildren();
         const row = tableBody.insertRow();
         const cell = row.insertCell();
-        cell.colSpan = 4;
-        cell.textContent = "Could not load receptionists";
-    }
-}
 
-document.addEventListener("DOMContentLoaded", () => {
+        cell.colSpan = columnCount;
+        cell.textContent = message;
+    }
+
+
+    // ==========================================
+    // HELPER: CREATE DELETE BUTTON
+    // ==========================================
+
+    function createDeleteButton(role, id) {
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.className = "deleteStaffBtn";
+        button.textContent = "Delete";
+
+        button.addEventListener("click", () => {
+            deleteStaff(role, id);
+        });
+
+        return button;
+    }
+
+
+    // ==========================================
+    // DELETE STAFF ACCOUNT
+    // ==========================================
+
+    async function deleteStaff(role, id) {
+
+        const roleName =
+            role.charAt(0).toUpperCase() + role.slice(1);
+
+        const confirmed = confirm(
+            `Are you sure you want to delete this ${roleName} (ID: ${id})?\n\nThis action cannot be undone.`
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        try {
+            const response = await fetch(
+                "http://127.0.0.1:3000/api/admin/staff",
+                {
+                    method: "DELETE",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json"
+                    },
+                    body: JSON.stringify({
+                        role,
+                        id
+                    })
+                }
+            );
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    result.error || `Could not delete ${roleName}.`
+                );
+            }
+
+            staffMessage.textContent =
+                result.message || `${roleName} deleted successfully!`;
+
+            // Refresh the appropriate table.
+            if (role === "doctor") {
+                await loadDoctors();
+            } else if (role === "nurse") {
+                await loadNurses();
+            } else if (role === "receptionist") {
+                await loadReceptionists();
+            }
+
+        } catch (error) {
+            console.error(`Error deleting ${roleName}:`, error);
+
+            staffMessage.textContent =
+                error.message || "Could not connect to server.";
+        }
+    }
+
+
+    // ==========================================
+    // LOAD DOCTORS
+    // ==========================================
+
+    async function loadDoctors() {
+        const tableBody = document.getElementById("doctorsTable");
+
+        if (!tableBody) return;
+
+        try {
+            const response = await fetch(
+                "http://127.0.0.1:3000/api/admin/loadDoctors",
+                {
+                    method: "GET",
+                    credentials: "include"
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error(
+                    `Failed to fetch doctors: ${response.status}`
+                );
+            }
+
+            const doctors = await response.json();
+
+            tableBody.replaceChildren();
+
+            if (doctors.length === 0) {
+                displayTableMessage(
+                    tableBody,
+                    "No doctors found.",
+                    5
+                );
+                return;
+            }
+
+            doctors.forEach(doctor => {
+                const row = tableBody.insertRow();
+
+                row.insertCell().textContent =
+                    `${doctor.firstName} ${doctor.lastName}`;
+
+                row.insertCell().textContent = doctor.id;
+
+                row.insertCell().textContent =
+                    doctor.specialtyId ?? "—";
+
+                row.insertCell().textContent =
+                    doctor.startDate ?? "N/A";
+
+                const actionsCell = row.insertCell();
+
+                actionsCell.appendChild(
+                    createDeleteButton("doctor", doctor.id)
+                );
+            });
+
+        } catch (error) {
+            console.error("Error loading doctors:", error);
+
+            displayTableMessage(
+                tableBody,
+                "Could not load doctors.",
+                5
+            );
+        }
+    }
+
+
+    // ==========================================
+    // LOAD NURSES
+    // ==========================================
+
+    async function loadNurses() {
+        const tableBody = document.getElementById("nursesTable");
+
+        if (!tableBody) return;
+
+        try {
+            const response = await fetch(
+                "http://127.0.0.1:3000/api/admin/loadNurses",
+                {
+                    method: "GET",
+                    credentials: "include"
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error(
+                    `Failed to load nurses: ${response.status}`
+                );
+            }
+
+            const nurses = await response.json();
+
+            tableBody.replaceChildren();
+
+            if (nurses.length === 0) {
+                displayTableMessage(
+                    tableBody,
+                    "No nurses found.",
+                    6
+                );
+                return;
+            }
+
+            nurses.forEach(nurse => {
+                const row = tableBody.insertRow();
+
+                row.insertCell().textContent =
+                    `${nurse.firstName} ${nurse.lastName}`;
+
+                row.insertCell().textContent = nurse.id;
+
+                row.insertCell().textContent = "None";
+
+                row.insertCell().textContent =
+                    nurse.officeId ?? "—";
+
+                row.insertCell().textContent =
+                    nurse.startDate ?? "N/A";
+
+                const actionsCell = row.insertCell();
+
+                actionsCell.appendChild(
+                    createDeleteButton("nurse", nurse.id)
+                );
+            });
+
+        } catch (error) {
+            console.error("Error loading nurses:", error);
+
+            displayTableMessage(
+                tableBody,
+                "Could not load nurses.",
+                6
+            );
+        }
+    }
+
+
+    // ==========================================
+    // LOAD RECEPTIONISTS
+    // ==========================================
+
+    async function loadReceptionists() {
+        const tableBody = document.getElementById("receptionistsTable");
+
+        if (!tableBody) return;
+
+        try {
+            const response = await fetch(
+                "http://127.0.0.1:3000/api/admin/loadReceptionists",
+                {
+                    method: "GET",
+                    credentials: "include"
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error(
+                    `Failed to fetch receptionists: ${response.status}`
+                );
+            }
+
+            const receptionists = await response.json();
+
+            tableBody.replaceChildren();
+
+            if (receptionists.length === 0) {
+                displayTableMessage(
+                    tableBody,
+                    "No receptionists found.",
+                    5
+                );
+                return;
+            }
+
+            receptionists.forEach(receptionist => {
+                const row = tableBody.insertRow();
+
+                row.insertCell().textContent =
+                    `${receptionist.firstName} ${receptionist.lastName}`;
+
+                row.insertCell().textContent = receptionist.id;
+
+                row.insertCell().textContent =
+                    receptionist.officeId ?? "—";
+
+                row.insertCell().textContent =
+                    receptionist.startDate ?? "N/A";
+
+                const actionsCell = row.insertCell();
+
+                actionsCell.appendChild(
+                    createDeleteButton(
+                        "receptionist",
+                        receptionist.id
+                    )
+                );
+            });
+
+        } catch (error) {
+            console.error("Error loading receptionists:", error);
+
+            displayTableMessage(
+                tableBody,
+                "Could not load receptionists.",
+                5
+            );
+        }
+    }
+
+
+    // ==========================================
+    // INITIAL TABLE LOADING
+    // ==========================================
+
     loadDoctors();
     loadNurses();
     loadReceptionists();
-});
 
-//#endregion
+});

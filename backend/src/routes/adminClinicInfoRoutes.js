@@ -13,10 +13,14 @@ function sendJSON(res, status, data) {
 export async function handleAdminClinicInfoRoutes(req, res) {
     const pathname = new URL(req.url, "http://localhost").pathname;
 
-    if (req.method !== "GET" || pathname !== "/api/admin/clinic-info") {
+    if (
+        req.method !== "GET" ||
+        pathname !== "/api/admin/clinic-info"
+    ) {
         return false;
     }
 
+    // Check administrator session.
     const session = getSession(req);
 
     if (!session || session.role !== "administrator") {
@@ -28,6 +32,7 @@ export async function handleAdminClinicInfoRoutes(req, res) {
     }
 
     try {
+        // Retrieve all clinic offices.
         const [rows] = await pool.execute(`
             SELECT
                 Office_ID AS officeId,
@@ -38,19 +43,10 @@ export async function handleAdminClinicInfoRoutes(req, res) {
                 Zip_Code AS zipCode
             FROM office
             ORDER BY Office_ID ASC
-            LIMIT 1
         `);
 
-        if (rows.length === 0) {
-            sendJSON(res, 404, {
-                error: "No clinic information found"
-            });
-
-            return true;
-        }
-
         sendJSON(res, 200, {
-            office: rows[0]
+            offices: rows
         });
 
     } catch (error) {

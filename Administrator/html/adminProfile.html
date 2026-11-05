@@ -27,9 +27,9 @@
         </div>
 
         <div class="header-right">
-            <a href="adminDashboard.html">
-                <i class="ri-layout-grid-line"></i>
-                Dashboard
+            <a href="adminProfile.html">
+                <i class="ri-user-line"></i>
+                My Profile
             </a>
 
             <button class="logout" type="button">
@@ -68,6 +68,11 @@
                     Billing & Payments
                 </a>
 
+                <a href="adminReport.html">
+                    <i class="ri-file-chart-line"></i>
+                    Reports
+                </a>
+
                 <a href="adminClinicInfo.html">
                     <i class="ri-hospital-line"></i>
                     Clinic Information
@@ -92,6 +97,7 @@
             <nav class="profile-tabs">
                 <a href="#personal">Personal Information</a>
                 <a href="#professional">Professional Information</a>
+                <a href="#changePassword">Change Password</a>
             </nav>
 
             <!-- PERSONAL INFORMATION -->
@@ -187,12 +193,55 @@
                 </div>
             </section>
 
+            <!-- CHANGE PASSWORD -->
+            <section class="panel" id="changePassword">
+                <h2>Change Password</h2>
+                <p>Update your administrator account password.</p>
+
+                <form id="changePasswordForm">
+
+                    <div class="field">
+                        <label for="newPassword">New Password</label>
+                        <input
+                            type="password"
+                            id="newPassword"
+                            name="newPassword"
+                            placeholder="Enter new password"
+                            minlength="8"
+                            required
+                            autocomplete="new-password"
+                        >
+                    </div>
+
+                    <div class="field">
+                        <label for="confirmPassword">Confirm New Password</label>
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            placeholder="Confirm new password"
+                            minlength="8"
+                            required
+                            autocomplete="new-password"
+                        >
+                    </div>
+
+                    <button type="submit" class="primary-btn">
+                        Change Password
+                    </button>
+
+                    <p id="passwordMessage" role="status"></p>
+
+                </form>
+            </section>
+
         </main>
     </div>
 
     <!-- SCRIPTS -->
     <script src="../../logout.js"></script>
     <script src="../js/adminProfile.js" defer></script>
+    <script src="../js/adminChangePassword.js" defer></script>
 
 </body>
 </html>

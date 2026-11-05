@@ -1,13 +1,21 @@
-```html
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <script src="../../securityrole.js" data-role="administrator"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Manage Staff</title>
+
     <link rel="stylesheet" href="../css/admin.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
 </head>
+
 <body>
+
+    <!-- HEADER -->
     <header class="header">
         <div class="brand">
             <i class="ri-heart-pulse-line"></i>
@@ -15,35 +23,49 @@
         </div>
 
         <div class="header-right">
-            <a href="adminDashboard.html">
-                <i class="ri-user-line"></i>
-                Admin Dashboard
+            <a href="adminStaff.html">
+                <i class="ri-group-line"></i>
+                Manage Staff
             </a>
+
             <button class="logout" type="button">Log Out</button>
         </div>
     </header>
 
     <section class="main">
+
+        <!-- SIDEBAR -->
         <aside class="sidebar">
             <nav class="sidebar--items">
+
                 <a href="adminDashboard.html">
                     <i class="ri-layout-grid-line"></i> Dashboard
                 </a>
+
                 <a href="adminProfile.html">
                     <i class="ri-user-line"></i> My Profile
                 </a>
+
                 <a href="adminStaff.html" class="active--link">
                     <i class="ri-group-line"></i> Manage Staff
                 </a>
+
                 <a href="adminAppointments.html">
                     <i class="ri-calendar-line"></i> Appointments
                 </a>
+
                 <a href="adminBilling.html">
                     <i class="ri-bill-line"></i> Billing & Payments
                 </a>
+
+                <a href="adminReport.html">
+                    <i class="ri-file-chart-line"></i> Reports
+                </a>
+
                 <a href="adminClinicInfo.html">
                     <i class="ri-hospital-line"></i> Clinic Information
                 </a>
+
             </nav>
 
             <nav class="sidebar--bottom-items">
@@ -53,16 +75,21 @@
             </nav>
         </aside>
 
+        <!-- MAIN CONTENT -->
         <main class="mainContent">
+
             <h2 class="maintitle">Manage Staff</h2>
             <p>View and manage staff.</p>
 
+            <!-- ADD STAFF BUTTON -->
             <button type="button" id="addStaffBtn">
                 <i class="ri-user-add-line"></i>
                 Add Staff
             </button>
 
+            <!-- ADD STAFF FORM -->
             <form id="staffForm" hidden>
+
                 <h3>Create Staff Account</h3>
 
                 <label for="staffRole">Staff Role</label>
@@ -74,8 +101,11 @@
                 </select>
 
                 <input id="staffFirstName" placeholder="First Name" required>
+
                 <input id="staffLastName" placeholder="Last Name" required>
+
                 <input id="staffEmail" type="email" placeholder="Email" required>
+
                 <input
                     id="staffPassword"
                     type="password"
@@ -84,15 +114,20 @@
                     required
                 >
 
+                <!-- SINGLE OFFICE SELECTION -->
                 <div id="singleOfficeSection">
                     <label for="staffOffice">Office</label>
+
                     <select id="staffOffice">
                         <option value="1">Office 1 - Houston</option>
                     </select>
                 </div>
 
+                <!-- DOCTOR-SPECIFIC FIELDS -->
                 <div id="doctorSection" hidden>
+
                     <label for="staffSpecialty">Specialty</label>
+
                     <select id="staffSpecialty">
                         <option value="1">Medical Dermatology</option>
                         <option value="2">Cosmetic Dermatology</option>
@@ -104,14 +139,17 @@
 
                     <label for="doctorOffices">Office IDs (comma-separated)</label>
                     <input id="doctorOffices" placeholder="Example: 1,2">
+
                 </div>
 
                 <button type="submit">Create Account</button>
+
             </form>
 
             <p id="staffMessage"></p>
 
             <div class="appointments">
+
                 <!-- DOCTORS -->
                 <div class="upcomingAppointments">
                     <h3>Doctors</h3>
@@ -125,11 +163,13 @@
                                 <th>Doctor ID</th>
                                 <th>Specialty</th>
                                 <th>Start Date</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
+
                         <tbody id="doctorsTable">
                             <tr>
-                                <td colspan="4">Loading doctors...</td>
+                                <td colspan="5">Loading doctors...</td>
                             </tr>
                         </tbody>
                     </table>
@@ -149,11 +189,13 @@
                                 <th>Doctor ID</th>
                                 <th>Office ID</th>
                                 <th>Start Date</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
+
                         <tbody id="nursesTable">
                             <tr>
-                                <td colspan="4">Loading nurses...</td>
+                                <td colspan="6">Loading nurses...</td>
                             </tr>
                         </tbody>
                     </table>
@@ -172,23 +214,28 @@
                                 <th>Receptionist ID</th>
                                 <th>Office ID</th>
                                 <th>Start Date</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
+
                         <tbody id="receptionistsTable">
                             <tr>
-                                <td colspan="4">Loading receptionists...</td>
+                                <td colspan="5">Loading receptionists...</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
             </div>
+
         </main>
 
         <div class="overview"></div>
+
     </section>
 
     <script src="../js/adminStaff.js" defer></script>
     <script src="../../logout.js"></script>
+
 </body>
 </html>
-```

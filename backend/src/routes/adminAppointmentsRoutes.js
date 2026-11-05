@@ -10,6 +10,42 @@ function sendJSON(res, status, data) {
     res.end(JSON.stringify(data));
 }
 
+async function readRequestBody(req, res) {
+    let body = "";
+
+    try {
+        for await (const chunk of req) {
+            body += chunk;
+
+            if (body.length > 10000) {
+                sendJSON(res, 413, {
+                    error: "Request too large"
+                });
+
+                return null;
+            }
+        }
+    } catch (error) {
+        console.error("Error reading request body:", error);
+
+        sendJSON(res, 400, {
+            error: "Could not read request body"
+        });
+
+        return null;
+    }
+
+    try {
+        return JSON.parse(body);
+    } catch {
+        sendJSON(res, 400, {
+            error: "Invalid JSON"
+        });
+
+        return null;
+    }
+}
+
 export async function handleAdminAppointmentsRoutes(req, res) {
     const pathname = new URL(
         req.url,
@@ -17,13 +53,13 @@ export async function handleAdminAppointmentsRoutes(req, res) {
     ).pathname;
 
     if (
-        req.method !== "GET" ||
+        !["GET", "DELETE"].includes(req.method) ||
         pathname !== "/api/admin/appointments"
     ) {
         return false;
     }
 
-    // Verify administrator session
+    // VERIFY ADMINISTRATOR SESSION
     const session = getSession(req);
 
     if (!session || session.role !== "administrator") {
@@ -34,10 +70,73 @@ export async function handleAdminAppointmentsRoutes(req, res) {
         return true;
     }
 
+    // DELETE APPOINTMENT
+    if (req.method === "DELETE") {
+        const data = await readRequestBody(req, res);
+
+        if (data === null) {
+            return true;
+        }
+
+        const appointmentId = Number(data.id);
+
+        if (
+            !Number.isSafeInteger(appointmentId) ||
+            appointmentId <= 0
+        ) {
+            sendJSON(res, 400, {
+                error: "Invalid appointment ID"
+            });
+
+            return true;
+        }
+
+        try {
+            const [result] = await pool.execute(
+                `DELETE FROM appointment
+                 WHERE Appointment_ID = ?`,
+                [appointmentId]
+            );
+
+            if (result.affectedRows === 0) {
+                sendJSON(res, 404, {
+                    error: "Appointment not found"
+                });
+
+                return true;
+            }
+
+            sendJSON(res, 200, {
+                message: "Appointment deleted successfully",
+                id: appointmentId
+            });
+
+        } catch (error) {
+            console.error(
+                "Admin appointment deletion error:",
+                error
+            );
+
+            if (error.code === "ER_ROW_IS_REFERENCED_2") {
+                sendJSON(res, 409, {
+                    error:
+                        "Cannot delete this appointment because other records reference it."
+                });
+            } else {
+                sendJSON(res, 500, {
+                    error: "Could not delete appointment"
+                });
+            }
+        }
+
+        return true;
+    }
+
+    // LOAD APPOINTMENTS
     try {
-        // Retrieve appointments and their associated doctor names
         const [rows] = await pool.execute(`
             SELECT
+                a.Appointment_ID AS id,
                 a.Appointment_Date AS appointmentDate,
                 a.Appointment_Time AS appointmentTime,
                 CONCAT_WS(
@@ -55,7 +154,7 @@ export async function handleAdminAppointmentsRoutes(req, res) {
                 a.Appointment_Time ASC
         `);
 
-        // Get the current local date and time
+        // GET CURRENT LOCAL DATE AND TIME
         const now = new Date();
 
         const today = [
@@ -73,7 +172,7 @@ export async function handleAdminAppointmentsRoutes(req, res) {
         const upcomingAppointments = [];
         const pastAppointments = [];
 
-        // Separate appointments by their scheduled date and time
+        // SEPARATE UPCOMING AND PAST APPOINTMENTS
         for (const appointment of rows) {
             const date = String(
                 appointment.appointmentDate
@@ -94,8 +193,8 @@ export async function handleAdminAppointmentsRoutes(req, res) {
             }
         }
 
-        // Upcoming: soonest first
-        // Past: most recent first
+        // UPCOMING: SOONEST FIRST
+        // PAST: MOST RECENT FIRST
         pastAppointments.reverse();
 
         sendJSON(res, 200, {

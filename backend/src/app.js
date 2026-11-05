@@ -1,3 +1,4 @@
+
 import { handleAdminStaffRoutes } from "./routes/adminStaffRoutes.js";
 import { handleAuthRoutes } from "./routes/Authentication_route.js";
 import { handlePatientRoutes } from "./routes/patientRoutes.js";
@@ -18,7 +19,10 @@ import { handlePublicAppointmentRoutes } from "./routes/publicAppointmentRoutes.
 const app = async (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
     res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, OPTIONS");
+    res.setHeader(
+        "Access-Control-Allow-Methods",
+        "GET, POST, PATCH, DELETE, OPTIONS"
+    );
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
     if (req.method === "OPTIONS") {

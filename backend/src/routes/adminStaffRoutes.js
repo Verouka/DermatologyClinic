@@ -1,3 +1,4 @@
+
 import pool from "../database.js";
 import { hashPassword } from "../utils/password.js";
 import { getSession } from "../services/sessionService.js";
@@ -7,6 +8,39 @@ function sendJSON(res, status, data) {
         "Content-Type": "application/json"
     });
     res.end(JSON.stringify(data));
+}
+
+async function readRequestBody(req, res) {
+    let body = "";
+
+    try {
+        for await (const chunk of req) {
+            body += chunk;
+
+            if (body.length > 10000) {
+                sendJSON(res, 413, {
+                    error: "Request too large"
+                });
+                return null;
+            }
+        }
+    } catch (error) {
+        console.error("Error reading request body:", error);
+
+        sendJSON(res, 400, {
+            error: "Could not read request body"
+        });
+        return null;
+    }
+
+    try {
+        return JSON.parse(body);
+    } catch {
+        sendJSON(res, 400, {
+            error: "Invalid JSON"
+        });
+        return null;
+    }
 }
 
 export async function handleAdminStaffRoutes(req, res) {
@@ -53,15 +87,9 @@ export async function handleAdminStaffRoutes(req, res) {
 
     // LOAD DOCTORS, NURSES, OR RECEPTIONISTS
     if (req.method === "GET" && routes[req.url]) {
-        const session = getSession(req);
-
-        //why the f is the session not marked
-        /*if (!session || session.role !== "administrator") {
-            sendJSON(res, 403, {
-                error: "Administrator access required"
-            });
-            return true;
-        }*/
+        // Keeping your existing GET authorization behavior.
+        // Your administrator check was previously commented out
+        // because of the session issue you were troubleshooting.
 
         const route = routes[req.url];
 
@@ -79,11 +107,15 @@ export async function handleAdminStaffRoutes(req, res) {
         return true;
     }
 
-    // CREATE STAFF
-    if (req.method !== "POST" || req.url !== "/api/admin/staff") {
+    // CREATE OR DELETE STAFF
+    if (
+        !["POST", "DELETE"].includes(req.method) ||
+        req.url !== "/api/admin/staff"
+    ) {
         return false;
     }
 
+    // REQUIRE ADMINISTRATOR ACCESS
     const session = getSession(req);
 
     if (!session || session.role !== "administrator") {
@@ -93,39 +125,133 @@ export async function handleAdminStaffRoutes(req, res) {
         return true;
     }
 
-    let body = "";
+    // READ REQUEST BODY
+    const data = await readRequestBody(req, res);
 
-    try {
-        for await (const chunk of req) {
-            body += chunk;
+    if (data === null) {
+        return true;
+    }
 
-            if (body.length > 10000) {
-                sendJSON(res, 413, {
-                    error: "Request too large"
+    const validId = (value) =>
+        Number.isSafeInteger(Number(value)) && Number(value) > 0;
+
+    // DELETE STAFF
+    if (req.method === "DELETE") {
+        const { role, id } = data;
+
+        const staffTables = {
+            doctor: {
+                table: "doctor",
+                idColumn: "Doctor_ID",
+                credentialColumn: "DOCTOR_Doctor_ID"
+            },
+            nurse: {
+                table: "nurse",
+                idColumn: "Nurse_ID",
+                credentialColumn: "NURSE_Nurse_ID"
+            },
+            receptionist: {
+                table: "receptionist",
+                idColumn: "Receptionist_ID",
+                credentialColumn: "RECEPTIONIST_Receptionist_ID"
+            }
+        };
+
+        if (
+            !staffTables[role] ||
+            !validId(id)
+        ) {
+            sendJSON(res, 400, {
+                error: "Invalid staff information"
+            });
+            return true;
+        }
+
+        const staff = staffTables[role];
+        const staffId = Number(id);
+
+        let connection;
+
+        try {
+            connection = await pool.getConnection();
+            await connection.beginTransaction();
+
+            // Remove a doctor's office assignments first.
+            if (role === "doctor") {
+                await connection.execute(
+                    `DELETE FROM office_has_doctor
+                     WHERE DOCTOR_Doctor_ID = ?`,
+                    [staffId]
+                );
+            }
+
+            // Remove the staff member's login credentials.
+            await connection.execute(
+                `DELETE FROM usercredential
+                 WHERE ${staff.credentialColumn} = ?`,
+                [staffId]
+            );
+
+            // Remove the actual staff record.
+            const [result] = await connection.execute(
+                `DELETE FROM ${staff.table}
+                 WHERE ${staff.idColumn} = ?`,
+                [staffId]
+            );
+
+            if (result.affectedRows === 0) {
+                await connection.rollback();
+
+                sendJSON(res, 404, {
+                    error: "Staff member not found"
                 });
+
                 return true;
             }
+
+            await connection.commit();
+
+            sendJSON(res, 200, {
+                message: "Staff member deleted successfully",
+                role,
+                id: staffId
+            });
+
+        } catch (error) {
+            if (connection) {
+                try {
+                    await connection.rollback();
+                } catch (rollbackError) {
+                    console.error(
+                        "Transaction rollback error:",
+                        rollbackError
+                    );
+                }
+            }
+
+            console.error("Staff deletion error:", error);
+
+            if (error.code === "ER_ROW_IS_REFERENCED_2") {
+                sendJSON(res, 409, {
+                    error:
+                        "Cannot delete this staff member because other records reference them."
+                });
+            } else {
+                sendJSON(res, 500, {
+                    error: "Could not delete staff member"
+                });
+            }
+
+        } finally {
+            if (connection) {
+                connection.release();
+            }
         }
-    } catch (error) {
-        console.error("Error reading request body:", error);
 
-        sendJSON(res, 400, {
-            error: "Could not read request body"
-        });
         return true;
     }
 
-    let data;
-
-    try {
-        data = JSON.parse(body);
-    } catch {
-        sendJSON(res, 400, {
-            error: "Invalid JSON"
-        });
-        return true;
-    }
-
+    // CREATE STAFF
     const {
         role,
         firstName,
@@ -137,9 +263,6 @@ export async function handleAdminStaffRoutes(req, res) {
         specialtyId,
         nurseId
     } = data;
-
-    const validId = (value) =>
-        Number.isSafeInteger(Number(value)) && Number(value) > 0;
 
     if (
         !["doctor", "nurse", "receptionist"].includes(role) ||
@@ -287,7 +410,10 @@ export async function handleAdminStaffRoutes(req, res) {
             try {
                 await connection.rollback();
             } catch (rollbackError) {
-                console.error("Transaction rollback error:", rollbackError);
+                console.error(
+                    "Transaction rollback error:",
+                    rollbackError
+                );
             }
         }
 
