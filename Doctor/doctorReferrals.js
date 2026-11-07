@@ -129,23 +129,22 @@ function addReferralRow(tbody, referral) {
 
     const canDecide = Number(referral.Can_Decide) === 1;
 
-if (!pending) {
-    actionCell.textContent = "—";
-    return;
-}
+    if (!pending) {
+        actionCell.textContent = "—";
+        return;
+    }
 
-// Any doctor can approve a pending referral.
-// Only the primary doctor can deny or cancel.
-const actions = [
-    ["Approve", "Approved", "approveBtn"]
-];
+    // Only the referral's primary doctor can approve, deny, or cancel.
+    if (!canDecide) {
+        actionCell.textContent = "View only";
+        return;
+    }
 
-if (canDecide) {
-    actions.push(
+    const actions = [
+        ["Approve", "Approved", "approveBtn"],
         ["Deny", "Denied", "denyBtn"],
         ["Cancel", "Canceled", "cancelBtn"]
-    );
-}
+    ];
 
     actions.forEach(([label, status, className]) => {
         const button = document.createElement("button");
