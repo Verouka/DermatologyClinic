@@ -1,5 +1,4 @@
-// Doctor notification bell. No SQL notification table or preference file.
-// The authenticated doctor's canceled appointments are the notification source.
+
 (() => {
     const API_BASE = "http://127.0.0.1:3000";
     const POLL_MS = 20000;

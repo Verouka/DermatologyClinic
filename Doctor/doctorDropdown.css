@@ -1,4 +1,4 @@
-/* Dropdown matches existing sidebar links */
+
 .sidebar--items details summary {
     display: flex;
     align-items: center;
@@ -17,7 +17,7 @@
 .sidebar--items details[open] .dropdown-arrow { transform: rotate(180deg); }
 .sidebar--items .dropdown-links { margin: 0 0 12px 30px; border-left: 2px solid rgb(148, 219, 195); padding-left: 10px; }
 .sidebar--items .dropdown-links a { font-size: 0.92rem; margin-bottom: 3px; padding: 8px 10px; }
-/* Allow tall profile pages and expanded menus to grow naturally. */
+
 .main { display: flex; align-items: stretch; background-color: white; }
 .main > .sidebar {
     position: relative;
@@ -39,7 +39,7 @@
     min-height: calc(100vh - 60px);
     padding-bottom: 40px;
 }
-/* Keep profile form readable on smaller screens without changing base CSS. */
+
 @media (max-width: 850px) {
     .profileData { grid-template-columns: 1fr; }
 }

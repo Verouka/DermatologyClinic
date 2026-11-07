@@ -1,4 +1,4 @@
-/* Schedule tables follow the same simple style as patientAppointment.css. */
+/* Schedule tables follow the same style as patientAppointment.css from vee. */
 .scheduleSection { margin-top: 35px; }
 .scheduleSection p { margin: 10px 0 15px; }
 .table-container { width: 100%; overflow-x: auto; }
@@ -10,7 +10,7 @@
 .appointmentList tbody td { height: auto; }
 .scheduleNotice { color: #666; }
 
-/* Weekly navigation uses the existing mint/navy colors. */
+/* Weekly schedule uses the existing colors. */
 .calendarToolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 #calendarMonthTitle { color: rgb(2, 2, 85); margin-top: 10px; }
 #calendarRange { color: #666; }

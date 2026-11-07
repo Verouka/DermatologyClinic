@@ -1,5 +1,4 @@
-// Doctor Settings: account email and password only.
-// Notification bell functionality remains in doctorNotifications.js.
+
 (() => {
     const SETTINGS_API_BASE = "http://127.0.0.1:3000";
 
@@ -45,7 +44,6 @@
         accountEmail.value = "";
         accountEmail.placeholder = "Loading...";
         try {
-            // Account login email from usercredential, NOT doctor profile Email.
             const account = await requestJSON("/api/doctor/settings/account");
             if (typeof account.email !== "string" || !account.email.trim()) {
                 throw new Error("No login email was returned for this doctor.");

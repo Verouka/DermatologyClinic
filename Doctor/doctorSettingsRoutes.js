@@ -1,5 +1,4 @@
-// Existing Doctor Settings route: account email + password only.
-// Uses the project's shared MySQL pool, sessionService, and password helper.
+
 import pool from "../database.js";
 import { hashPassword, verifyPassword } from "../utils/password.js";
 import { getSession } from "../services/sessionService.js";
@@ -32,8 +31,7 @@ export const handleDoctorSettingsRoutes = async (req, res) => {
 
     if (isAccount) {
         try {
-            // DOCTOR_Doctor_ID is UNIQUE in usercredential. A session userId
-            // isn't needed because some auth flows don't store it in the cookie.
+            // DOCTOR_Doctor_ID is UNIQUE in usercredential. 
             const [rows] = await pool.execute(
                 `SELECT Email
                  FROM usercredential
@@ -53,7 +51,7 @@ export const handleDoctorSettingsRoutes = async (req, res) => {
         return true;
     }
 
-    // Password route only; no notification-preferences endpoints/dependencies.
+    // Password route
     let body = "";
     try {
         for await (const chunk of req) {
