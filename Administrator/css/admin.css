@@ -558,3 +558,152 @@ button:disabled {
         padding: 20px;
     }
 }
+
+/* NOTIFICATION BELL */
+.notification-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.notification-bell {
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 23px;
+    color: inherit;
+    padding: 8px;
+}
+
+.notification-bell:hover {
+    opacity: 0.75;
+}
+
+.notification-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #e53935;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    min-width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3px;
+}
+
+.notification-count[hidden],
+.notification-popup[hidden] {
+    display: none;
+}
+
+/* FLOATING NOTIFICATION POPUP */
+.notification-popup {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    width: 340px;
+    max-height: 420px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.18);
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.notification-popup-header {
+    padding: 14px 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.notification-popup-header h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.notification-list {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    padding: 14px 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-title {
+    margin: 0 0 6px;
+    font-size: 14px;
+}
+
+.notification-message {
+    margin: 0 0 8px;
+    font-size: 13px;
+    color: #555;
+    overflow-wrap: anywhere;
+}
+
+.notification-timestamp {
+    display: block;
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.notification-mark-read {
+    background: none;
+    border: none;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+}
+
+.notification-mark-read:hover {
+    text-decoration: underline;
+}
+
+.notification-empty,
+.notification-error {
+    padding: 18px;
+    text-align: center;
+    font-size: 13px;
+    color: #777;
+}
+
+@media (max-width: 480px) {
+    .notification-popup {
+        position: fixed;
+        top: 65px;
+        right: 10px;
+        width: min(340px, calc(100vw - 20px));
+    }
+}
+
+.dashboard-link-card {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-link-card:hover {
+    transform: translateY(-3px);
+}
+
+.dashboard-link-card:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 3px;
+}

@@ -1,9 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <script src="../../securityrole.js" data-role="administrator"></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -23,16 +23,65 @@
         </div>
 
         <div class="header-right">
+
             <a href="adminDashboard.html">
                 <i class="ri-layout-grid-line"></i>
                 Dashboard
             </a>
 
+            <!-- NOTIFICATION BELL -->
+            <div class="notification-container">
+
+                <button
+                    class="notification-bell"
+                    id="notificationBell"
+                    type="button"
+                    aria-label="Notifications"
+                    aria-expanded="false"
+                    aria-controls="notificationPopup">
+
+                    <i class="ri-notification-3-line"></i>
+
+                    <span
+                        class="notification-count"
+                        id="notificationCount"
+                        hidden>
+                        0
+                    </span>
+
+                </button>
+
+                <!-- FLOATING NOTIFICATION POPUP -->
+                <div
+                    class="notification-popup"
+                    id="notificationPopup"
+                    hidden>
+
+                    <div class="notification-popup-header">
+                        <h3>Notifications</h3>
+                    </div>
+
+                    <div
+                        class="notification-list"
+                        id="notificationList">
+
+                        <p class="notification-empty">
+                            No unread notifications.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
             <button class="logout" type="button">
                 Log Out
             </button>
+
         </div>
     </header>
+
 
     <!-- MAIN LAYOUT -->
     <div class="main">
@@ -51,6 +100,10 @@
 
                 <a href="adminStaff.html">
                     <i class="ri-group-line"></i> Manage Staff
+                </a>
+
+                <a href="adminSchedule.html">
+                    <i class="ri-calendar-schedule-line"></i> Schedule
                 </a>
 
                 <a href="adminAppointments.html">
@@ -72,11 +125,12 @@
             </nav>
 
             <nav class="sidebar--bottom-items">
-                <a href="settings.html">
+                <a href="adminSettings.html">
                     <i class="ri-settings-3-line"></i> Settings
                 </a>
             </nav>
         </aside>
+
 
         <!-- DASHBOARD CONTENT -->
         <main class="mainContent">
@@ -87,6 +141,94 @@
                 Manage people, appointments, finances, and gather reports.
             </p>
 
+
+            <!-- QUICK NAVIGATION CARDS -->
+            <section class="cards">
+
+                <a href="adminProfile.html" class="card dashboard-link-card">
+                    <div class="cardData">
+                        <div>
+                            <h3>My Profile</h3>
+                            <p>View and update your profile.</p>
+                        </div>
+
+                        <i class="ri-user-line card--icon"></i>
+                    </div>
+                </a>
+
+                <a href="adminStaff.html" class="card dashboard-link-card">
+                    <div class="cardData">
+                        <div>
+                            <h3>Manage Staff</h3>
+                            <p>Add and manage clinic employees.</p>
+                        </div>
+
+                        <i class="ri-group-line card--icon"></i>
+                    </div>
+                </a>
+
+                <a href="adminSchedule.html" class="card dashboard-link-card">
+                    <div class="cardData">
+                        <div>
+                            <h3>Schedule</h3>
+                            <p>Manage staff schedules and working hours.</p>
+                        </div>
+
+                        <i class="ri-calendar-schedule-line card--icon"></i>
+                    </div>
+                </a>
+
+                <a href="adminAppointments.html" class="card dashboard-link-card">
+                    <div class="cardData">
+                        <div>
+                            <h3>Appointments</h3>
+                            <p>View and manage patient appointments.</p>
+                        </div>
+
+                        <i class="ri-calendar-line card--icon"></i>
+                    </div>
+                </a>
+
+                <a href="adminBilling.html" class="card dashboard-link-card">
+                    <div class="cardData">
+                        <div>
+                            <h3>Billing & Payments</h3>
+                            <p>Manage patient billing and payments.</p>
+                        </div>
+
+                        <i class="ri-bill-line card--icon"></i>
+                    </div>
+                </a>
+
+                <a href="adminReport.html" class="card dashboard-link-card">
+                    <div class="cardData">
+                        <div>
+                            <h3>Reports</h3>
+                            <p>Review clinic reports and statistics.</p>
+                        </div>
+
+                        <i class="ri-file-chart-line card--icon"></i>
+                    </div>
+                </a>
+
+                <a href="adminClinicInfo.html" class="card dashboard-link-card">
+                    <div class="cardData">
+                        <div>
+                            <h3>Clinic Information</h3>
+                            <p>Update clinic details and office hours.</p>
+                        </div>
+
+                        <i class="ri-hospital-line card--icon"></i>
+                    </div>
+                </a>
+
+            </section>
+
+
+            <!-- OVERVIEW TITLE -->
+            <h2 class="maintitle">Overview</h2>
+
+
             <!-- OVERVIEW CARDS -->
             <section class="cards">
 
@@ -96,6 +238,7 @@
                             <h3>Total Patients</h3>
                             <p id="totalPatients">Loading...</p>
                         </div>
+
                         <i class="ri-group-line card--icon"></i>
                     </div>
                 </div>
@@ -106,6 +249,7 @@
                             <h3>Total Doctors</h3>
                             <p id="totalDoctors">Loading...</p>
                         </div>
+
                         <i class="ri-stethoscope-line card--icon"></i>
                     </div>
                 </div>
@@ -116,6 +260,7 @@
                             <h3>Total Nurses</h3>
                             <p id="totalNurses">Loading...</p>
                         </div>
+
                         <i class="ri-nurse-line card--icon"></i>
                     </div>
                 </div>
@@ -126,6 +271,7 @@
                             <h3>Total Revenue</h3>
                             <p id="totalRevenue">Loading...</p>
                         </div>
+
                         <i class="ri-money-dollar-box-line card--icon"></i>
                     </div>
                 </div>
@@ -138,8 +284,12 @@
 
     </div>
 
+
+    <!-- SCRIPTS -->
     <script src="../../logout.js"></script>
+    <script src="../js/adminNotification.js" defer></script>
     <script src="../js/adminDashboard.js" defer></script>
 
 </body>
+
 </html>

@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../../securityrole.js" data-role="administrator"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Schedule</title>
+
+    <link rel="stylesheet" href="../css/admin.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="brand">
+            <i class="ri-heart-pulse-line"></i>
+            <h1>Dermatology Clinic</h1>
+        </div>
+
+        <div class="header-right">
+
+            <a href="adminSchedule.html">
+                <i class="ri-calendar-schedule-line"></i> Schedule
+            </a>
+
+            <!-- NOTIFICATION BELL -->
+            <div class="notification-container">
+                <button
+                    class="notification-bell"
+                    id="notificationBell"
+                    type="button"
+                    aria-label="Notifications"
+                    aria-expanded="false"
+                    aria-controls="notificationPopup"
+                >
+                    <i class="ri-notification-3-line"></i>
+                    <span class="notification-count" id="notificationCount" hidden>0</span>
+                </button>
+
+                <div class="notification-popup" id="notificationPopup" hidden>
+                    <div class="notification-popup-header">
+                        <h3>Notifications</h3>
+                    </div>
+
+                    <div class="notification-list" id="notificationList">
+                        <p class="notification-empty">No unread notifications.</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="logout" type="button">
+                Log Out
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <div class="main">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <nav class="sidebar--items">
+
+                <a href="adminDashboard.html">
+                    <i class="ri-layout-grid-line"></i> Dashboard
+                </a>
+
+                <a href="adminProfile.html">
+                    <i class="ri-user-line"></i> My Profile
+                </a>
+
+                <a href="adminStaff.html">
+                    <i class="ri-group-line"></i> Manage Staff
+                </a>
+
+                <a href="adminSchedule.html" class="active--link">
+                    <i class="ri-calendar-schedule-line"></i> Schedule
+                </a>
+
+                <a href="adminAppointments.html">
+                    <i class="ri-calendar-line"></i> Appointments
+                </a>
+
+                <a href="adminBilling.html">
+                    <i class="ri-bill-line"></i> Billing & Payments
+                </a>
+
+                <a href="adminReport.html">
+                    <i class="ri-file-chart-line"></i> Reports
+                </a>
+
+                <a href="adminClinicInfo.html">
+                    <i class="ri-hospital-line"></i> Clinic Information
+                </a>
+
+            </nav>
+
+            <nav class="sidebar--bottom-items">
+                <a href="adminSettings.html">
+                    <i class="ri-settings-3-line"></i> Settings
+                </a>
+            </nav>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="mainContent">
+
+            <h2 class="maintitle">Manage Schedule</h2>
+
+            <p>
+                View and manage recurring weekly office schedules and staff
+                assignments. Select an office to view its entire weekly schedule.
+                You can edit individual days and save all changes together.
+            </p>
+
+
+            <!-- OFFICE SELECTION -->
+            <section class="appointments">
+
+                <div>
+                    <h3>Select Office</h3>
+                </div>
+
+                <div class="form-group">
+                    <label for="officeId">Clinic Office</label>
+
+                    <select id="officeId" name="officeId" required>
+                        <option value="">Select an office</option>
+                    </select>
+
+                    <p id="officeMessage" class="form-message" aria-live="polite"></p>
+                </div>
+
+            </section>
+
+
+            <!-- WEEKLY SCHEDULE OVERVIEW -->
+            <section class="appointments" id="weeklyScheduleSection" hidden>
+
+                <div>
+                    <h3>Weekly Schedule</h3>
+
+                    <p>
+                        This overview displays all recurring timeslots for the
+                        selected office. Each timeslot includes its assigned
+                        doctor, nurse, receptionist, and administrator.
+                    </p>
+                </div>
+
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Doctor</th>
+                                <th>Nurse</th>
+                                <th>Receptionist</th>
+                                <th>Administrator</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="weeklyScheduleTableBody">
+                            <tr>
+                                <td colspan="8">
+                                    Select an office to view its weekly schedule.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p id="weeklyScheduleMessage" class="form-message" aria-live="polite"></p>
+
+            </section>
+
+
+            <!-- DAILY SCHEDULE EDITOR -->
+            <section class="appointments" id="scheduleSection" hidden>
+
+                <div>
+                    <h3 id="editScheduleTitle">Edit Daily Schedule</h3>
+
+                    <p>
+                        Modify the selected day's timeslots below. You can add,
+                        remove, and reassign staff without saving each individual
+                        change. Changes are applied only when you click Save Changes.
+                    </p>
+
+                    <!-- OFFICE HOURS -->
+                    <p id="officeHoursDisplay" class="form-message" aria-live="polite">
+                        Office hours: Select an office to view its hours.
+                    </p>
+                </div>
+
+
+                <!-- SELECTED DAY -->
+                <div class="form-group">
+                    <label for="dayOfWeek">Day of Week</label>
+
+                    <select id="dayOfWeek" name="dayOfWeek" required>
+                        <option value="">Select a day</option>
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="Saturday">Saturday</option>
+                        <option value="Sunday">Sunday</option>
+                    </select>
+                </div>
+
+
+                <!-- DAY STATUS -->
+                <div id="dayStatus" class="form-message" aria-live="polite">
+                    Select a day to edit its schedule.
+                </div>
+
+
+                <!-- EDITABLE SCHEDULE -->
+                <div id="dayScheduleContainer" hidden>
+
+                    <h3>Time Slots</h3>
+
+                    <p>
+                        Each timeslot can have one doctor, one nurse,
+                        one receptionist, and one administrator.
+                        Any staff assignment may be left unassigned.
+                    </p>
+
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
+                                    <th>Doctor</th>
+                                    <th>Nurse</th>
+                                    <th>Receptionist</th>
+                                    <th>Administrator</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="dayScheduleTableBody">
+                                <tr>
+                                    <td colspan="7">
+                                        Select a day to edit its schedule.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <!-- ADD TIME SLOT -->
+                    <div>
+                        <button type="button" id="addTimeSlotBtn">
+                            <i class="ri-add-line"></i> Add Time Slot
+                        </button>
+                    </div>
+
+                </div>
+
+
+                <!-- SAVE / CANCEL -->
+                <div id="scheduleActions" hidden>
+
+                    <button type="button" id="saveScheduleBtn">
+                        <i class="ri-save-line"></i> Save Changes
+                    </button>
+
+                    <button type="button" id="cancelScheduleBtn">
+                        <i class="ri-close-line"></i> Cancel
+                    </button>
+
+                    <p id="scheduleMessage" class="form-message" aria-live="polite"></p>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- SCRIPTS -->
+    <script src="../../logout.js"></script>
+    <script src="../js/adminNotification.js" defer></script>
+    <script src="../js/adminSchedule.js" defer></script>
+
+</body>
+</html>

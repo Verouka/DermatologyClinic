@@ -11,7 +11,10 @@
     <title>Reports</title>
 
     <link rel="stylesheet" href="../css/admin.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+        rel="stylesheet"
+    >
 </head>
 
 <body>
@@ -25,14 +28,52 @@
         </div>
 
         <div class="header-right">
+
             <a href="adminReport.html">
                 <i class="ri-folder-chart-line"></i>
                 Reports
             </a>
 
+            <!-- NOTIFICATION BELL -->
+            <div class="notification-container">
+
+                <button
+                    class="notification-bell"
+                    id="notificationBell"
+                    type="button"
+                    aria-label="Notifications"
+                    aria-expanded="false"
+                    aria-controls="notificationPopup"
+                >
+                    <i class="ri-notification-3-line"></i>
+
+                    <span
+                        class="notification-count"
+                        id="notificationCount"
+                        hidden
+                    >0</span>
+                </button>
+
+                <div class="notification-popup" id="notificationPopup" hidden>
+
+                    <div class="notification-popup-header">
+                        <h3>Notifications</h3>
+                    </div>
+
+                    <div class="notification-list" id="notificationList">
+                        <p class="notification-empty">
+                            No unread notifications.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
             <button class="logout" type="button">
                 Log Out
             </button>
+
         </div>
 
     </header>
@@ -45,136 +86,444 @@
             <nav class="sidebar--items">
 
                 <a href="adminDashboard.html">
-                    <i class="ri-layout-grid-line"></i> Dashboard
+                    <i class="ri-layout-grid-line"></i>
+                    Dashboard
                 </a>
 
                 <a href="adminProfile.html">
-                    <i class="ri-user-line"></i> My Profile
+                    <i class="ri-user-line"></i>
+                    My Profile
                 </a>
 
                 <a href="adminStaff.html">
-                    <i class="ri-group-line"></i> Manage Staff
+                    <i class="ri-group-line"></i>
+                    Manage Staff
+                </a>
+
+                <a href="adminSchedule.html">
+                    <i class="ri-calendar-schedule-line"></i>
+                    Schedule
                 </a>
 
                 <a href="adminAppointments.html">
-                    <i class="ri-calendar-line"></i> Appointments
+                    <i class="ri-calendar-line"></i>
+                    Appointments
                 </a>
 
                 <a href="adminBilling.html">
-                    <i class="ri-bill-line"></i> Billing & Payments
+                    <i class="ri-bill-line"></i>
+                    Billing & Payments
                 </a>
 
                 <a href="adminReport.html" class="active--link">
-                    <i class="ri-folder-chart-line"></i> Reports
+                    <i class="ri-file-chart-line"></i>
+                    Reports
                 </a>
 
                 <a href="adminClinicInfo.html">
-                    <i class="ri-hospital-line"></i> Clinic Information
+                    <i class="ri-hospital-line"></i>
+                    Clinic Information
                 </a>
 
             </nav>
 
             <nav class="sidebar--bottom-items">
-                <a href="settings.html">
-                    <i class="ri-settings-3-line"></i> Settings
+
+                <a href="adminSettings.html">
+                    <i class="ri-settings-3-line"></i>
+                    Settings
                 </a>
+
             </nav>
 
         </aside>
 
         <!-- MAIN CONTENT -->
-        <div class="mainContent">
+        <main class="mainContent">
 
-            <div class="overview">
+            <h2 class="maintitle">Reports</h2>
 
-                <h2 class="maintitle">Reports</h2>
-                <p>Generate a report.</p>
+            <p>
+                Generate reports containing appointment, billing, and payment information.
+                Leave the date fields empty to retrieve all records.
+            </p>
 
-                <div class="profileCard">
+            <!-- ====================================== -->
+            <!-- REPORT FILTERS -->
+            <!-- ====================================== -->
 
-                    <div class="profileHeader">
-                        <i class="ri-file-chart-line"></i>
-                        <h3>Report Generator</h3>
-                    </div>
+            <section class="profileCard">
+
+                <div class="profileHeader">
+                    <i class="ri-filter-3-line"></i>
+                    <h3>Report Filters</h3>
+                </div>
+
+                <form id="reportForm">
 
                     <div class="profileData">
 
                         <div class="profileField">
-                            <label for="FirstName">Office</label>
-                            <input
-                                type="text"
-                                id="FirstName"
-                                name="FirstName"
-                                maxlength="45"
-                                readonly
+                            <label for="officeId">Office</label>
+
+                            <select
+                                id="officeId"
+                                name="officeId"
+                                style="width: 100%; padding: 12px; border: 1px solid lightgray; border-radius: 6px; font-size: 14px; background-color: #f8f9fa; color: #333;"
                             >
+                                <option value="">All Offices</option>
+                            </select>
                         </div>
 
                         <div class="profileField">
-                            <label for="patientID">Patient ID</label>
-                            <input
-                                type="text"
-                                id="patientID"
-                                name="patientID"
-                                readonly
-                            >
-                        </div>
+                            <label for="startDate">Start Date (Optional)</label>
 
-                        <div class="profileField">
-                            <label for="doctorID">Doctor ID</label>
-                            <input
-                                type="text"
-                                id="doctorID"
-                                name="doctorID"
-                                readonly
-                            >
-                        </div>
-
-                        <div class="profileField">
-                            <label for="nurseID">Nurse ID</label>
-                            <input
-                                type="text"
-                                id="nurseID"
-                                name="nurseID"
-                                readonly
-                            >
-                        </div>
-
-                        <div class="profileField">
-                            <label for="startDate">Start Date</label>
                             <input
                                 type="date"
                                 id="startDate"
                                 name="startDate"
-                                readonly
                             >
                         </div>
 
                         <div class="profileField">
-                            <label for="endDate">End Date</label>
+                            <label for="endDate">End Date (Optional)</label>
+
                             <input
                                 type="date"
                                 id="endDate"
                                 name="endDate"
-                                readonly
+                            >
+                        </div>
+
+                        <div class="profileField">
+                            <label for="patientId">Patient ID (Optional)</label>
+
+                            <input
+                                type="number"
+                                id="patientId"
+                                name="patientId"
+                                min="1"
+                                placeholder="Enter patient ID"
+                            >
+                        </div>
+
+                        <div class="profileField">
+                            <label for="doctorId">Doctor ID (Optional)</label>
+
+                            <input
+                                type="number"
+                                id="doctorId"
+                                name="doctorId"
+                                min="1"
+                                placeholder="Enter doctor ID"
+                            >
+                        </div>
+
+                        <div class="profileField">
+                            <label for="nurseId">Nurse ID (Optional)</label>
+
+                            <input
+                                type="number"
+                                id="nurseId"
+                                name="nurseId"
+                                min="1"
+                                placeholder="Enter nurse ID"
                             >
                         </div>
 
                     </div>
 
+                    <div class="profileActions">
+
+                        <button
+                            type="submit"
+                            class="editBtn"
+                            id="generateReportBtn"
+                        >
+                            <i class="ri-file-chart-line"></i>
+                            Generate Report
+                        </button>
+
+                        <button
+                            type="reset"
+                            class="editBtn"
+                            id="resetReportBtn"
+                            style="margin-left: 10px;"
+                        >
+                            <i class="ri-refresh-line"></i>
+                            Reset
+                        </button>
+
+                    </div>
+
+                </form>
+
+                <p id="reportMessage" role="status"></p>
+
+            </section>
+
+            <!-- ====================================== -->
+            <!-- DISPLAY OPTIONS -->
+            <!-- ====================================== -->
+
+            <section class="profileCard">
+
+                <div class="profileHeader">
+                    <i class="ri-eye-line"></i>
+                    <h3>Display Options</h3>
                 </div>
 
-            </div>
+                <p>
+                    Select which sections should appear in your report and CSV download.
+                </p>
 
-            <div class="profileActions">
-                <button type="button" class="editBtn">Generate</button>
-            </div>
+                <div class="profileData">
 
-        </div>
+                    <label class="checkbox-label">
+                        <input
+                            type="checkbox"
+                            id="showAppointments"
+                            checked
+                        >
+                        Appointments
+                    </label>
+
+                    <label class="checkbox-label">
+                        <input
+                            type="checkbox"
+                            id="showBills"
+                            checked
+                        >
+                        Bills
+                    </label>
+
+                    <label class="checkbox-label">
+                        <input
+                            type="checkbox"
+                            id="showPayments"
+                            checked
+                        >
+                        Payments
+                    </label>
+
+                </div>
+
+                <div class="profileActions">
+
+                    <button
+                        type="button"
+                        class="editBtn"
+                        id="downloadReportBtn"
+                    >
+                        <i class="ri-download-line"></i>
+                        Download CSV
+                    </button>
+
+                </div>
+
+            </section>
+
+            <!-- ====================================== -->
+            <!-- REPORT SUMMARY -->
+            <!-- ====================================== -->
+
+            <section class="profileCard">
+
+                <div class="profileHeader">
+                    <i class="ri-bar-chart-box-line"></i>
+                    <h3>Report Summary</h3>
+                </div>
+
+                <div class="cards">
+
+                    <div class="card">
+                        <h3>Total Appointments</h3>
+
+                        <div class="cardData">
+                            <h2 id="totalAppointments">0</h2>
+                            <i class="ri-calendar-line card--icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Completed Appointments</h3>
+
+                        <div class="cardData">
+                            <h2 id="completedAppointments">0</h2>
+                            <i class="ri-checkbox-circle-line card--icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Cancelled Appointments</h3>
+
+                        <div class="cardData">
+                            <h2 id="cancelledAppointments">0</h2>
+                            <i class="ri-close-circle-line card--icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Total Revenue Received</h3>
+
+                        <div class="cardData">
+                            <h2 id="totalRevenue">$0.00</h2>
+                            <i class="ri-money-dollar-circle-line card--icon"></i>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- ====================================== -->
+            <!-- APPOINTMENTS TABLE -->
+            <!-- ====================================== -->
+
+            <section
+                class="profileCard report-section"
+                id="appointmentsSection"
+            >
+
+                <div class="profileHeader">
+                    <i class="ri-calendar-line"></i>
+                    <h3>Appointments</h3>
+                </div>
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Appointment ID</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Patient</th>
+                                <th>Patient ID</th>
+                                <th>Doctor</th>
+                                <th>Doctor ID</th>
+                                <th>Nurse</th>
+                                <th>Office</th>
+                                <th>Description</th>
+                                <th>Booking Method</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="appointmentsTable">
+                            <tr>
+                                <td colspan="12" class="empty">
+                                    Generate a report to view appointments.
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+            <!-- ====================================== -->
+            <!-- BILLS TABLE -->
+            <!-- ====================================== -->
+
+            <section
+                class="profileCard report-section"
+                id="billsSection"
+            >
+
+                <div class="profileHeader">
+                    <i class="ri-bill-line"></i>
+                    <h3>Bills</h3>
+                </div>
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Bill ID</th>
+                                <th>Bill Date</th>
+                                <th>Patient</th>
+                                <th>Patient ID</th>
+                                <th>Appointment ID</th>
+                                <th>Item</th>
+                                <th>Item Cost</th>
+                                <th>Amount Due</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="billsTable">
+                            <tr>
+                                <td colspan="8" class="empty">
+                                    Generate a report to view bills.
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+            <!-- ====================================== -->
+            <!-- PAYMENTS TABLE -->
+            <!-- ====================================== -->
+
+            <section
+                class="profileCard report-section"
+                id="paymentsSection"
+            >
+
+                <div class="profileHeader">
+                    <i class="ri-bank-card-line"></i>
+                    <h3>Payments</h3>
+                </div>
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Payment ID</th>
+                                <th>Payment Date</th>
+                                <th>Bill ID</th>
+                                <th>Appointment ID</th>
+                                <th>Patient</th>
+                                <th>Payment Amount</th>
+                                <th>Payment Type</th>
+                                <th>Card Last 4 Digits</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="paymentsTable">
+                            <tr>
+                                <td colspan="8" class="empty">
+                                    Generate a report to view payments.
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </main>
 
     </section>
 
+    <!-- SCRIPTS -->
     <script src="../../logout.js"></script>
+    <script src="../js/adminNotification.js" defer></script>
+    <script src="../js/adminReport.js" defer></script>
 
 </body>
 </html>

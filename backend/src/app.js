@@ -1,12 +1,16 @@
-
 import { handleAdminStaffRoutes } from "./routes/adminStaffRoutes.js";
 import { handleAuthRoutes } from "./routes/Authentication_route.js";
 import { handlePatientRoutes } from "./routes/patientRoutes.js";
 import { handleAdminProfileRoutes } from "./routes/adminProfileRoutes.js";
+import { handleAdminSettingsRoutes } from "./routes/adminSettingsRoutes.js";
 import { handleAdminAppointmentsRoutes } from "./routes/adminAppointmentsRoutes.js";
 import { handleAdminBillingRoutes } from "./routes/adminBillingRoutes.js";
 import { handleAdminClinicInfoRoutes } from "./routes/adminClinicInfoRoutes.js";
 import { handleAdminDashboardRoutes } from "./routes/adminDashboardRoutes.js";
+import { handleAdminNotificationRoutes } from "./routes/adminNotificationRoutes.js";
+import { handleAdminReportRoutes } from "./routes/adminReportRoutes.js";
+import { handleAdminScheduleRoutes } from "./routes/adminScheduleRoutes.js";
+
 import { handlePatientAppointmentRoutes } from "./routes/patientAppointmentRoutes.js";
 import { handleAppointmentOptionsRoutes } from "./routes/appointmentOptionsRoutes.js";
 import { handlePatientMedicalRecordsRoutes } from "./routes/patientMedicalRecordsRoutes.js";
@@ -51,10 +55,14 @@ const app = async (req, res) => {
         // Admin routes
         if (await handleAdminStaffRoutes(req, res)) return;
         if (await handleAdminProfileRoutes(req, res)) return;
+        if (await handleAdminSettingsRoutes(req, res)) return;
         if (await handleAdminAppointmentsRoutes(req, res)) return;
         if (await handleAdminBillingRoutes(req, res)) return;
         if (await handleAdminClinicInfoRoutes(req, res)) return;
         if (await handleAdminDashboardRoutes(req, res)) return;
+        if (await handleAdminNotificationRoutes(req, res)) return;
+        if (await handleAdminReportRoutes(req, res)) return;
+        if (await handleAdminScheduleRoutes(req, res)) return;
 
         // Health check
         if (req.method === "GET" && req.url === "/") {

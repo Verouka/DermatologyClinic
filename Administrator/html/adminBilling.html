@@ -28,6 +28,31 @@
                 Billing & Payments
             </a>
 
+            <!-- NOTIFICATION BELL -->
+            <div class="notification-container">
+                <button
+                    class="notification-bell"
+                    id="notificationBell"
+                    type="button"
+                    aria-label="Notifications"
+                    aria-expanded="false"
+                    aria-controls="notificationPopup"
+                >
+                    <i class="ri-notification-3-line"></i>
+                    <span class="notification-count" id="notificationCount" hidden>0</span>
+                </button>
+
+                <div class="notification-popup" id="notificationPopup" hidden>
+                    <div class="notification-popup-header">
+                        <h3>Notifications</h3>
+                    </div>
+
+                    <div class="notification-list" id="notificationList">
+                        <p class="notification-empty">No unread notifications.</p>
+                    </div>
+                </div>
+            </div>
+
             <button class="logout" type="button">
                 Log Out
             </button>
@@ -57,6 +82,11 @@
                     Manage Staff
                 </a>
 
+                <a href="adminSchedule.html">
+                    <i class="ri-calendar-schedule-line"></i>
+                    Schedule
+                </a>
+
                 <a href="adminAppointments.html">
                     <i class="ri-calendar-line"></i>
                     Appointments
@@ -80,7 +110,7 @@
             </nav>
 
             <nav class="sidebar--bottom-items">
-                <a href="settings.html">
+                <a href="adminSettings.html">
                     <i class="ri-settings-3-line"></i>
                     Settings
                 </a>
@@ -191,6 +221,7 @@
 
     <!-- SCRIPTS -->
     <script src="../../logout.js"></script>
+    <script src="../js/adminNotification.js" defer></script>
     <script src="../js/adminBilling.js" defer></script>
 
 </body>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,6 +28,31 @@
                 <i class="ri-hospital-line"></i> Clinic Information
             </a>
 
+            <!-- NOTIFICATION BELL -->
+            <div class="notification-container">
+                <button
+                    class="notification-bell"
+                    id="notificationBell"
+                    type="button"
+                    aria-label="Notifications"
+                    aria-expanded="false"
+                    aria-controls="notificationPopup"
+                >
+                    <i class="ri-notification-3-line"></i>
+                    <span class="notification-count" id="notificationCount" hidden>0</span>
+                </button>
+
+                <div class="notification-popup" id="notificationPopup" hidden>
+                    <div class="notification-popup-header">
+                        <h3>Notifications</h3>
+                    </div>
+
+                    <div class="notification-list" id="notificationList">
+                        <p class="notification-empty">No unread notifications.</p>
+                    </div>
+                </div>
+            </div>
+
             <button class="logout" type="button">
                 Log Out
             </button>
@@ -54,6 +78,10 @@
                     <i class="ri-group-line"></i> Manage Staff
                 </a>
 
+                <a href="adminSchedule.html">
+                    <i class="ri-calendar-schedule-line"></i> Schedule
+                </a>
+
                 <a href="adminAppointments.html">
                     <i class="ri-calendar-line"></i> Appointments
                 </a>
@@ -73,7 +101,7 @@
             </nav>
 
             <nav class="sidebar--bottom-items">
-                <a href="settings.html">
+                <a href="adminSettings.html">
                     <i class="ri-settings-3-line"></i> Settings
                 </a>
             </nav>
@@ -84,7 +112,7 @@
 
             <h2 class="maintitle">Clinic Info</h2>
 
-            <p>View information for all clinic offices.</p>
+            <p>View and manage information for all clinic offices.</p>
 
             <div class="appointments">
 
@@ -102,16 +130,112 @@
                                 <th>City</th>
                                 <th>State</th>
                                 <th>ZipCode</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
 
                         <tbody id="officesTableBody">
                             <tr>
-                                <td colspan="6">Loading offices...</td>
+                                <td colspan="7">Loading offices...</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
+                <p id="clinicInfoMessage" class="form-message" aria-live="polite"></p>
+
+            </div>
+
+
+            <!-- EDIT OFFICE HOURS -->
+            <div class="appointments" id="officeHoursSection" hidden>
+
+                <div>
+                    <h3 id="officeHoursTitle">Edit Office Hours</h3>
+
+                    <p>
+                        Update the opening hours and closed days for this office.
+                    </p>
+                </div>
+
+                <form id="officeHoursForm">
+
+                    <input type="hidden" id="editOfficeId">
+
+                    <div class="form-group">
+                        <label for="openTime">Opening Time</label>
+                        <input
+                            type="time"
+                            id="openTime"
+                            name="openTime"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="closeTime">Closing Time</label>
+                        <input
+                            type="time"
+                            id="closeTime"
+                            name="closeTime"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label>Days Closed</label>
+
+                        <div>
+                            <label>
+                                <input type="checkbox" name="closedDays" value="Monday">
+                                Monday
+                            </label>
+
+                            <label>
+                                <input type="checkbox" name="closedDays" value="Tuesday">
+                                Tuesday
+                            </label>
+
+                            <label>
+                                <input type="checkbox" name="closedDays" value="Wednesday">
+                                Wednesday
+                            </label>
+
+                            <label>
+                                <input type="checkbox" name="closedDays" value="Thursday">
+                                Thursday
+                            </label>
+
+                            <label>
+                                <input type="checkbox" name="closedDays" value="Friday">
+                                Friday
+                            </label>
+
+                            <label>
+                                <input type="checkbox" name="closedDays" value="Saturday">
+                                Saturday
+                            </label>
+
+                            <label>
+                                <input type="checkbox" name="closedDays" value="Sunday">
+                                Sunday
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="submit" id="saveOfficeHoursBtn">
+                            <i class="ri-save-line"></i> Save Changes
+                        </button>
+
+                        <button type="button" id="cancelOfficeHoursBtn">
+                            <i class="ri-close-line"></i> Cancel
+                        </button>
+                    </div>
+
+                    <p id="officeHoursMessage" class="form-message" aria-live="polite"></p>
+
+                </form>
 
             </div>
 
@@ -119,7 +243,9 @@
 
     </div>
 
+    <!-- SCRIPTS -->
     <script src="../../logout.js"></script>
+    <script src="../js/adminNotification.js" defer></script>
     <script src="../js/adminClinicInfo.js" defer></script>
 
 </body>
