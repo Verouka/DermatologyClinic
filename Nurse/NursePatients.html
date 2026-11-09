@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="../securityrole.js" data-role="nurse"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nurse Patient Log & Intake</title>
@@ -11,7 +10,7 @@
 <body>
     <section class="header"> 
         <div class="a">
-           <img src="../icons8-heart-with-pulse-40.png" alt="Clinic logo" width="35">
+           <img src="icons8-heart-with-pulse-40.png" alt="Clinic logo" width="35">
            <h1 class="h1">Dermatology Clinic</h1>
         </div> 
         <div class="notification--profile">
@@ -19,9 +18,9 @@
                 <i class="ri-notification-2-line"></i>
             </div>
             <div class="picon profile">
-                <img class="img" src="../account.png" alt="Nurse Profile">
+                <img class="img" src="account.png" alt="Nurse Profile">
             </div>
-            <button class="logout" type="button" >Log Out</button>
+            <button class="logout logout-btn" type="button">Log Out</button>
         </div>
     </section>
 
@@ -29,7 +28,7 @@
         <div class="sidebar"> 
             <ul class="sidebar--items">
                 <li>
-                    <a href="NurseDashBoard.html" >
+                    <a href="NurseDashBoard.html">
                         <span class="icon">
                             <i class="ri-layout-grid-line"></i>
                         </span>
@@ -108,7 +107,9 @@
                                 <td>Penicillin</td>
                                 <td>2024-02-10 14:30:00</td>
                                 <td>Mild rash on forearms</td>
-                                <td><button type="button" class="logout" style="padding: 4px 10px; font-size: 0.85rem;">Edit</button></td>
+                                <td>
+                                    <button type="button" class="logout delete-btn" style="background-color: #c92a2a; padding: 4px 10px; font-size: 0.85rem;">Delete</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -133,6 +134,7 @@
                                 <th>Condition</th>
                                 <th>Date Noted</th>
                                 <th>Notes</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -143,6 +145,9 @@
                                 <td>Melanoma</td>
                                 <td>2018-05-15</td>
                                 <td>Surgically removed</td>
+                                <td>
+                                    <button type="button" class="logout delete-btn" style="background-color: #c92a2a; padding: 4px 10px; font-size: 0.85rem;">Delete</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -167,6 +172,7 @@
                                 <th>Treatment Name</th>
                                 <th>Treatment Date</th>
                                 <th>Notes</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -176,6 +182,9 @@
                                 <td>Topical Corticosteroids</td>
                                 <td>2023-09-01</td>
                                 <td>Cleared inflammation within 2 weeks</td>
+                                <td>
+                                    <button type="button" class="logout delete-btn" style="background-color: #c92a2a; padding: 4px 10px; font-size: 0.85rem;">Delete</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -222,6 +231,23 @@
         </div>
     </section>
 
-     <script src="../logout.js"></script>
+    <script>
+        document.addEventListener('click', (e) => {
+            if (e.target && e.target.classList.contains('delete-btn')) {
+                if (confirm('Are you sure you want to delete this entry?')) {
+                    const row = e.target.closest('tr');
+                    if (row) row.remove();
+                }
+            }
+        });
+
+        document.querySelectorAll('.logout-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                localStorage.clear();
+                sessionStorage.clear();
+                window.location.href = 'LoginPage.html';
+            });
+        });
+    </script>
 </body>
 </html>
