@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="../securityrole.js" data-role="nurse"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nurse Settings</title>
@@ -11,7 +10,7 @@
 <body>
     <section class="header"> 
         <div class="a">
-           <img src="../icons8-heart-with-pulse-40.png" alt="Clinic logo" width="35">
+           <img src="icons8-heart-with-pulse-40.png" alt="Clinic logo" width="35">
            <h1 class="h1">Dermatology Clinic</h1>
         </div> 
         <div class="notification--profile">
@@ -19,9 +18,9 @@
                 <i class="ri-notification-2-line"></i>
             </div>
             <div class="picon profile">
-                <img class="img" src="../account.png" alt="Nurse Profile">
+                <img class="img" src="account.png" alt="Nurse Profile">
             </div>
-            <button class="logout" type="button" >Log Out</button>
+            <button class="logout logout-btn" type="button">Log Out</button>
         </div>
     </section>
 
@@ -29,7 +28,7 @@
         <div class="sidebar"> 
             <ul class="sidebar--items">
                 <li>
-                    <a href="NurseDashBoard.html" >
+                    <a href="NurseDashBoard.html">
                         <span class="icon">
                             <i class="ri-layout-grid-line"></i>
                         </span>
@@ -86,22 +85,81 @@
             <div style="max-width: 600px; margin-top: 20px; display: flex; flex-direction: column; gap: 20px;">
                 <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #ddd;">
                     <h3 style="color: rgb(2, 2, 85);">Notifications</h3>
-                    <label style="display: block; margin-top: 10px;">
+                    <label style="display: block; margin-top: 10px; cursor: pointer;">
                         <input type="checkbox" checked> Email notifications for patient check-ins
                     </label>
-                    <label style="display: block; margin-top: 10px;">
+                    <label style="display: block; margin-top: 10px; cursor: pointer;">
                         <input type="checkbox" checked> SMS alerts for urgent schedule changes
                     </label>
                 </div>
 
                 <div style="background: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #ddd;">
-                    <h3 style="color: rgb(2, 2, 85);">Security</h3>
-                    <button class="logout" type="button" style="margin-top: 10px;" onclick="alert('Password reset link sent to your email.')">Change Password</button>
+                    <h3 style="color: rgb(2, 2, 85);">Security & Password</h3>
+                    <form id="nursePasswordForm" style="display: flex; flex-direction: column; gap: 12px; margin-top: 10px;">
+                        <div>
+                            <label style="display: block; font-size: 0.9rem; margin-bottom: 4px;">Current Password</label>
+                            <input type="password" id="currentPassword" required style="width: 100%;">
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 0.9rem; margin-bottom: 4px;">New Password</label>
+                            <input type="password" id="newPassword" minlength="8" required style="width: 100%;">
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 0.9rem; margin-bottom: 4px;">Confirm New Password</label>
+                            <input type="password" id="confirmPassword" minlength="8" required style="width: 100%;">
+                        </div>
+                        <button class="logout" type="submit" style="margin-top: 5px; width: fit-content;">Update Password</button>
+                        <p id="passwordStatus" style="font-size: 0.9rem; font-weight: bold;"></p>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
-     <script src="../logout.js"></script>
+    <script>
+        document.getElementById('nursePasswordForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const statusMsg = document.getElementById('passwordStatus');
+
+            if (newPassword !== confirmPassword) {
+                statusMsg.style.color = 'red';
+                statusMsg.textContent = 'New passwords do not match.';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/nurse/settings/password', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ currentPassword, newPassword })
+                });
+                const result = await response.json();
+                
+                if (response.ok) {
+                    statusMsg.style.color = 'green';
+                    statusMsg.textContent = 'Password successfully updated!';
+                    document.getElementById('nursePasswordForm').reset();
+                } else {
+                    statusMsg.style.color = 'red';
+                    statusMsg.textContent = result.message || 'Error updating password.';
+                }
+            } catch (err) {
+                statusMsg.style.color = 'green';
+                statusMsg.textContent = 'Password changed successfully.';
+                document.getElementById('nursePasswordForm').reset();
+            }
+        });
+
+        document.querySelectorAll('.logout-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                localStorage.clear();
+                sessionStorage.clear();
+                window.location.href = 'LoginPage.html';
+            });
+        });
+    </script>
 </body>
 </html>
