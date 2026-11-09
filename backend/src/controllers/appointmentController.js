@@ -2,17 +2,22 @@
 import pool from "../database.js";
 
 export async function getAppointments(req, res, sendJSON) {
-    const [rows] = await pool.query(`
+        const [rows] = await pool.query(`
         SELECT
             a.Appointment_ID AS id,
             a.PATIENT_Patient_ID AS patientId,
+            p.First_Name AS patientFirstName,
+            p.Last_Name AS patientLastName,
+            CONCAT_WS(' ', p.First_Name, p.Last_Name) AS patientName,
             a.DOCTOR_Doctor_ID AS doctorId,
             DATE_FORMAT(a.Appointment_Date, '%Y-%m-%d') AS date,
             TIME_FORMAT(a.Appointment_Time, '%H:%i') AS time,
             a.Appointment_Description AS reason,
             COALESCE(a.Appointment_Status, 'Pending') AS status,
-            'Scheduled' AS visitStatus
+            COALESCE(a.Visit_Status, 'Scheduled') AS visitStatus
         FROM appointment a
+        LEFT JOIN patient p
+            ON a.PATIENT_Patient_ID = p.Patient_ID
         ORDER BY a.Appointment_Date, a.Appointment_Time
     `);
 
@@ -123,6 +128,7 @@ export async function updateAppointment(req, res, sendJSON, readBody, id) {
 
     const fields = {
         status: "Appointment_Status",
+        visitStatus: "Visit_Status",
         date: "Appointment_Date",
         time: "Appointment_Time",
         reason: "Appointment_Description"
@@ -133,10 +139,18 @@ export async function updateAppointment(req, res, sendJSON, readBody, id) {
 
     for (const [key, column] of Object.entries(fields)) {
         if (body[key] !== undefined) {
+
             if (key === "status" &&
                 !["Pending", "Scheduled", "Cancelled", "Rejected"].includes(body[key])) {
                 return sendJSON(res, 400, {
                     error: "Invalid appointment status."
+                });
+            }
+
+            if (key === "visitStatus" &&
+                !["Scheduled", "Checked In", "Checked Out"].includes(body[key])) {
+                return sendJSON(res, 400, {
+                    error: "Invalid visit status."
                 });
             }
 
@@ -178,7 +192,7 @@ export async function updateAppointment(req, res, sendJSON, readBody, id) {
             TIME_FORMAT(Appointment_Time, '%H:%i') AS time,
             Appointment_Description AS reason,
             COALESCE(Appointment_Status, 'Pending') AS status,
-            'Scheduled' AS visitStatus
+            COALESCE(Visit_Status, 'Scheduled') AS visitStatus
         FROM appointment
         WHERE Appointment_ID = ?
     `, [id]);
