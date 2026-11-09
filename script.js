@@ -391,9 +391,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function renderTodayAppointments() {
         const table = document.getElementById("todayTable");
-        const list = appointments
-            .filter(function (a) { return a.date === today && isActiveAppointment(a); })
-            .sort(byDateTime);
+        const list = appointments.filter(function (a) { return a.date === today && isActiveAppointment(a); }).sort(byDateTime);
 
         if (list.length === 0) {
             table.innerHTML = emptyRow(6, "No appointments scheduled today.");
@@ -415,7 +413,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function renderAppointments() {
         const table = document.getElementById("appointmentsTable");
-        const list = appointments.filter(isUpcoming).sort(byDateTime);
+        const list = appointments.slice().sort(byDateTime);
 
         if (list.length === 0) {
             table.innerHTML = emptyRow(7, "No upcoming appointments.");
