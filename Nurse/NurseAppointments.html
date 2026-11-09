@@ -1,131 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <script src="../securityrole.js" data-role="nurse"></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Nurse Appointments</title>
-    <link rel="stylesheet" href="NurseDashBoard.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="./NurseDashBoard.css">
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+        rel="stylesheet"
+    >
 </head>
+
 <body>
-    <section class="header"> 
+
+    <!-- HEADER -->
+    <section class="header">
         <div class="a">
-           <img src="../icons8-heart-with-pulse-40.png" alt="Clinic logo" width="35">
-           <h1 class="h1">Dermatology Clinic</h1>
-        </div> 
+            <img
+                src="../icons8-heart-with-pulse-40.png"
+                alt="Clinic logo"
+                width="35"
+            >
+
+            <h1 class="h1">Dermatology Clinic</h1>
+        </div>
+
         <div class="notification--profile">
             <div class="picon bell">
                 <i class="ri-notification-2-line"></i>
             </div>
+
             <div class="picon profile">
-                <img class="img" src="../account.png" alt="Nurse Profile">
+                <a href="NurseProfile.html">
+                    <img
+                        class="img"
+                        src="../account.png"
+                        alt="Nurse Profile"
+                    >
+                </a>
             </div>
-            <button class="logout" type="button" onclick="window.location.href='LoginPage.html'">Log Out</button>
+
+            <button class="logout logout-btn" type="button">Log Out</button>
+
+            <script>
+                document.querySelectorAll('.logout-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        localStorage.clear();
+                        sessionStorage.clear();
+                        window.location.href = 'LoginPage.html';
+                    });
+                });
+            </script>
         </div>
     </section>
 
+    <!-- MAIN -->
     <section class="main">
-        <div class="sidebar"> 
+
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+
             <ul class="sidebar--items">
+
                 <li>
-                    <a href="NurseDashBoard.html" >
+                    <a href="NurseDashBoard.html">
                         <span class="icon">
                             <i class="ri-layout-grid-line"></i>
                         </span>
-                        <span class="sidebar--item">Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="NurseAppointments.html" class="active--link">
-                        <span class="icon"><i class="ri-calendar-2-line"></i>
+                        <span class="sidebar--item">
+                            Dashboard
                         </span>
-                        <span class="sidebar--item">Appointments</span>
                     </a>
                 </li>
+
+                <li>
+                    <a
+                        href="NurseAppointments.html"
+                        class="active--link"
+                    >
+                        <span class="icon">
+                            <i class="ri-calendar-2-line"></i>
+                        </span>
+                        <span class="sidebar--item">
+                            Appointments
+                        </span>
+                    </a>
+                </li>
+
                 <li>
                     <a href="NursePatients.html">
-                        <span class="icon"><i class="ri-file-list-3-line"></i>
+                        <span class="icon">
+                            <i class="ri-file-list-3-line"></i>
                         </span>
-                        <span class="sidebar--item">Patient Intake Records</span>
+                        <span class="sidebar--item">
+                            Patient Intake Records
+                        </span>
                     </a>
                 </li>
+
                 <li>
                     <a href="NurseSchedule.html">
-                        <span class="icon"><i class="ri-bank-card-line"></i>
+                        <span class="icon">
+                            <i class="ri-bank-card-line"></i>
                         </span>
-                        <span class="sidebar--item">My Schedule</span>
+                        <span class="sidebar--item">
+                            My Schedule
+                        </span>
                     </a>
                 </li>
+
                 <li>
                     <a href="NurseProfile.html">
-                        <span class="icon"><i class="ri-user-line"></i>
+                        <span class="icon">
+                            <i class="ri-user-line"></i>
                         </span>
-                        <span class="sidebar--item">Profile</span>
+                        <span class="sidebar--item">
+                            Profile
+                        </span>
                     </a>
                 </li>
+
             </ul>
+
             <ul class="sidebar--bottom-items">
                 <li>
                     <a href="NurseSettings.html">
                         <span class="icon">
                             <i class="ri-settings-3-line"></i>
                         </span>
-                        <span class="sidebar--item">Settings</span>
+                        <span class="sidebar--item">
+                            Settings
+                        </span>
                     </a>
                 </li>
             </ul>
         </div>
 
+        <!-- PAGE CONTENT -->
         <div class="mainContent">
+
             <div class="title">
-                <h2 class="maintitle"><i class="ri-calendar-event-line"></i> Today's Appointments </h2>
-                <p>View and update patient appointment status for your assigned office branch.</p>
+                <h2 class="maintitle">
+                    <i class="ri-calendar-event-line"></i>
+                    Today's Appointments
+                </h2>
+
+                <p>
+                    View and update patient appointment status
+                    for your assigned office branch.
+                </p>
             </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Appt ID</th>
-                        <th>Patient Name</th>
-                        <th>Time</th>
-                        <th>Description</th>
-                        <th>Booking Method</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1001</td>
-                        <td>John Doe</td>
-                        <td>09:00 AM</td>
-                        <td>Routine Skin Examination</td>
-                        <td>Online</td>
-                        <td><span style="color: green; font-weight: bold;">Checked In</span></td>
-                        <td><button class="logout" onclick="window.location.href='NursePatients.html'">Start Triage</button></td>
-                    </tr>
-                    <tr>
-                        <td>1002</td>
-                        <td>Jane Smith</td>
-                        <td>10:30 AM</td>
-                        <td>Acne Follow-up</td>
-                        <td>Phone</td>
-                        <td><span style="color: orange; font-weight: bold;">Waiting</span></td>
-                        <td><button class="logout" onclick="window.location.href='NursePatients.html'">Start Triage</button></td>
-                    </tr>
-                    <tr>
-                        <td>1003</td>
-                        <td>Michael Brown</td>
-                        <td>01:15 PM</td>
-                        <td>Rash Consultation</td>
-                        <td>In-Person</td>
-                        <td><span style="color: gray;">Scheduled</span></td>
-                        <td><button class="logout" onclick="window.location.href='NursePatients.html'">Start Triage</button></td>
-                    </tr>
-                </tbody>
-            </table>
+            <p
+                id="appointmentMessage"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Appt ID</th>
+                            <th>Patient Name</th>
+                            <th>Time</th>
+                            <th>Description</th>
+                            <th>Booking Method</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="appointmentsTableBody">
+                        <tr>
+                            <td colspan="7">
+                                No appointments...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </section>
+
+    <script src="./NurseAppointments.js"></script>
+    <script src="../logout.js"></script>
+
 </body>
 </html>
